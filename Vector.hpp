@@ -2,8 +2,6 @@
 #define VECTOR_HPP
 
 #include <iostream>
-#include <deque>
-#include <stack>
 
 namespace ft
 {
@@ -11,10 +9,12 @@ namespace ft
     class vector
     {
         private:
-            
+            int _size;
+            int _capacity;
+            T*  arr;
         public:
-            void    push_back(const T&);
-
+             
+            
     };
 }
 
