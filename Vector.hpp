@@ -51,7 +51,15 @@ namespace ft
         {
             if (this != &x)
             {
+                _size = x._size;
+                _capacity = x._capacity;
+                _alloc = x._alloc;
+                for (size_t i = 0; i < _size; i++)
+                {
+                    /* code */
+                }
                 
+
             }
         }
     };
