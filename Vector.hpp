@@ -5,21 +5,29 @@
 
 namespace ft
 {
-    // NOTE - Category to which the iterator belongs to
-    struct input_iterator_tag {};
-    struct output_iterator_tag {};
-    struct forward_iterator_tag {};
-    struct bidirectional_iterator_tag {};
-    struct random_access_iterator_tag {};
-
     // TODO - Implement Iterator
-    template < class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T& > class iterator
+    template < class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T& > class Iterator
     {
-        typedef T           value_type;
-        typedef Distance    difference_type;
-        typedef Pointer     pointer;
-        typedef Reference   reference;
-        typedef Category    iterator_category;
+        public:
+            typedef T           value_type;
+            typedef Distance    difference_type;
+            typedef Pointer     pointer;
+            typedef Reference   reference;
+            typedef Category    iterator_category;
+            // iterator() : _ptr(nullptr) {}
+            Iterator(const Iterator& itr) {*this = itr;}
+            Iterator& operator= (const Iterator& itr) {if (this != &itr) {_ptr = itr._ptr;}}
+            Iterator& operator++ ()
+            {
+                
+            }
+            Iterator& operator++ (int)
+            {
+
+            }
+
+        private:
+            pointer _ptr;
     };
 
     template <class T, class Alloc = std::allocator<T> >
@@ -40,8 +48,7 @@ namespace ft
         typedef T*          pointer;
         typedef const T*    const_pointer;
         typedef size_t      size_type;
-        typedef iterator<random_access_iterator_tag, value_type>        iterator; 
-        typedef iterator<random_access_iterator_tag, const value_type>  const_iterator;
+        typedef Iterator<std::random_access_iterator_tag, value_type> iteraor;
 
         // TODO - Implement Constructor Default (empty)
         vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _arr(nullptr), _alloc(alloc)
