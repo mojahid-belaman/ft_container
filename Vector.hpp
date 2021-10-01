@@ -14,20 +14,24 @@ namespace ft
             typedef Pointer     pointer;
             typedef Reference   reference;
             typedef Category    iterator_category;
-            // iterator() : _ptr(nullptr) {}
-            Iterator(const Iterator& itr) {*this = itr;}
+            // TODO - Constructor Default X a;
+            Iterator() : _ptr(nullptr) {}
+            // TODO - Constructor Copy X b(a);
+            Iterator(const Iterator& itr) : _ptr(itr._ptr) {}
+            // TODO - Assignment Operator b = a;
             Iterator& operator= (const Iterator& itr) {if (this != &itr) {_ptr = itr._ptr;}}
-            Iterator& operator++ ()
-            {
-                
-            }
-            Iterator& operator++ (int)
-            {
+            // TODO - Comparison Operators
+            bool operator== (const Iterator& itr) {return (_ptr == itr._ptr);}
+            bool operator!= (const Iterator& itr) {return (_ptr != itr._ptr);}
+            bool operator< (const Iterator& itr) {return (_ptr < itr._ptr);}
+            bool operator> (const Iterator& itr) {return (_ptr > itr._ptr);}
+            bool operator<= (const Iterator& itr) {return (_ptr <= itr._ptr);}
+            bool operator>= (const Iterator& itr) {return (_ptr >= itr._ptr);}
 
-            }
 
         private:
             pointer _ptr;
+
     };
 
     template <class T, class Alloc = std::allocator<T> >
@@ -55,11 +59,8 @@ namespace ft
         {
         }
         // TODO - Implement Constructor Fill (Parametrize)
-        vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+        vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc)
         {
-            _size = n;
-            _capacity = n;
-            _alloc = alloc;
             _arr = _alloc.allocate(_capacity);
             for (size_t i = 0; i < _size; i++)
             {
@@ -67,22 +68,21 @@ namespace ft
             }
         }
         // TODO - Implement Constructor Range (Range Iterators)
-        template <class InputIterator>
-        vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0)
-        {
-            _alloc = alloc;
-            while (first != last)
-            {
-                _size++;
-                _capacity++;
-                first++;
-            }
-            _arr = _alloc.allocate(_capacity);
-            for (size_t i = 0; i < _size; i++)
-            {
-                _arr[i] = *(last - 1);
-            }
-        }
+        // template <class InputIterator>
+        // vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _alloc(alloc)
+        // {
+        //     while (first != last)
+        //     {
+        //         _size++;
+        //         _capacity++;
+        //         first++;
+        //     }
+        //     _arr = _alloc.allocate(_capacity);
+        //     for (size_t i = 0; i < _size; i++)
+        //     {
+        //         _arr[i] = *(last - 1);
+        //     }
+        // }
         // TODO - Implement Constructor the Copy
         vector (const vector& x)
         {
