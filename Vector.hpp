@@ -14,26 +14,79 @@ namespace ft
             typedef Pointer     pointer;
             typedef Reference   reference;
             typedef Category    iterator_category;
-            // TODO - Constructor Default X a;
-            Iterator() : _ptr(nullptr) {}
-            // TODO - Constructor Copy X b(a);
-            Iterator(const Iterator& itr) : _ptr(itr._ptr) {}
-            // TODO - Assignment Operator b = a;
-            Iterator& operator= (const Iterator& itr) {if (this != &itr) {_ptr = itr._ptr;}}
-            // TODO - Comparison Operators
-            bool operator== (const Iterator& itr) {return (_ptr == itr._ptr);}
-            bool operator!= (const Iterator& itr) {return (_ptr != itr._ptr);}
-            bool operator< (const Iterator& itr) {return (_ptr < itr._ptr);}
-            bool operator> (const Iterator& itr) {return (_ptr > itr._ptr);}
-            bool operator<= (const Iterator& itr) {return (_ptr <= itr._ptr);}
-            bool operator>= (const Iterator& itr) {return (_ptr >= itr._ptr);}
-
-
+            // TODO - Constructs iterator object (public member function )
+            Iterator<>() : _ptr(nullptr) {}
+            // TODO - Dereference iterator (public member function )
+            reference   operator*() const
+            {
+                return (*_ptr);
+            }
+            // TODO - Addition operator (public member function )
+            Iterator    operator+ (difference_type n) const
+            {
+                return (*(_ptr + n));
+            }
+            // TODO - Increment iterator position (public member function )
+            Iterator&   operator++()
+            {
+                ++(*this);
+                return (*this);
+            }
+            Iterator    operator++(int)
+            {
+                Iterator tmp = *this;
+                ++(*this);
+                return (tmp);
+            }
+            // TODO - Decrease iterator position (public member function )
+            Iterator&   operator--()
+            {
+                --(*this);
+                return (*this);
+            }
+            Iterator    operator--(int)
+            {
+                Iterator tmp = *this;
+                --(*this);
+                return (tmp);
+            }
+            // TODO - Increases the iterator by n element positions.
+            Iterator&   operator+=(difference_type n)
+            {
+                _ptr += n;
+                return (*this);
+            }
+            // TODO - Descreases the iterator by n element positions.
+            Iterator&   operator-=(difference_type n)
+            {
+                _ptr -= n;
+                return (*this);
+            }
+            // TODO - Subtraction operator (public member function )
+            Iterator    operator- (difference_type n) const
+            {
+                return (*(_ptr - n));
+            }
+            // TODO - Dereference iterator (public member function )
+            pointer     operator->() const
+            {
+                return (_ptr);
+            }
+            // TODO - Dereference iterator with offset
+            reference   operator[] (difference_type n) const
+            {
+                return (*(_ptr + n));
+            }
+            // TODO - Relational operators for iterator (function template )
+            friend bool operator== (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr == lhs._ptr);};
+            friend bool operator!= (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr != lhs._ptr);};;
+            friend bool operator< (const Iterator& rhs, const Iterator& lhs)  {return (rhs._ptr < lhs._ptr);};;
+            friend bool operator<= (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr <= lhs._ptr);};;
+            friend bool operator> (const Iterator& rhs, const Iterator& lhs)  {return (rhs._ptr > lhs._ptr);};;
+            friend bool operator>= (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr >= lhs._ptr);};;
         private:
             pointer _ptr;
-
     };
-
     template <class T, class Alloc = std::allocator<T> >
     class vector
     {

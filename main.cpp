@@ -1,20 +1,42 @@
 #include "Vector.hpp"
 #include <vector>
+#include <iterator>
 #include <iostream>
 
 struct data
 {
     int a;
     int b;
-    data(int a = 1337, int b = 42) : a(a), b(b){std::cout << "Constructor parametrse\n";}
+    data() {std::cout << "Constructor Default\n";}
+    data(int a = 1337, int b = 42) : a(a), b(b)
+    {
+        std::cout << "a: " << a << ", b: " << b << std::endl;
+        std::cout << "Constructor parametrse\n";}
+    data(const data& dt) {*this = dt;}
+    data& operator= (const data& dt)
+    {
+        if (this != &dt)
+        {
+            this->a = dt.a;
+            this->b = dt.b;
+        }
+        return (*this);
+    }
 };
 
 
 int main()
 {
     // NOTE - This Vector the System
-    // std::cout << "Vector System:" << std::endl;
-    // std::vector<int>v1;
+    std::cout << "Vector System:" << std::endl;
+    // std::vector<data>v1;
+
+    // v1.push_back(32);
+    // v1.push_back(42);
+    // v1.push_back(19);
+    // std::vector<data>::reverse_iterator it = v1.begin();
+    // std::cout << it->a << std::endl;
+    // std::cout << it->b << std::endl;
 
     // v1.push_back(1337);
     // v1.push_back(42);
@@ -39,9 +61,9 @@ int main()
 
     // NOTE - This My Vector
     std::cout << "My Vector:" << std::endl;
-    // ft::vector<int>v2(v1.begin(), v1.end());
+    ft::vector<int>v2(3, 1337);
     // ft::vector<int>v3(v2);
-    ft::vector<int>v3(3, 1337);
+    // ft::vector<int>v3(3, 1337);
 
     return (0);
 }
