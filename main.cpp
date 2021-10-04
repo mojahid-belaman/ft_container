@@ -61,9 +61,18 @@ int main()
 
     // NOTE - This My Vector
     std::cout << "My Vector:" << std::endl;
-    ft::vector<int>v2(3, 1337);
-    // ft::vector<int>v3(v2);
-    // ft::vector<int>v3(3, 1337);
+    std::vector<int> myvector;
+    myvector.push_back(1337);
+    myvector.push_back(42);
+    myvector.push_back(19);
+    std::vector<int>::reverse_iterator it = myvector.rbegin();
+    std::cout << *it<< std::endl;
+
+//   std::cout << "myvector contains:";
+//   for (ft::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
+//     std::cout << ' ' << *it;
+//   std::cout << '\n';
+
 
     return (0);
 }

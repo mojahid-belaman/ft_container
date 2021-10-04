@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #include <iostream>
+#include <limits>
 
 namespace ft
 {
@@ -14,8 +15,16 @@ namespace ft
             typedef Pointer     pointer;
             typedef Reference   reference;
             typedef Category    iterator_category;
-            // TODO - Constructs iterator object (public member function )
-            Iterator<>() : _ptr(nullptr) {}
+            // TODO - All iterators must be constructible, copy-constructible, copy-assignable, destructible
+            Iterator() : _ptr(nullptr) {}
+
+            Iterator(const Iterator& src) : _ptr(src._ptr) {}
+
+            Iterator(pointer ptr) : _ptr(ptr) {}
+
+            Iterator& operator= (const Iterator& src) {_ptr = src._ptr; return (*this);}
+
+            ~Iterator() {}
             // TODO - Dereference iterator (public member function )
             reference   operator*() const
             {
@@ -29,7 +38,7 @@ namespace ft
             // TODO - Increment iterator position (public member function )
             Iterator&   operator++()
             {
-                ++(*this);
+                _ptr++;
                 return (*this);
             }
             Iterator    operator++(int)
@@ -41,7 +50,7 @@ namespace ft
             // TODO - Decrease iterator position (public member function )
             Iterator&   operator--()
             {
-                --(*this);
+                _ptr--;
                 return (*this);
             }
             Iterator    operator--(int)
@@ -66,7 +75,7 @@ namespace ft
             Iterator    operator- (difference_type n) const
             {
                 return (*(_ptr - n));
-            }
+            } 
             // TODO - Dereference iterator (public member function )
             pointer     operator->() const
             {
@@ -78,15 +87,16 @@ namespace ft
                 return (*(_ptr + n));
             }
             // TODO - Relational operators for iterator (function template )
-            friend bool operator== (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr == lhs._ptr);};
-            friend bool operator!= (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr != lhs._ptr);};;
-            friend bool operator< (const Iterator& rhs, const Iterator& lhs)  {return (rhs._ptr < lhs._ptr);};;
-            friend bool operator<= (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr <= lhs._ptr);};;
-            friend bool operator> (const Iterator& rhs, const Iterator& lhs)  {return (rhs._ptr > lhs._ptr);};;
-            friend bool operator>= (const Iterator& rhs, const Iterator& lhs) {return (rhs._ptr >= lhs._ptr);};;
+            friend bool operator== (const Iterator& a, const Iterator& b) {return (a._ptr == b._ptr);}
+            friend bool operator!= (const Iterator& a, const Iterator& b) {return (a._ptr != b._ptr);}
+            friend bool operator< (const Iterator& a, const Iterator& b) {return (a._ptr < b._ptr);}
+            friend bool operator<= (const Iterator& a, const Iterator& b) {return (a._ptr <= b._ptr);}
+            friend bool operator> (const Iterator& a, const Iterator& b) {return (a._ptr > b._ptr);}
+            friend bool operator>= (const Iterator& a, const Iterator& b) {return (a._ptr >= b._ptr);}
         private:
             pointer _ptr;
     };
+
     template <class T, class Alloc = std::allocator<T> >
     class vector
     {
@@ -105,7 +115,8 @@ namespace ft
         typedef T*          pointer;
         typedef const T*    const_pointer;
         typedef size_t      size_type;
-        typedef Iterator<std::random_access_iterator_tag, value_type> iteraor;
+        typedef Iterator<std::random_access_iterator_tag, value_type> iterator;
+        typedef const Iterator<std::random_access_iterator_tag, value_type> const_iterator;
 
         // TODO - Implement Constructor Default (empty)
         vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _arr(nullptr), _alloc(alloc)
@@ -156,6 +167,34 @@ namespace ft
                 }
             }
             return (*this);
+        }
+        // TODO - Returns an iterator pointing to the first element in the vector.
+        iterator    begin()
+        {
+            return (_arr);
+        }
+        const_iterator  begin() const
+        {
+            return (_arr);
+        }
+        //TODO - Returns an iterator referring to the past-the-end element in the vector container.
+        iterator    end()
+        {
+            return (_arr + _size);
+        }
+        const_iterator  end() const
+        {
+            return (_arr + _size);
+        }
+        //TODO - Returns the number of elements in the vector.
+        size_type size() const
+        {
+            return (_size);
+        }
+        //TODO - Returns the maximum number of elements that the vector can hold.
+        size_type max_size() const
+        {
+            return (std::numeric_limits<size_type>::max());
         }
         //TODO - Implement Destructor (default)
         ~vector()
