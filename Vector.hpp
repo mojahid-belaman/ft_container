@@ -6,73 +6,116 @@
 
 namespace ft
 {
-    // TODO - Implement Iterator
-    template < class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T& > class Iterator
+    template <class T>
+    class iterator_traits
     {
         public:
-            typedef T           value_type;
-            typedef Distance    difference_type;
-            typedef Pointer     pointer;
-            typedef Reference   reference;
-            typedef Category    iterator_category;
+            typedef typename T::value_type value_type;
+            typedef typename T::difference_type difference_type;
+            typedef typename T::iterator_category iterator_category;
+            typedef typename T::pointer pointer;
+            typedef typename T::reference reference;
+    };
+    template <typename T>
+    class iterator_traits<T*>
+    {
+        public:
+            typedef std::random_access_iterator_tag iterator_category;
+            typedef T                               value_type;
+            typedef T*                              pointer;
+            typedef T&                              reference;
+            typedef std::ptrdiff_t                  difference_type;
+    };
+    template <typename T>
+    class iterator_traits<const T*>
+    {
+        public:
+            typedef std::random_access_iterator_tag iterator_category;
+            typedef T                               value_type;
+            typedef const T*                        pointer;
+            typedef const T&                        reference;
+            typedef std::ptrdiff_t                  difference_type;
+    };
+
+    //TODO - Base Iterator
+    template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+    class iterator 
+    {
+        public:
+            typedef T         value_type;
+            typedef Distance  difference_type;
+            typedef Pointer   pointer;
+            typedef Reference reference;
+            typedef Category  iterator_category;
+    };
+    // TODO - Implement my_Iterator
+    template <class Iterator>
+    class vector_iterator : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type>
+    {
+        public:
+            typedef Iterator iterator_type;
+            typedef typename iterator_traits<Iterator>::difference_type difference_type;
+            typedef typename iterator_traits<Iterator>::reference reference;
+            typedef typename iterator_traits<Iterator>::pointer pointer;
+
             // TODO - All iterators must be constructible, copy-constructible, copy-assignable, destructible
-            Iterator() : _ptr(nullptr) {}
+            vector_iterator() : _ptr(nullptr) {}
 
-            Iterator(const Iterator& src) : _ptr(src._ptr) {}
+            vector_iterator(const vector_iterator& src) : _ptr(src._ptr) {}
 
-            Iterator(pointer ptr) : _ptr(ptr) {}
+            vector_iterator(iterator_type ptr) : _ptr(ptr) {}
 
-            Iterator& operator= (const Iterator& src) {_ptr = src._ptr; return (*this);}
+            vector_iterator& operator= (const vector_iterator& src) {_ptr = src._ptr; return (*this);}
 
-            ~Iterator() {}
+            ~vector_iterator() {}
             // TODO - Dereference iterator (public member function )
             reference   operator*() const
             {
                 return (*_ptr);
             }
             // TODO - Addition operator (public member function )
-            Iterator    operator+ (difference_type n) const
+            vector_iterator    operator+ (difference_type n) const
             {
                 return (*(_ptr + n));
             }
             // TODO - Increment iterator position (public member function )
-            Iterator&   operator++()
+            vector_iterator&   operator++()
             {
                 _ptr++;
                 return (*this);
             }
-            Iterator    operator++(int)
+            vector_iterator    operator++(int)
             {
-                Iterator tmp = *this;
+                vector_iterator tmp = *this;
                 ++(*this);
                 return (tmp);
             }
             // TODO - Decrease iterator position (public member function )
-            Iterator&   operator--()
+            vector_iterator&   operator--()
             {
                 _ptr--;
                 return (*this);
             }
-            Iterator    operator--(int)
+            vector_iterator    operator--(int)
             {
-                Iterator tmp = *this;
+                vector_iterator tmp = *this;
                 --(*this);
                 return (tmp);
             }
             // TODO - Increases the iterator by n element positions.
-            Iterator&   operator+=(difference_type n)
+            vector_iterator&   operator+=(difference_type n)
             {
                 _ptr += n;
                 return (*this);
             }
             // TODO - Descreases the iterator by n element positions.
-            Iterator&   operator-=(difference_type n)
+            vector_iterator&   operator-=(difference_type n)
             {
                 _ptr -= n;
                 return (*this);
             }
             // TODO - Subtraction operator (public member function )
-            Iterator    operator- (difference_type n) const
+            vector_iterator    operator- (difference_type n) const
             {
                 return (*(_ptr - n));
             } 
@@ -86,17 +129,51 @@ namespace ft
             {
                 return (*(_ptr + n));
             }
-            // TODO - Relational operators for iterator (function template )
-            friend bool operator== (const Iterator& a, const Iterator& b) {return (a._ptr == b._ptr);}
-            friend bool operator!= (const Iterator& a, const Iterator& b) {return (a._ptr != b._ptr);}
-            friend bool operator< (const Iterator& a, const Iterator& b) {return (a._ptr < b._ptr);}
-            friend bool operator<= (const Iterator& a, const Iterator& b) {return (a._ptr <= b._ptr);}
-            friend bool operator> (const Iterator& a, const Iterator& b) {return (a._ptr > b._ptr);}
-            friend bool operator>= (const Iterator& a, const Iterator& b) {return (a._ptr >= b._ptr);}
         private:
-            pointer _ptr;
+            iterator_type _ptr;
     };
 
+    // TODO - Relational operators for iterator (function template )
+    template <class Iterator>
+    bool operator== (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs == rhs);
+    }
+    template <class Iterator>
+    bool operator!= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs != rhs);
+    }
+    template <class Iterator>
+    bool operator< (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs < rhs);
+    }
+    template <class Iterator>
+    bool operator<= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs <= rhs);
+    }
+    template <class Iterator>
+    bool operator> (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs > rhs);
+    }
+    template <class Iterator>
+    bool operator>= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs >= rhs);
+    }
+    template <class Iterator>
+    vector_iterator<Iterator> operator+ (typename vector_iterator<Iterator>::difference_type n, const vector_iterator<Iterator>& itr)
+    {
+        return (itr._ptr + n);
+    }
+    // template <class Iterator>
+    // typename vector_iterator<Iterator>::difference_type operator- (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    // {
+        
+    // }
     template <class T, class Alloc = std::allocator<T> >
     class vector
     {
@@ -115,8 +192,8 @@ namespace ft
         typedef T*          pointer;
         typedef const T*    const_pointer;
         typedef size_t      size_type;
-        typedef Iterator<std::random_access_iterator_tag, value_type> iterator;
-        typedef const Iterator<std::random_access_iterator_tag, value_type> const_iterator;
+        typedef vector_iterator<pointer> iterator;
+        typedef vector_iterator<const_pointer> const_iterator;
 
         // TODO - Implement Constructor Default (empty)
         vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _arr(nullptr), _alloc(alloc)
@@ -195,6 +272,18 @@ namespace ft
         size_type max_size() const
         {
             return (std::numeric_limits<size_type>::max());
+        }
+        //TODO - Resizes the container so that it contains n elements
+        void    resize(size_type n, value_type val = value_type())
+        {
+            allocator_type alloc = allocator_type();
+            _alloc = alloc;
+            _arr = _alloc.allocate(n);
+            for (int i = 0; i < n; i++)
+            {
+                _arr[i] = val;
+            }
+            
         }
         //TODO - Implement Destructor (default)
         ~vector()

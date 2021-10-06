@@ -29,8 +29,9 @@ int main()
 {
     // NOTE - This Vector the System
     std::cout << "Vector System:" << std::endl;
-    // std::vector<data>v1;
-
+    std::vector<data>v1;
+    std::vector<int>::iterator it;
+    it = 3 + it;
     // v1.push_back(32);
     // v1.push_back(42);
     // v1.push_back(19);
@@ -61,13 +62,17 @@ int main()
 
     // NOTE - This My Vector
     std::cout << "My Vector:" << std::endl;
-    std::vector<int> myvector;
-    myvector.push_back(1337);
-    myvector.push_back(42);
-    myvector.push_back(19);
-    std::vector<int>::reverse_iterator it = myvector.rbegin();
-    std::cout << *it<< std::endl;
+    ft::vector<int> myvector(5, 42);
 
+
+    // ft::vector<int> myvector(3, 42);
+    // ft::vector<int>::iterator it1 = myvector.begin();
+    // ft::vector<int>::iterator it2;
+    // it2 = it1;
+    // std::cout << *it2 << std::endl;
+    // ft::vector<int>::iterator it1;
+    // ft::vector<int>::const_iterator it2;
+    // it2 = it1;
 //   std::cout << "myvector contains:";
 //   for (ft::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
 //     std::cout << ' ' << *it;
