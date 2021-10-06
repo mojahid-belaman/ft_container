@@ -61,13 +61,13 @@ namespace ft
             // TODO - All iterators must be constructible, copy-constructible, copy-assignable, destructible
             vector_iterator() : _ptr(nullptr) {}
 
-            vector_iterator(const vector_iterator& src) : _ptr(src._ptr) {}
+            explicit vector_iterator(iterator_type it) : _ptr(it) {}
 
-            vector_iterator(iterator_type ptr) : _ptr(ptr) {}
+            template <class Iter>
+            vector_iterator (const vector_iterator<Iter>& it) : _ptr(it._ptr) {}
 
-            vector_iterator& operator= (const vector_iterator& src) {_ptr = src._ptr; return (*this);}
+            iterator_type   base() const {return (_ptr);}
 
-            ~vector_iterator() {}
             // TODO - Dereference iterator (public member function )
             reference   operator*() const
             {
@@ -76,7 +76,7 @@ namespace ft
             // TODO - Addition operator (public member function )
             vector_iterator    operator+ (difference_type n) const
             {
-                return (*(_ptr + n));
+                return (_ptr + n);
             }
             // TODO - Increment iterator position (public member function )
             vector_iterator&   operator++()
@@ -117,7 +117,7 @@ namespace ft
             // TODO - Subtraction operator (public member function )
             vector_iterator    operator- (difference_type n) const
             {
-                return (*(_ptr - n));
+                return (_ptr - n);
             } 
             // TODO - Dereference iterator (public member function )
             pointer     operator->() const
@@ -137,43 +137,43 @@ namespace ft
     template <class Iterator>
     bool operator== (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
     {
-        return (lhs == rhs);
+        return (lhs.base() == rhs.base());
     }
     template <class Iterator>
     bool operator!= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
     {
-        return (lhs != rhs);
+        return (lhs.base() != rhs.base());
     }
     template <class Iterator>
     bool operator< (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
     {
-        return (lhs < rhs);
+        return (lhs.base() < rhs.base());
     }
     template <class Iterator>
     bool operator<= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
     {
-        return (lhs <= rhs);
+        return (lhs.base() <= rhs.base());
     }
     template <class Iterator>
     bool operator> (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
     {
-        return (lhs > rhs);
+        return (lhs.base() > rhs.base());
     }
     template <class Iterator>
     bool operator>= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
     {
-        return (lhs >= rhs);
+        return (lhs.base() >= rhs.base());
     }
     template <class Iterator>
     vector_iterator<Iterator> operator+ (typename vector_iterator<Iterator>::difference_type n, const vector_iterator<Iterator>& itr)
     {
-        return (itr._ptr + n);
+        return (itr.base() + n);
     }
-    // template <class Iterator>
-    // typename vector_iterator<Iterator>::difference_type operator- (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
-    // {
-        
-    // }
+    template <class Iterator>
+    typename vector_iterator<Iterator>::difference_type operator- (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    {
+        return (lhs.base() - rhs.base());
+    }
     template <class T, class Alloc = std::allocator<T> >
     class vector
     {
