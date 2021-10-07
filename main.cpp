@@ -1,4 +1,4 @@
-#include "Vector.hpp"
+// #include "Vector.hpp"
 #include <vector>
 #include <iterator>
 #include <iostream>
@@ -78,16 +78,13 @@ int main()
 //     std::cout << ' ' << *it;
 //   std::cout << '\n';
 
-std::vector<int> myvector(5, 42);
-//   for (int i=0; i<10; i++) myvector.push_back(i);	// myvector: 0 1 2 3 4 5 6 7 8 9
-
-//   typedef std::vector<int>::iterator iter_type;
-
-  std::vector<int>::reverse_iterator rev_iterator = myvector.rbegin();
-
-  std::cout << "The third element from the end is: " << *(rev_iterator) << '\n';
-  rev_iterator += 5;
-
-  std::cout << "The third element from the end is: " << *rev_iterator << '\n';
+    std::vector<int>v1;
+    std::cout << v1.size() << std::endl;
+    std::cout << v1.capacity() << std::endl;
+    v1.push_back(1337);
+    v1.push_back(1337);
+    v1.push_back(1337);
+    std::cout << v1.size() << std::endl;
+    std::cout << v1.capacity() << std::endl;
     return (0);
 }

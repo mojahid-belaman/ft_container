@@ -221,7 +221,7 @@ namespace ft
             }
             vector_iterator_reverse& operator+= (difference_type n)
             {
-                _ptr - n;
+                this->_ptr -= n;
                 return (*this);
             }
             vector_iterator_reverse operator- (difference_type n) const
@@ -240,7 +240,7 @@ namespace ft
             }
             vector_iterator_reverse& operator-= (difference_type n)
             {
-                _ptr + n;
+                _ptr += n;
                 return (*this);
             }
             pointer operator->() const
@@ -419,6 +419,20 @@ namespace ft
         size_type max_size() const
         {
             return (std::numeric_limits<size_type>::max());
+        }
+        //TODO - Add element at the end
+        void push_back(const value_type& val)
+        {
+            if (_size == _capacity)
+            {
+                value_type *new_ptr = _alloc.allocate(_capacity * 2);
+                for (size_t i = 0; i < _size; i++)
+                {
+                    new_ptr[i] = _arr[i];
+                }
+                
+
+            }
         }
         //TODO - Resizes the container so that it contains n elements
         void    resize(size_type n, value_type val = value_type())
