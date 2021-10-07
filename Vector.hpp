@@ -76,7 +76,7 @@ namespace ft
             // TODO - Addition operator (public member function )
             vector_iterator    operator+ (difference_type n) const
             {
-                return (_ptr + n);
+                return vector_iterator(_ptr + n);
             }
             // TODO - Increment iterator position (public member function )
             vector_iterator&   operator++()
@@ -117,7 +117,7 @@ namespace ft
             // TODO - Subtraction operator (public member function )
             vector_iterator    operator- (difference_type n) const
             {
-                return (_ptr - n);
+                return vector_iterator(_ptr - n);
             } 
             // TODO - Dereference iterator (public member function )
             pointer     operator->() const
@@ -174,6 +174,133 @@ namespace ft
     {
         return (lhs.base() - rhs.base());
     }
+
+    //TODO - Reverse iterator
+    template <class Iterator>
+    class vector_iterator_reverse : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type>
+    {
+        public:
+            typedef Iterator iterator_type;
+            typedef typename iterator_traits<Iterator>::difference_type     difference_type;
+            typedef typename iterator_traits<Iterator>::pointer             pointer;
+            typedef typename iterator_traits<Iterator>::reference           reference;
+
+            //TODO - Constructor Default
+            vector_iterator_reverse() : _ptr(nullptr) {}
+            //TODO - initialization
+            explicit vector_iterator_reverse (iterator_type it) : _ptr(it) {}
+            //TODO - copy
+            template <class Iter>
+            vector_iterator_reverse (const vector_iterator_reverse<Iter>& rev_it) : _ptr(rev_it._ptr) {}
+            //TODO - Return base iterator
+            iterator_type base() const
+            {
+                return _ptr;
+            }
+            //TODO - Dereference iterator
+            reference operator*() const
+            {
+                return (*(--this->base()));
+            }
+            //TODO - Addition operator
+            vector_iterator_reverse operator+ (difference_type n) const
+            {
+                return vector_iterator_reverse(_ptr - n);
+            }
+            //TODO - Increment iterator position
+            vector_iterator_reverse& operator++()
+            {
+                --_ptr;
+                return (*this);
+            }
+            vector_iterator_reverse  operator++(int)
+            {
+                vector_iterator_reverse tmp = *this;
+                ++(*this);
+                return tmp;
+            }
+            vector_iterator_reverse& operator+= (difference_type n)
+            {
+                _ptr - n;
+                return (*this);
+            }
+            vector_iterator_reverse operator- (difference_type n) const
+            {
+                return vector_iterator_reverse(this->_ptr + n);
+            }
+            vector_iterator_reverse& operator--()
+            {
+                return (++(this->base()));
+            }
+            vector_iterator_reverse  operator--(int)
+            {
+                vector_iterator_reverse tmp = *this;
+                --(*this);
+                return (tmp);
+            }
+            vector_iterator_reverse& operator-= (difference_type n)
+            {
+                _ptr + n;
+                return (*this);
+            }
+            pointer operator->() const
+            {
+                return (this->_ptr);
+            }
+            reference operator[] (difference_type n) const
+            {
+                return (*(_ptr - n));
+            }
+        private:
+            iterator_type _ptr;
+    };
+    template <class Iterator>
+    bool operator== (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (rhs.base() == lhs.base());
+    }
+
+    template <class Iterator>
+    bool operator!= (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (rhs.base() != lhs.base());
+    }
+
+    template <class Iterator>
+    bool operator< (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (rhs.base() < lhs.base());
+    }
+
+    template <class Iterator>
+    bool operator<= (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (rhs.base() <= lhs.base());
+    }
+
+    template <class Iterator>
+    bool operator> (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (rhs.base() > lhs.base());
+    }
+
+    template <class Iterator>
+    bool operator>= (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (rhs.base() >= lhs.base());
+    }
+
+    template <class Iterator>
+    vector_iterator_reverse<Iterator> operator+ (typename vector_iterator_reverse<Iterator>::difference_type n, const vector_iterator_reverse<Iterator>& rev_it)
+    {
+        return (*(rev_it.base() - n));
+    }
+
+    template <class Iterator>
+    typename vector_iterator_reverse<Iterator>::difference_type operator- (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
+    {
+        return (lhs.base() - rhs.base());
+    }
     template <class T, class Alloc = std::allocator<T> >
     class vector
     {
@@ -185,16 +312,18 @@ namespace ft
             Alloc _alloc;
         public:
         // ANCHOR - This is member types
-        typedef T           value_type;
-        typedef Alloc       allocator_type;
-        typedef T&          reference;
-        typedef const T&    const_reference;
-        typedef T*          pointer;
-        typedef const T*    const_pointer;
-        typedef size_t      size_type;
-        typedef vector_iterator<pointer> iterator;
-        typedef vector_iterator<const_pointer> const_iterator;
-
+        typedef T                                           value_type;
+        typedef Alloc                                       allocator_type;
+        typedef typename allocator_type::reference          reference;
+        typedef typename allocator_type::const_reference    const_reference;
+        typedef typename allocator_type::pointer            pointer;
+        typedef typename allocator_type::const_pointer      const_pointer;
+        typedef vector_iterator<pointer>                    iterator;
+        typedef vector_iterator<const_pointer>              const_iterator;
+        typedef vector_iterator_reverse<iterator>           reverse_iterator;
+        typedef vector_iterator_reverse<const_iterator>     const_reverse_iterator;
+        typedef ptrdiff_t                                   difference_type;
+        typedef size_t                                      size_type;
         // TODO - Implement Constructor Default (empty)
         vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _arr(nullptr), _alloc(alloc)
         {
@@ -248,20 +377,38 @@ namespace ft
         // TODO - Returns an iterator pointing to the first element in the vector.
         iterator    begin()
         {
-            return (_arr);
+            return iterator(_arr);
         }
         const_iterator  begin() const
         {
-            return (_arr);
+            return const_iterator(_arr);
         }
         //TODO - Returns an iterator referring to the past-the-end element in the vector container.
         iterator    end()
         {
-            return (_arr + _size);
+            return iterator(_arr + _size);
         }
         const_iterator  end() const
         {
-            return (_arr + _size);
+            return const_iterator(_arr + _size);
+        }
+        //TODO - Return reverse iterator to reverse beginning
+        reverse_iterator rbegin()
+        {
+            return reverse_iterator(this->end());
+        }
+        const_reverse_iterator rbegin() const
+        {
+            return const_reverse_iterator(_arr + _size);
+        }
+        //TODO - Return reverse iterator to reverse end
+        reverse_iterator rend()
+        {
+            return reverse_iterator(this->begin());
+        }
+        const_reverse_iterator rend() const
+        {
+            return const_reverse_iterator(_arr);
         }
         //TODO - Returns the number of elements in the vector.
         size_type size() const

@@ -29,9 +29,9 @@ int main()
 {
     // NOTE - This Vector the System
     std::cout << "Vector System:" << std::endl;
-    std::vector<data>v1;
-    std::vector<int>::iterator it;
-    it = 3 + it;
+    // std::vector<data>v1;
+    // std::vector<int>::iterator it;
+    // it = 3 + it;
     // v1.push_back(32);
     // v1.push_back(42);
     // v1.push_back(19);
@@ -61,8 +61,8 @@ int main()
     // }
 
     // NOTE - This My Vector
-    std::cout << "My Vector:" << std::endl;
-    ft::vector<int> myvector(5, 42);
+    // std::cout << "My Vector:" << std::endl;
+    // ft::vector<int> myvector(5, 42);
 
 
     // ft::vector<int> myvector(3, 42);
@@ -78,6 +78,16 @@ int main()
 //     std::cout << ' ' << *it;
 //   std::cout << '\n';
 
+std::vector<int> myvector(5, 42);
+//   for (int i=0; i<10; i++) myvector.push_back(i);	// myvector: 0 1 2 3 4 5 6 7 8 9
 
+//   typedef std::vector<int>::iterator iter_type;
+
+  std::vector<int>::reverse_iterator rev_iterator = myvector.rbegin();
+
+  std::cout << "The third element from the end is: " << *(rev_iterator) << '\n';
+  rev_iterator += 5;
+
+  std::cout << "The third element from the end is: " << *rev_iterator << '\n';
     return (0);
 }
