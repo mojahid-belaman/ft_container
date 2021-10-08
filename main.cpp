@@ -1,4 +1,4 @@
-// #include "Vector.hpp"
+#include "Vector.hpp"
 #include <vector>
 #include <iterator>
 #include <iostream>
@@ -78,13 +78,32 @@ int main()
 //     std::cout << ' ' << *it;
 //   std::cout << '\n';
 
-    std::vector<int>v1;
-    std::cout << v1.size() << std::endl;
-    std::cout << v1.capacity() << std::endl;
-    v1.push_back(1337);
-    v1.push_back(1337);
-    v1.push_back(1337);
-    std::cout << v1.size() << std::endl;
-    std::cout << v1.capacity() << std::endl;
+    // ft::vector<int> myvector;
+    // myvector.push_back (100);
+    // myvector.push_back (200);
+    // myvector.push_back (300);
+    // std::cout << &myvector[0] << std::endl;
+    // std::cout << &myvector[1] << std::endl;
+    // std::cout << &myvector[2] << std::endl;
+    // myvector.pop_back();
+
+    // std::cout << myvector.size() << std::endl;
+    // for (size_t i = 0; i < myvector.size(); i++)
+    // {
+    //     std::cout << myvector[i] << std::endl;
+    // }
+    // std::cout << "end of main" << std::endl;
+
+    // for (int i=1;i<10;i++) myvector.push_back(i);
+
+    std::vector<int> myvector;
+    myvector.resize(5);
+    myvector.resize(8,100);
+    myvector.resize(12);
+
+    std::cout << "myvector contains:";
+    for (int i=0;i<myvector.size();i++)
+        std::cout << ' ' << myvector[i];
+    std::cout << '\n';
     return (0);
 }

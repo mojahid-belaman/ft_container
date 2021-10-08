@@ -415,6 +415,10 @@ namespace ft
         {
             return (_size);
         }
+        size_type capacity() const
+        {
+            return (_capacity);
+        }
         //TODO - Returns the maximum number of elements that the vector can hold.
         size_type max_size() const
         {
@@ -423,6 +427,11 @@ namespace ft
         //TODO - Add element at the end
         void push_back(const value_type& val)
         {
+            if (_capacity == 0)
+            {
+                _arr = _alloc.allocate(1);
+                _capacity++;
+            }
             if (_size == _capacity)
             {
                 value_type *new_ptr = _alloc.allocate(_capacity * 2);
@@ -430,25 +439,45 @@ namespace ft
                 {
                     new_ptr[i] = _arr[i];
                 }
-                
+                _alloc.deallocate(_arr, _capacity);
+                _arr = new_ptr;
+                _capacity *= 2;
 
+            }
+            _arr[_size] = val;
+            _size++;
+        }
+        //TODO - Delete last element
+        void pop_back()
+        {
+            if (_size > 0)
+            {
+                _alloc.destroy(_arr + (_size - 1));
+                _size -= 1;
             }
         }
         //TODO - Resizes the container so that it contains n elements
         void    resize(size_type n, value_type val = value_type())
         {
-            allocator_type alloc = allocator_type();
-            _alloc = alloc;
-            _arr = _alloc.allocate(n);
-            for (int i = 0; i < n; i++)
+            if (n > 0)
+                _arr = _alloc.allocate(n);
+            for (size_t i = 0; i < n; i++)
             {
-                _arr[i] = val;
+                push_back(val);       
             }
             
         }
+        reference operator[] (size_type n)
+        {
+            return (_arr[n]);
+        }
+        const_reference operator[] (size_type n) const
+        {
+            return (_arr[n]);
+        }
         //TODO - Implement Destructor (default)
         ~vector()
-        {
+        {   
             delete [] _arr;
         }
     };
