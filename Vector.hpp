@@ -410,7 +410,7 @@ namespace ft
         {
             return const_reverse_iterator(_arr);
         }
-        //TODO - Returns the number of elements in the vector.
+        //TODO - All functions the Capacity:
         size_type size() const
         {
             return (_size);
@@ -419,10 +419,48 @@ namespace ft
         {
             return (_capacity);
         }
-        //TODO - Returns the maximum number of elements that the vector can hold.
         size_type max_size() const
         {
             return (std::numeric_limits<size_type>::max());
+        }
+        bool empty() const
+        {
+            return (_size == 0);
+        }
+        void    resize(size_type n, value_type val = value_type())
+        {
+                if (n > _size)
+                {
+                    for (size_t i = _size; i < n; i++)
+                        push_back(val);
+                }
+                else if(n < _size)
+                {
+                    size_type tmp = _size;
+                    for (size_t i = n; i < tmp; i++)
+                        pop_back();
+                }
+        }
+        //TODO - All functions the Element access: 
+        reference operator[] (size_type n)
+        {
+            return (_arr[n]);
+        }
+        const_reference operator[] (size_type n) const
+        {
+            return (_arr[n]);
+        }
+        reference at (size_type n)
+        {
+            if (n >= _size)
+                throw std::out_of_range("index is not within the bound in the vector.");
+            return (_arr[n]);
+        }
+        const_reference at (size_type n) const
+        {
+            if (n >= _size)
+                throw std::out_of_range("index is not within the bound in the vector.");
+            return (_arr[n]);
         }
         //TODO - Add element at the end
         void push_back(const value_type& val)
@@ -455,25 +493,6 @@ namespace ft
                 _alloc.destroy(_arr + (_size - 1));
                 _size -= 1;
             }
-        }
-        //TODO - Resizes the container so that it contains n elements
-        void    resize(size_type n, value_type val = value_type())
-        {
-            if (n > 0)
-                _arr = _alloc.allocate(n);
-            for (size_t i = 0; i < n; i++)
-            {
-                push_back(val);       
-            }
-            
-        }
-        reference operator[] (size_type n)
-        {
-            return (_arr[n]);
-        }
-        const_reference operator[] (size_type n) const
-        {
-            return (_arr[n]);
         }
         //TODO - Implement Destructor (default)
         ~vector()

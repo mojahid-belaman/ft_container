@@ -96,14 +96,16 @@ int main()
 
     // for (int i=1;i<10;i++) myvector.push_back(i);
 
-    std::vector<int> myvector;
-    myvector.resize(5);
-    myvector.resize(8,100);
-    myvector.resize(12);
+    std::vector<int> myvector (10);   // 10 zero-initialized ints
 
-    std::cout << "myvector contains:";
-    for (int i=0;i<myvector.size();i++)
-        std::cout << ' ' << myvector[i];
-    std::cout << '\n';
+  // assign some values:
+  for (unsigned i=0; i<myvector.size(); i++)
+    myvector.at(i)=i;
+
+  std::cout << "myvector contains:";
+  for (unsigned i=0; i<myvector.size(); i++)
+    std::cout << ' ' << myvector.at(i);
+  std::cout << '\n';
+    std::cout << ' ' << myvector.at(10);
     return (0);
 }
