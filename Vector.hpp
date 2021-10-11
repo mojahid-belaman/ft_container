@@ -3,9 +3,97 @@
 
 #include <iostream>
 #include <limits>
+// #include <vector>
 
 namespace ft
 {
+    //TODO - Define enable_if
+    template <bool Cond, class T = void>
+    struct enable_if {};
+    template <class T>
+    struct enable_if<true, T>
+    {
+        typedef T type;
+    };
+
+    //TODO - Define Is integral
+    template <class T> 
+    struct is_integral
+    {
+        static const bool value = false;
+    };
+    template <>
+    struct is_integral<char>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<char16_t>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<char32_t>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<wchar_t>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<signed char>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<short int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<long int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<long long int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<unsigned char>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<unsigned short int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<unsigned int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<unsigned long int>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<unsigned long long int>
+    {
+        static const bool value = true;
+    };
+
+    //TODO - Define Iterator traits
     template <class T>
     class iterator_traits
     {
@@ -329,7 +417,8 @@ namespace ft
         {
         }
         // TODO - Implement Constructor Fill (Parametrize)
-        vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc)
+        vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+                : _size(n), _capacity(n), _alloc(alloc)
         {
             _arr = _alloc.allocate(_capacity);
             for (size_t i = 0; i < _size; i++)
@@ -338,21 +427,23 @@ namespace ft
             }
         }
         // TODO - Implement Constructor Range (Range Iterators)
-        // template <class InputIterator>
-        // vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _alloc(alloc)
-        // {
-        //     while (first != last)
-        //     {
-        //         _size++;
-        //         _capacity++;
-        //         first++;
-        //     }
-        //     _arr = _alloc.allocate(_capacity);
-        //     for (size_t i = 0; i < _size; i++)
-        //     {
-        //         _arr[i] = *(last - 1);
-        //     }
-        // }
+        template <class InputIterator>
+        vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+                typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr) 
+                : _size(0), _capacity(0), _alloc(alloc)
+        {
+            while (first != last)
+            {
+                _size++;
+                _capacity++;
+                first++;
+            }
+            _arr = _alloc.allocate(_capacity);
+            for (size_t i = 0; i < _size; i++)
+            {
+                _arr[i] = *(last - 1);
+            }
+        }
         // TODO - Implement Constructor the Copy
         vector (const vector& x)
         {
@@ -441,6 +532,20 @@ namespace ft
                         pop_back();
                 }
         }
+        void reserve (size_type n)
+        {
+            if (n > capacity())
+            {
+                value_type *new_arr = _alloc.allocate(n);
+                for (size_t i = 0; i < size(); i++)
+                {
+                    new_arr[i] = _arr[i];
+                }
+                _alloc.deallocate(_arr, _capacity);
+                _arr = new_arr;
+                _capacity = n;
+            }
+        }
         //TODO - All functions the Element access: 
         reference operator[] (size_type n)
         {
@@ -462,7 +567,44 @@ namespace ft
                 throw std::out_of_range("index is not within the bound in the vector.");
             return (_arr[n]);
         }
-        //TODO - Add element at the end
+        reference front()
+        {
+            return (_arr[0]);
+        }
+        const_reference front() const
+        {
+            return (_arr[0]);
+        }
+        reference back()
+        {
+            return (_arr[_size - 1]);
+        }
+        const_reference back() const
+        {
+            return (_arr[_size - 1]);
+        }
+        //TODO - All functions the Modifiers:
+        template <class InputIterator>
+        void assign(InputIterator first, InputIterator last,
+                    typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+        {
+            difference_type dt = last - first;
+            _size = dt;
+            _capacity = dt;
+            _arr = _alloc.allocate(_capacity);
+            for (size_t i = 0; i < _size; i++)
+            {
+                _arr[i] = *(first + i);
+            }
+        }
+        void assign(size_type n, const value_type& val)
+        {
+            _size = n;
+            _capacity = n;
+            _arr = _alloc.allocate(_capacity);
+            for (size_t i = 0; i < _size; i++)
+                _arr[i] = val;
+        }
         void push_back(const value_type& val)
         {
             if (_capacity == 0)
@@ -485,7 +627,6 @@ namespace ft
             _arr[_size] = val;
             _size++;
         }
-        //TODO - Delete last element
         void pop_back()
         {
             if (_size > 0)
@@ -494,7 +635,6 @@ namespace ft
                 _size -= 1;
             }
         }
-        //TODO - Implement Destructor (default)
         ~vector()
         {   
             delete [] _arr;

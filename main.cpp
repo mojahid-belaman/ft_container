@@ -2,16 +2,18 @@
 #include <vector>
 #include <iterator>
 #include <iostream>
+#include <type_traits>
 
-struct data
+typedef struct data
 {
     int a;
     int b;
-    data() {std::cout << "Constructor Default\n";}
+    // data() {std::cout << "Constructor Default\n";}
     data(int a = 1337, int b = 42) : a(a), b(b)
     {
         std::cout << "a: " << a << ", b: " << b << std::endl;
-        std::cout << "Constructor parametrse\n";}
+        std::cout << "Constructor parametrse\n";
+    }
     data(const data& dt) {*this = dt;}
     data& operator= (const data& dt)
     {
@@ -22,8 +24,7 @@ struct data
         }
         return (*this);
     }
-};
-
+} t_data;
 
 int main()
 {
@@ -95,17 +96,28 @@ int main()
     // std::cout << "end of main" << std::endl;
 
     // for (int i=1;i<10;i++) myvector.push_back(i);
+//  ft::vector<int> test(begin, end);
+    std::vector<int> first;
+  std::vector<int> second;
+  ft::vector<int> third;
 
-    std::vector<int> myvector (10);   // 10 zero-initialized ints
+//   first.assign (7,100);             // 7 ints with a value of 100
 
-  // assign some values:
-  for (unsigned i=0; i<myvector.size(); i++)
-    myvector.at(i)=i;
+//   ft::vector<int>::iterator it;
+//   it=first.begin()+1;
 
-  std::cout << "myvector contains:";
-  for (unsigned i=0; i<myvector.size(); i++)
-    std::cout << ' ' << myvector.at(i);
-  std::cout << '\n';
-    std::cout << ' ' << myvector.at(10);
-    return (0);
+//   second.assign (it,first.end()-1); // the 5 central values of first
+
+  int myints[] = {-1776,7,4};
+  third.assign (&myints[0],&myints[2]);   // assigning from array.
+        std::cout << third.size() << std::endl;
+        std::cout << third.capacity() << std::endl;
+    for (size_t i = 0; i < third.size(); i++)
+    {
+        std::cout << third[i] << std::endl;
+    }
+    
+//   std::cout << "Size of first: " << int (first.size()) << '\n';
+//   std::cout << "Size of second: " << int (second.size()) << '\n';
+//   std::cout << "Size of third: " << int (third.size()) << '\n';
 }
