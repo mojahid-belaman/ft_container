@@ -635,6 +635,11 @@ namespace ft
                 _size -= 1;
             }
         }
+        // iterator insert (iterator position, const value_type& val
+        // {
+            
+
+        // }
         ~vector()
         {   
             delete [] _arr;

@@ -97,9 +97,9 @@ int main()
 
     // for (int i=1;i<10;i++) myvector.push_back(i);
 //  ft::vector<int> test(begin, end);
-    std::vector<int> first;
-  std::vector<int> second;
-  ft::vector<int> third;
+//     std::vector<int> first;
+//   std::vector<int> second;
+//   ft::vector<int> third;
 
 //   first.assign (7,100);             // 7 ints with a value of 100
 
@@ -108,16 +108,34 @@ int main()
 
 //   second.assign (it,first.end()-1); // the 5 central values of first
 
-  int myints[] = {-1776,7,4};
-  third.assign (&myints[0],&myints[2]);   // assigning from array.
-        std::cout << third.size() << std::endl;
-        std::cout << third.capacity() << std::endl;
-    for (size_t i = 0; i < third.size(); i++)
-    {
-        std::cout << third[i] << std::endl;
-    }
+//   int myints[] = {-1776,7,4};
+//   third.assign (&myints[0],&myints[2]);   // assigning from array.
+//         std::cout << third.size() << std::endl;
+//         std::cout << third.capacity() << std::endl;
+//     for (size_t i = 0; i < third.size(); i++)
+//     {
+//         std::cout << third[i] << std::endl;
+//     }
     
 //   std::cout << "Size of first: " << int (first.size()) << '\n';
 //   std::cout << "Size of second: " << int (second.size()) << '\n';
 //   std::cout << "Size of third: " << int (third.size()) << '\n';
+
+
+//   myvector.insert (it,2,300);
+
+  // "it" no longer valid, get a new one:
+//   it = myvector.begin();
+
+//   std::vector<int> anothervector (2,400);
+//   myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+//   int myarray [] = { 501,502,503 };
+//   myvector.insert (myvector.begin(), myarray, myarray+3);
+
+//   std::cout << "myvector contains:";
+//   for (it=myvector.begin(); it<myvector.end(); it++)
+//     std::cout << ' ' << *it;
+  std::cout << '\n';
+
 }
