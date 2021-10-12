@@ -643,6 +643,7 @@ namespace ft
             }
             *position = val;
             _size++;
+            _capacity *= 2;
             return iterator(position);
             
 

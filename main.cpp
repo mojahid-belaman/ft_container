@@ -138,11 +138,16 @@ int main()
 //     std::cout << ' ' << *it;
 
 
-ft::vector<int> myvector (3,100);
+ft::vector<int> myvector(3, 100);
+// myvector.push_back(1337);
+// myvector.push_back(42);
+// myvector.push_back(19);
   ft::vector<int>::iterator it;
 
   it = myvector.begin();
   it = myvector.insert ( it, 200 );
+      std::cout << myvector.size() << std::endl;
+      std::cout << myvector.capacity() << std::endl;
   for (size_t i = 0; i < myvector.size(); i++)
   {
       std::cout << myvector[i] << std::endl;
