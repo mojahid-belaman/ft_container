@@ -635,11 +635,18 @@ namespace ft
                 _size -= 1;
             }
         }
-        // iterator insert (iterator position, const value_type& val
-        // {
+        iterator insert (iterator position, const value_type& val)
+        {
+            for (iterator it = end(); it != position; it--)
+            {
+                *it = *(it - 1);
+            }
+            *position = val;
+            _size++;
+            return iterator(position);
             
 
-        // }
+        }
         ~vector()
         {   
             delete [] _arr;
