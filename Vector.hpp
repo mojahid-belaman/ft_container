@@ -441,7 +441,7 @@ namespace ft
                 it++;
             }
             _arr = _alloc.allocate(_capacity);
-            for (size_t i = 0; i < dt; i++)
+            for (size_t i = 0; i < static_cast<size_t>(dt); i++)
             {
                 _arr[i] = *first;
                 first++;
@@ -638,6 +638,7 @@ namespace ft
         }
         iterator insert (iterator position, const value_type& val)
         {   
+            size_type pos = position - begin();
             if (_capacity == 0)
             {
                 _arr = _alloc.allocate(1);
@@ -657,14 +658,12 @@ namespace ft
             }
             _arr[_size] = val;
             _size++;
-
-            for (iterator it = end(); it != position; it--)
+            for (size_t i = _size; i > pos; i--)
             {
-                *it = *(it - 1);
+                _arr[i] = _arr[i - 1];
             }
-            *position = val;
-            std::cout << *position << std::endl;
-            return (iterator(position));
+            _arr[pos] = val;
+            return iterator(_arr + pos);
         }
         void clear()
         {

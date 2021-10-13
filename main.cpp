@@ -522,7 +522,18 @@ int main()
 
     //NOTE - Insert elements
     std::cout << "------------- Library STD -------------" << std::endl;
-    std::vector<int> myvector (3,100);
+    std::vector<int> myvector;
+    myvector.push_back(1337);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
+    myvector.push_back(42);
     std::vector<int>::iterator it;
     it = myvector.begin();
     it = myvector.insert ( it , 200 );
@@ -533,7 +544,18 @@ int main()
         std::cout << myvector[i] << std::endl;
     }
     std::cout << "------------- Library FT -------------" << std::endl;
-    ft::vector<int> myvector1 (3,100);
+    ft::vector<int> myvector1;
+    myvector1.push_back(1337);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
+    myvector1.push_back(42);
     ft::vector<int>::iterator it1;
     it1 = myvector1.begin();
     it1 = myvector1.insert ( it1 , 200 );
