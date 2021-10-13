@@ -638,7 +638,33 @@ namespace ft
         }
         iterator insert (iterator position, const value_type& val)
         {   
-            
+            if (_capacity == 0)
+            {
+                _arr = _alloc.allocate(1);
+                _capacity++;
+            }
+            if (_size == _capacity)
+            {
+                value_type *new_ptr = _alloc.allocate(_capacity * 2);
+                for (size_t i = 0; i < _size; i++)
+                {
+                    new_ptr[i] = _arr[i];
+                }
+                _alloc.deallocate(_arr, _capacity);
+                _arr = new_ptr;
+                _capacity *= 2;
+
+            }
+            _arr[_size] = val;
+            _size++;
+
+            // iterator tmp = *position;
+            for (iterator it = end(); it != position; it--)
+            {
+                *it = *(it - 1);
+            }
+            *position = val;
+            return (iterator(position));
         }
         void clear()
         {
