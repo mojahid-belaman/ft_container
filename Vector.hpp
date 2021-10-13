@@ -665,6 +665,47 @@ namespace ft
             _arr[pos] = val;
             return iterator(_arr + pos);
         }
+        // void insert(iterator position, size_type n, const value_type &val)
+		// {
+		// 	if (!n)
+		// 		return;
+		// 	size_type totalRequired = this->_size + n;
+		// 	size_type pos = position.asIndex(this->_arr);
+		// 	if (totalRequired > this->_capacity)
+		// 		this->reserve(totalRequired);
+		// 	for (size_t j = this->_size; j > pos; j--)
+		// 	{
+		// 		this->_alloc.construct(&this->_arr[j - 1 + n], this->_arr[j - 1]);
+		// 	}
+		// 	this->_size += n;
+		// 	while (n--)
+		// 	{
+		// 		this->_alloc.construct(&this->_arr[pos + n], val);
+		// 	}
+		// }
+
+        // template <class InputIterator>
+		// void insert(iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, bool>::type = true)
+		// {
+		// 	difference_type diff = last - first;
+		// 	if (diff < 0)
+		// 		throw std::range_error("vector: invalid range");
+		// 	else if (!diff)
+		// 		return;
+		// 	size_type count = static_cast<size_type>(diff);
+		// 	size_type pos = position.asIndex(this->_arr);
+		// 	if (count + this->_size > this->_capacity)
+		// 		this->reserve(count + this->_size);
+		// 	for (size_t j = this->_size; j > pos; j--)
+		// 	{
+		// 		this->_alloc.construct(&this->_arr[j - 1 + count], this->_arr[j - 1]);
+		// 	}
+		// 	this->_size += count;
+		// 	while (count--)
+		// 	{
+		// 		this->_alloc.construct(&this->_arr[pos + count], *--last);
+		// 	}
+		// }
         void clear()
         {
             size_type tmp = _size;
