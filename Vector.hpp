@@ -432,16 +432,19 @@ namespace ft
                 typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr) 
                 : _size(0), _capacity(0), _alloc(alloc)
         {
-            while (first != last)
+            difference_type dt = last - first;
+            InputIterator it = first;
+            while (it != last)
             {
                 _size++;
                 _capacity++;
-                first++;
+                it++;
             }
             _arr = _alloc.allocate(_capacity);
-            for (size_t i = 0; i < _size; i++)
+            for (size_t i = 0; i < dt; i++)
             {
-                _arr[i] = *(last - 1);
+                _arr[i] = *first;
+                first++;
             }
         }
         // TODO - Implement Constructor the Copy
@@ -490,7 +493,7 @@ namespace ft
         }
         const_reverse_iterator rbegin() const
         {
-            return const_reverse_iterator(_arr + _size);
+            return const_reverse_iterator(this->begin());
         }
         //TODO - Return reverse iterator to reverse end
         reverse_iterator rend()
@@ -599,11 +602,9 @@ namespace ft
         }
         void assign(size_type n, const value_type& val)
         {
-            _size = n;
-            _capacity = n;
-            _arr = _alloc.allocate(_capacity);
-            for (size_t i = 0; i < _size; i++)
-                _arr[i] = val;
+            this->clear();
+            for (size_t i = 0; i < n; i++)
+                this->push_back(val);
         }
         void push_back(const value_type& val)
         {
@@ -636,17 +637,17 @@ namespace ft
             }
         }
         iterator insert (iterator position, const value_type& val)
-        {
-            for (iterator it = end(); it != position; it--)
-            {
-                *it = *(it - 1);
-            }
-            *position = val;
-            _size++;
-            _capacity *= 2;
-            return iterator(position);
+        {   
             
-
+        }
+        void clear()
+        {
+            size_type tmp = _size;
+            for (size_t i = 0; i < tmp; i++)
+            {
+                _alloc.destroy(_arr + i);
+                _size--;
+            }
         }
         ~vector()
         {   
