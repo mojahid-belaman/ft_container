@@ -658,12 +658,12 @@ namespace ft
             _arr[_size] = val;
             _size++;
 
-            // iterator tmp = *position;
             for (iterator it = end(); it != position; it--)
             {
                 *it = *(it - 1);
             }
             *position = val;
+            std::cout << *position << std::endl;
             return (iterator(position));
         }
         void clear()

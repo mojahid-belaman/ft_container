@@ -533,8 +533,8 @@ int main()
         std::cout << myvector[i] << std::endl;
     }
     std::cout << "------------- Library FT -------------" << std::endl;
-    std::vector<int> myvector1 (3,100);
-    std::vector<int>::iterator it1;
+    ft::vector<int> myvector1 (3,100);
+    ft::vector<int>::iterator it1;
     it1 = myvector1.begin();
     it1 = myvector1.insert ( it1 , 200 );
     std::cout << myvector.size() << std::endl;
