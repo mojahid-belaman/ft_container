@@ -522,21 +522,10 @@ int main()
 
     //NOTE - Insert elements
     std::cout << "------------- Library STD -------------" << std::endl;
-    std::vector<int> myvector;
-    myvector.push_back(1337);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
-    myvector.push_back(42);
+    std::vector<int> myvector (3,100);
     std::vector<int>::iterator it;
     it = myvector.begin();
-    it = myvector.insert ( it , 200 );
+    it = myvector.insert ( it + 3 , 200 );
     std::cout << myvector.size() << std::endl;
     std::cout << myvector.capacity() << std::endl;
     for (size_t i = 0; i < myvector.size(); i++)
@@ -544,21 +533,10 @@ int main()
         std::cout << myvector[i] << std::endl;
     }
     std::cout << "------------- Library FT -------------" << std::endl;
-    ft::vector<int> myvector1;
-    myvector1.push_back(1337);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
-    myvector1.push_back(42);
+    ft::vector<int> myvector1 (3,100);
     ft::vector<int>::iterator it1;
     it1 = myvector1.begin();
-    it1 = myvector1.insert ( it1 , 200 );
+    it1 = myvector1.insert ( it1 + 3 , 200 );
     std::cout << myvector.size() << std::endl;
     std::cout << myvector.capacity() << std::endl;
     for (size_t i = 0; i < myvector1.size(); i++)
