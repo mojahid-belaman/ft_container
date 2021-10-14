@@ -522,10 +522,11 @@ int main()
 
     //NOTE - Insert elements
     std::cout << "------------- Library STD -------------" << std::endl;
-    std::vector<int> myvector (3,100);
+    std::vector<int> myvector(3, 100);
     std::vector<int>::iterator it;
     it = myvector.begin();
-    it = myvector.insert ( it + 3 , 200 );
+    // it = myvector.insert ( it , 200 );
+    myvector.insert (it,2,300);
     std::cout << myvector.size() << std::endl;
     std::cout << myvector.capacity() << std::endl;
     for (size_t i = 0; i < myvector.size(); i++)
@@ -533,12 +534,13 @@ int main()
         std::cout << myvector[i] << std::endl;
     }
     std::cout << "------------- Library FT -------------" << std::endl;
-    ft::vector<int> myvector1 (3,100);
+    ft::vector<int> myvector1(3, 100);
     ft::vector<int>::iterator it1;
     it1 = myvector1.begin();
-    it1 = myvector1.insert ( it1 + 3 , 200 );
-    std::cout << myvector.size() << std::endl;
-    std::cout << myvector.capacity() << std::endl;
+    // it1 = myvector1.insert ( it1, 200 );
+    myvector1.insert(it1, 2, 300);
+    std::cout << myvector1.size() << std::endl;
+    std::cout << myvector1.capacity() << std::endl;
     for (size_t i = 0; i < myvector1.size(); i++)
     {
         std::cout << myvector1[i] << std::endl;

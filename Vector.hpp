@@ -538,15 +538,28 @@ namespace ft
         void reserve (size_type n)
         {
             if (n > capacity())
-            {
-                value_type *new_arr = _alloc.allocate(n);
+            {   
+                _capacity = n;
+                value_type *new_arr = _alloc.allocate(_capacity);
                 for (size_t i = 0; i < size(); i++)
                 {
                     new_arr[i] = _arr[i];
                 }
                 _alloc.deallocate(_arr, _capacity);
                 _arr = new_arr;
-                _capacity = n;
+                // _capacity *= 2;
+            }
+            else
+            {
+                value_type *new_arr = _alloc.allocate(_capacity * 2);
+                for (size_t i = 0; i < size(); i++)
+                {
+                    new_arr[i] = _arr[i];
+                }
+                _alloc.deallocate(_arr, _capacity);
+                _arr = new_arr;
+                _capacity *= 2;
+
             }
         }
         //TODO - All functions the Element access: 
@@ -658,31 +671,28 @@ namespace ft
             }
             _arr[_size] = val;
             _size++;
-            for (size_t i = _size; i > pos; i--)
+            for (size_t i = _size - 1; i > pos; i--)
             {
                 _arr[i] = _arr[i - 1];
             }
             _arr[pos] = val;
             return iterator(_arr + pos);
         }
-        // void insert(iterator position, size_type n, const value_type &val)
-		// {
-		// 	if (!n)
-		// 		return;
-		// 	size_type totalRequired = this->_size + n;
-		// 	size_type pos = position.asIndex(this->_arr);
-		// 	if (totalRequired > this->_capacity)
-		// 		this->reserve(totalRequired);
-		// 	for (size_t j = this->_size; j > pos; j--)
-		// 	{
-		// 		this->_alloc.construct(&this->_arr[j - 1 + n], this->_arr[j - 1]);
-		// 	}
-		// 	this->_size += n;
-		// 	while (n--)
-		// 	{
-		// 		this->_alloc.construct(&this->_arr[pos + n], val);
-		// 	}
-		// }
+        void    insert (iterator position, size_type n, const value_type& val)
+        {
+            size_type pos = position - begin();
+            if ((_size + n) > _capacity)
+                this->reserve(_size + n);
+            for (size_t i = _size; i > pos; i--)
+            {
+                _arr[i - 1 + n] = _arr[i - 1];
+            }
+            _size += n;
+            while (n--)
+            {
+                _arr[pos + n] = val;
+            }
+        }
 
         // template <class InputIterator>
 		// void insert(iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, bool>::type = true)
@@ -716,7 +726,7 @@ namespace ft
             }
         }
         ~vector()
-        {   
+        {
             delete [] _arr;
         }
     };
