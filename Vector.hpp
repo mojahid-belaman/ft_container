@@ -539,27 +539,23 @@ namespace ft
         {
             if (n > capacity())
             {   
-                _capacity = n;
-                value_type *new_arr = _alloc.allocate(_capacity);
+                value_type *new_arr;
+                if (n > _capacity * 2)
+                {
+                    new_arr = _alloc.allocate(n);
+                    _capacity = n;
+                }
+                else
+                {
+                    new_arr = _alloc.allocate(_capacity * 2);
+                    _capacity *= 2;
+                }
                 for (size_t i = 0; i < size(); i++)
                 {
                     new_arr[i] = _arr[i];
                 }
                 _alloc.deallocate(_arr, _capacity);
                 _arr = new_arr;
-                // _capacity *= 2;
-            }
-            else
-            {
-                value_type *new_arr = _alloc.allocate(_capacity * 2);
-                for (size_t i = 0; i < size(); i++)
-                {
-                    new_arr[i] = _arr[i];
-                }
-                _alloc.deallocate(_arr, _capacity);
-                _arr = new_arr;
-                _capacity *= 2;
-
             }
         }
         //TODO - All functions the Element access: 
@@ -694,28 +690,31 @@ namespace ft
             }
         }
 
-        // template <class InputIterator>
-		// void insert(iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, bool>::type = true)
-		// {
-		// 	difference_type diff = last - first;
-		// 	if (diff < 0)
-		// 		throw std::range_error("vector: invalid range");
-		// 	else if (!diff)
-		// 		return;
-		// 	size_type count = static_cast<size_type>(diff);
-		// 	size_type pos = position.asIndex(this->_arr);
-		// 	if (count + this->_size > this->_capacity)
-		// 		this->reserve(count + this->_size);
-		// 	for (size_t j = this->_size; j > pos; j--)
-		// 	{
-		// 		this->_alloc.construct(&this->_arr[j - 1 + count], this->_arr[j - 1]);
-		// 	}
-		// 	this->_size += count;
-		// 	while (count--)
-		// 	{
-		// 		this->_alloc.construct(&this->_arr[pos + count], *--last);
-		// 	}
-		// }
+        template <class InputIterator>
+        void    insert(iterator position, InputIterator first, InputIterator last,
+                        typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+        {
+            size_type count = 0;
+            size_type pos = position - begin();
+            while (first != last)
+            {
+                count++;
+                first++;
+            }
+            if ((_size + count) > _capacity)
+                this->reserve(_size + count);
+            for (size_t i = _size; i > pos; i--)
+            {
+                _arr[i - 1 + count] = _arr[i - 1];
+            }
+            _size += count;
+            while (count--)
+            {
+                _arr[pos + count] = *(last - 1);
+                last--;
+            }
+            
+        }
         void clear()
         {
             size_type tmp = _size;
