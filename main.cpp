@@ -601,33 +601,23 @@ int main()
     //     std::cout << *it1 << " ";
 
     //NOTE - Erase elements
-    // std::cout << "------------- Library STD -------------" << std::endl;
+    std::cout << "------------- Library STD -------------" << std::endl;
     std::vector<int> myvector;
     for (int i=1; i<=10; i++) myvector.push_back(i);
-    myvector.erase (myvector.begin() - 1);
+    myvector.erase (myvector.begin() + 1);
     // myvector.erase (myvector.begin(),myvector.begin()+3);
     std::cout << "myvector contains:";
     for (unsigned i=0; i<myvector.size(); ++i)
         std::cout << ' ' << myvector[i];
-    // std::cout << '\n';
+    std::cout << '\n';
     
-    // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::vector<int> myvector1;
-    // myvector1.push_back(1);
-    // myvector1.push_back(2);
-    // for (int i=1; i<=10; i++) 
-    // {
-    // std::cout << "test" << std::endl;
-        // myvector1.push_back(i);
-    // }
-    // std::cout << myvector1.size() << std::endl;
-    // std::cout << myvector1.capacity() << std::endl;
-    // myvector1.erase (myvector1.begin() - 1);
-    // std::cout << myvector1.size() << std::endl;
-    // std::cout << myvector1.capacity() << std::endl;
+    std::cout << "------------- Library FT -------------" << std::endl;
+    ft::vector<int> myvector1;
+    for (int i=1; i<=10; i++) myvector1.push_back(i);
+    myvector1.erase (myvector1.begin() + 1);
     // myvector.erase (myvector.begin(),myvector.begin()+3);
-    // std::cout << "myvector contains:";
-    // for (unsigned i=0; i<myvector1.size(); ++i)
-    //     std::cout << ' ' << myvector1[i];
+    std::cout << "myvector contains:";
+    for (unsigned i=0; i<myvector1.size(); ++i)
+        std::cout << ' ' << myvector1[i];
     std::cout << '\n';
 }
