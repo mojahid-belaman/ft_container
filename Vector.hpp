@@ -715,6 +715,18 @@ namespace ft
             }
             
         }
+        iterator erase (iterator position)
+        {
+            size_type pos = position - begin();
+            for (size_t i = pos; i < _size; i++)
+            {
+                _alloc.destroy(_arr + pos);
+                _arr[pos] = _arr[pos + 1];
+                pos++;
+            }
+            _size -= 1;
+            return position;
+        }
         void clear()
         {
             size_type tmp = _size;
@@ -724,6 +736,26 @@ namespace ft
                 _size--;
             }
         }
+        // iterator erase(iterator position)
+		// {
+		// 	if (!this->_size)
+		// 		return position;
+		// 	size_type i = position.asIndex(this->_arr);
+
+		// 	if (i >= this->_size)
+		// 		return position;
+
+		// 	while (i < this->_size - 1)
+		// 	{
+		// 		this->_alloc.destroy(&this->_arr[i]);
+		// 		this->_alloc.construct(&this->_arr[i], this->_arr[i + 1]);
+		// 		i++;
+		// 	}
+
+		// 	if (!--this->_size)
+		// 		return this->end();
+		// 	return position;
+		// }
         ~vector()
         {
             delete [] _arr;
