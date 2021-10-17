@@ -722,17 +722,22 @@ namespace ft
             pop_back();
             return position;
         }
-        // iterator	erase(iterator first, iterator last)
-        // {
-        //     iterator temp(first);
 
-        //     while (temp != last)
-        //     {
-        //         erase(first);
-        //         temp++;
-        //     }
-        //     return (first);
-        // };
+        iterator	erase(iterator first, iterator last)
+        {
+            iterator tmp = first;
+
+            while (tmp != last)
+            {
+                erase(first);
+                tmp++;
+            }
+            return (first);
+        }
+        void swap (vector& x)
+        {
+            
+        }
         void clear()
         {
             size_type tmp = _size;
