@@ -1,7 +1,5 @@
-clang++ -Wall -Wextra -Werror org.cpp -o origin
-clang++ -Wall -Wextra -Werror dup.cpp -o dup
-./origin > original
-./dup > duplicated
-diff original duplicated
-rm -rf duplicated dup
-rm -rf original origin
+clang++ -Wall -Wextra -Werror main_std.cpp -o std
+clang++ -Wall -Wextra -Werror main_ft.cpp -o ft
+./std
+./ft
+rm -rf ./std ./ft
