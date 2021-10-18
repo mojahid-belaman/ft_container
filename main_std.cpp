@@ -374,8 +374,8 @@ int main()
     
     //NOTE - Relational operators for vector
     std::cout << "------------- Library STD -------------" << std::endl;
-    std::vector<int> foo (3,200);   // three ints with a value of 100
-    std::vector<int> bar (2,200);   // two ints with a value of 200
+    std::vector<int> foo (1,200);   // three ints with a value of 100
+    std::vector<int> bar (1,100);   // two ints with a value of 200
 
     if (foo==bar) std::cout << "foo and bar are equal\n";
     if (foo!=bar) std::cout << "foo and bar are not equal\n";
