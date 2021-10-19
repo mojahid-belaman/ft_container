@@ -65,6 +65,7 @@
         "deque": "cpp",
         "fstream": "cpp",
         "bit": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "stack": "cpp"
     }
 }

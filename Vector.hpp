@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <limits>
-// #include <vector>
 
 namespace ft
 {
@@ -820,6 +819,13 @@ namespace ft
     bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
         return !(lhs < rhs);
+    }
+
+    //TODO - Exchange contents of vectors
+    template <class T, class Alloc>
+    void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+    {
+        x.swap(y);
     }
 }
 
