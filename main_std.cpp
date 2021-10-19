@@ -401,5 +401,6 @@ int main()
     //NOTE - Stack
     //NOTE - Construct Stack
     std::stack<int> first;
+    std::vector<int> v;
     // std::cout << "size of first: " << first.size() << '\n'; 
 }
