@@ -1,7 +1,6 @@
 #include "Vector.hpp"
 #include "Stack.hpp"
 #include <iostream>
-
 typedef struct data
 {
     int a;
@@ -26,6 +25,10 @@ typedef struct data
 
 int main()
 {
+    // *************************************************************************
+                                //NOTE - Vector
+    // *************************************************************************
+
     // //NOTE - Constructor
     // std::cout << "------------- Library FT -------------" << std::endl;
     // ft::vector<int> first1;                                
@@ -331,7 +334,15 @@ int main()
     // std::cout << "------------- Library FT -------------" << std::endl;
     // ft::vector<int> foo1(3, 100);   // three ints with a value of 100
     // ft::vector<int> bar1(5, 200);   // five ints with a value of 200
+    // std::cout << "Size foo1 before " << foo1.size() << std::endl;
+    // std::cout << "Capa foo1 before " << foo1.capacity() << std::endl;
+    // std::cout << "Size bar1 before " << bar1.size() << std::endl;
+    // std::cout << "Capa bar1 before " << bar1.capacity() << std::endl;
     // foo1.swap(bar1);
+    // std::cout << "Size foo1 after " << foo1.size() << std::endl;
+    // std::cout << "Capa foo1 after " << foo1.capacity() << std::endl;
+    // std::cout << "Size bar1 after " << bar1.size() << std::endl;
+    // std::cout << "Capa bar1 after " << bar1.capacity() << std::endl;
     // std::cout << "foo contains:";
     // for (unsigned i=0; i<foo1.size(); i++)
     //     std::cout << ' ' << foo1[i];
@@ -380,10 +391,209 @@ int main()
     //     std::cout << ' ' << *it;
     // std::cout << '\n';
     
-    //NOTE - Stack
-    //NOTE - Construct Stack
-    ft::stack<int> first;
-    // std::cout << "size of first: " << first.size() << '\n';
+    // *************************************************************************
+                                //NOTE - Stack
+    // *************************************************************************
 
-    return (0);
-}
+    //NOTE - ft::stack::stack
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::vector<int> myvector (2,200);        // vector with 2 elements
+    // ft::stack<int> first;                    // empty stack
+    // ft::stack<int> third;  // empty stack using vector
+    // ft::stack<int> fourth (myvector);
+    // std::cout << "size of first: " << first.size() << '\n';
+    // std::cout << "size of third: " << third.size() << '\n';
+    // std::cout << "size of fourth: " << fourth.size() << '\n';
+
+    //NOTE - ft::stack::empty
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack<int> mystack;
+    // int sum (0);
+    // for (int i=1;i<=10;i++) mystack.push(i);
+    // while (!mystack.empty())
+    // {
+    //     sum += mystack.top();
+    //     mystack.pop();
+    // }
+    // std::cout << "total: " << sum << '\n';
+
+    //NOTE - ft::stack::size
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack<int> myints;
+    // std::cout << "0. size: " << myints.size() << '\n';
+    // for (int i=0; i<5; i++) myints.push(i);
+    // std::cout << "1. size: " << myints.size() << '\n';
+    // myints.pop();
+    // std::cout << "2. size: " << myints.size() << '\n';
+
+    //NOTE - ft::stack::top
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack<int> mystack;
+    // mystack.push(10);
+    // mystack.push(20);
+    // mystack.top() -= 5;
+    // std::cout << "mystack.top() is now " << mystack.top() << '\n';
+
+    //NOTE - ft::stack::push
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack<int> mystack;
+    // for (int i=0; i<5; ++i) mystack.push(i);
+    // std::cout << "Popping out elements...";
+    // while (!mystack.empty())
+    // {
+    //     std::cout << ' ' << mystack.top();
+    //     mystack.pop();
+    // }
+    // std::cout << '\n';
+
+    //NOTE - ft::stack::pop
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack<int> mystack;
+    // for (int i=0; i<5; ++i) mystack.push(i);
+    // std::cout << "Popping out elements...";
+    // while (!mystack.empty())
+    // {
+    //     std::cout << ' ' << mystack.top();
+    //     mystack.pop();
+    // }
+    // std::cout << '\n';
+
+    //NOTE - operator==
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
+    // s1.push( 1 );
+    // s2.push( 2 );
+    // s3.push( 1 );
+
+    // if ( s1 == s2 )
+    //     std::cout << "The stacks s1 and s2 are equal." << std::endl;
+    // else
+    //     std::cout << "The stacks s1 and s2 are not equal." << std::endl;
+
+    // if ( s1 == s3 )
+    //     std::cout << "The stacks s1 and s3 are equal." << std::endl;
+    // else
+    //     std::cout << "The stacks s1 and s3 are not equal." << std::endl;
+    
+    //NOTE - operator!=
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
+    // s1.push( 1 );
+    // s2.push( 2 );
+    // s3.push( 1 );
+    // if ( s1 != s2 )
+    //     std::cout << "The stacks s1 and s2 are not equal." << std::endl;
+    // else
+    //     std::cout << "The stacks s1 and s2 are equal." << std::endl;
+    // if ( s1 != s3 )
+    //     std::cout << "The stacks s1 and s3 are not equal." << std::endl;
+    // else
+    //     std::cout << "The stacks s1 and s3 are equal." << std::endl;
+    
+    //NOTE - operator<
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
+    // s1.push( 2 );
+    // s1.push( 4 );
+    // s1.push( 6 );
+    // s1.push( 8 );
+    // s2.push( 5 );
+    // s2.push( 10 );
+    // s3.push( 2 );
+    // s3.push( 4 );
+    // s3.push( 6 );
+    // s3.push( 8 );
+    // if ( s1 < s2 )
+    //     std::cout << "The stack s1 is less than "
+    //         << "the stack s2." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is greater than or equal to "
+    //         << "the stack s2." << std::endl;
+
+    // if ( s1 < s3 )
+    //     std::cout << "The stack s1 is less than "
+    //         << "the stack s3." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is greater than to "
+    //         << "the stack s3." << std::endl;
+    // ft::stack <int>::size_type i_size_s1 = s1.size( );
+    // std::cout << "The stack s1 from the top down is: ( ";
+    // unsigned int i;
+    // for ( i = 1 ; i <= i_size_s1 ; i++ )
+    // {
+    //     std::cout << s1.top( ) << " ";
+    //     s1.pop( );
+    // }
+    // std::cout << ")." << std::endl;
+
+    //NOTE - operator<=
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack <int> s1, s2, s3;
+    // s1.push( 5 );
+    // s1.push( 10 );
+    // s2.push( 1 );
+    // s2.push( 2 );
+    // s3.push( 5 );
+    // s3.push( 10 );
+    // if ( s1 <= s2 )
+    //     std::cout << "The stack s1 is less than or equal to "
+    //         << "the stack s2." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is greater than "
+    //         << "the stack s2." << std::endl;
+
+    // if ( s1 <= s3 )
+    //     std::cout << "The stack s1 is less than or equal to "
+    //         << "the stack s3." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is greater than "
+    //         << "the stack s3." << std::endl;
+
+    //NOTE - operator>
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
+    // s1.push( 1 );
+    // s1.push( 2 );
+    // s1.push( 3 );
+    // s2.push( 5 );
+    // s2.push( 10 );
+    // s3.push( 1 );
+    // s3.push( 2 );
+    // if ( s1 > s2 )
+    //     std::cout << "The stack s1 is greater than "
+    //         << "the stack s2." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is not greater than "
+    //         << "the stack s2." << std::endl;
+
+    // if ( s1 > s3 )
+    //     std::cout << "The stack s1 is greater than "
+    //         << "the stack s3." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is not greater than "
+    //         << "the stack s3." << std::endl;
+
+    //NOTE - operator>=
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
+    // s1.push( 1 );
+    // s1.push( 2 );
+    // s2.push( 5 );
+    // s2.push( 10 );
+    // s3.push( 1 );
+    // s3.push( 2 );
+    // if ( s1 >= s2 )
+    //     std::cout << "The stack s1 is greater than or equal to "
+    //         << "the stack s2." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is less than "
+    //         << "the stack s2." << std::endl;
+
+    // if ( s1>= s3 )
+    //     std::cout << "The stack s1 is greater than or equal to "
+    //         << "the stack s3." << std::endl;
+    // else
+    //     std::cout << "The stack s1 is less than "
+    //         << "the stack s3." << std::endl;
+
+}  

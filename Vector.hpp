@@ -600,13 +600,12 @@ namespace ft
                     typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
         {
             difference_type dt = last - first;
+            std::cout << dt << std::endl;
             _size = dt;
             _capacity = dt;
             _arr = _alloc.allocate(_capacity);
             for (size_t i = 0; i < _size; i++)
-            {
                 _arr[i] = *(first + i);
-            }
         }
         void assign(size_type n, const value_type& val)
         {
@@ -733,17 +732,12 @@ namespace ft
             }
             return (first);
         }
-        //NOTE - Not Fixed _capacity 
         void swap (vector& x)
         {
             vector<value_type> tmp;
             tmp = x;
-            x.clear();
-            for (iterator i = begin(); i != end(); i++)
-                x.push_back(*i);
-            clear();
-            for (iterator i = tmp.begin(); i != tmp.end(); i++)
-                this->push_back(*i);
+            x = *this;
+            *this = tmp;
         }
         void clear()
         {
