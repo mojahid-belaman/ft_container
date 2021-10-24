@@ -1,5 +1,6 @@
 #include <vector>
 #include <stack>
+#include <map>
 #include <iterator>
 #include <iostream>
 
@@ -320,21 +321,7 @@ int main()
     
     //NOTE - Erase elements
     // std::cout << "------------- Library STD -------------" << std::endl;
-    // ft::vector<int> myvector;
-    // for (int i=1; i<=10; i++) myvector.push_back(i);
-    // std::cout << myvector.size() << std::endl;
-    // std::cout << myvector.capacity() << std::endl;
-    // myvector.erase (myvector.begin());
-    // myvector.erase (myvector.begin(),myvector.begin()+3);
-    // std::cout << myvector.size() << std::endl;
-    // std::cout << myvector.capacity() << std::endl;
-    // std::cout << "myvector contains:";
-    // for (size_t i=0; i<myvector.size(); ++i)
-    //     std::cout << ' ' << myvector[i];
-    // std::cout << '\n';
-    
-    // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::vector<int> myvector1;
+    // std::vector<int> myvector1;
     // for (int i=1; i<=10; i++) myvector1.push_back(i);
     // std::cout << myvector1.size() << std::endl;
     // std::cout << myvector1.capacity() << std::endl;
@@ -384,9 +371,8 @@ int main()
     
     //NOTE - Relational operators for vector
     // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::vector<int> foo (1,200);   // three ints with a value of 100
-    // std::vector<int> bar (1,100);   // two ints with a value of 200
-
+    // std::vector<int> foo (1,200);
+    // std::vector<int> bar (0);
     // if (foo==bar) std::cout << "foo and bar are equal\n";
     // if (foo!=bar) std::cout << "foo and bar are not equal\n";
     // if (foo< bar) std::cout << "foo is less than bar\n";
@@ -612,4 +598,48 @@ int main()
     //     std::cout << "The stack s1 is less than "
     //         << "the stack s3." << std::endl;
 
+    // *************************************************************************
+                                //NOTE - Map
+    // *************************************************************************
+    
+    //NOTE - Construct pair
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::pair <std::string,double> product1;
+    // std::pair <std::string,double> product2 ("tomatoes",2.30);
+    // std::pair <std::string,double> product3 (product2);
+    // product1 = std::make_pair(std::string("lightbulbs"),0.99);   // using make_pair (move)
+    // product2.first = "shoes";
+    // product2.second = 39.90;
+    // std::cout << "The price of " << product1.first << " is $" << product1.second << '\n';
+    // std::cout << "The price of " << product2.first << " is $" << product2.second << '\n';
+    // std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
+
+
+    //NOTE - pair::operator= example
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::pair <std::string,int> planet("Earth",6371), homeplanet;
+    // planet = std::make_pair("Earth",6371);
+    // homeplanet = planet;
+    // std::cout << "Home planet: " << homeplanet.first << '\n';
+    // std::cout << "Planet size: " << homeplanet.second << '\n';
+
+    //NOTE - make_pair example
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::pair <int,int> foo;
+    // std::pair <int,int> bar;
+    // foo = std::make_pair (10,20);
+    // bar = std::make_pair (10.5,'A'); // ok: implicit conversion from pair<double,char>
+    // std::cout << "foo: " << foo.first << ", " << foo.second << '\n';
+    // std::cout << "bar: " << bar.first << ", " << bar.second << '\n';
+
+    //NOTE - Relational operators for pair
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::pair<int,char> foo (10,'z');
+    // std::pair<int,char> bar (90,'a');
+    // if (foo==bar) std::cout << "foo and bar are equal\n";
+    // if (foo!=bar) std::cout << "foo and bar are not equal\n";
+    // if (foo< bar) std::cout << "foo is less than bar\n";
+    // if (foo> bar) std::cout << "foo is greater than bar\n";
+    // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+    // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 }

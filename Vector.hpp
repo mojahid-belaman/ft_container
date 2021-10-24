@@ -600,7 +600,6 @@ namespace ft
                     typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
         {
             difference_type dt = last - first;
-            std::cout << dt << std::endl;
             _size = dt;
             _capacity = dt;
             _arr = _alloc.allocate(_capacity);
@@ -670,7 +669,7 @@ namespace ft
                 _arr[i] = _arr[i - 1];
             }
             _arr[pos] = val;
-            return (_arr + pos);
+            return iterator(_arr + pos);
         }
         void    insert (iterator position, size_type n, const value_type& val)
         {
@@ -772,22 +771,34 @@ namespace ft
         }
         return (first2!=last2);
     }
-
+    //TODO - Test whether the elements in two ranges are equal (equal)
+    template <class InputIterator1, class InputIterator2>
+    bool equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 )
+    {
+        while (first1!=last1)
+        {
+            if (!(*first1 == *first2))
+                return false;
+            ++first1; ++first2;
+        }
+        return true;
+    }
     //TODO - Non-member function overloads
     template <class T, class Alloc>
     bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        if (lhs.size() == rhs.size())
-        {
-            for (size_t i = 0; i < lhs.size(); i++)
-            {
-                if (lhs.at(i) != rhs.at(i))
-                    return false;
-            }
-            return true;
-        }
-        else
-            return false;
+        // if (lhs.size() == rhs.size())
+        // {
+        //     for (size_t i = 0; i < lhs.size(); i++)
+        //     {
+        //         if (lhs.at(i) != rhs.at(i))
+        //             return false;
+        //     }
+        //     return true;
+        // }
+        // else
+        //     return false;
+        return (equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
     template <class T, class Alloc>
     bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
