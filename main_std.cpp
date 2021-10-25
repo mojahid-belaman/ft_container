@@ -283,7 +283,7 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Insert elements
-    // std::cout << "------------- Library STD -------------" << std::endl;
+    std::cout << "------------- Library STD -------------" << std::endl;
     // std::vector<int> myvector(3, 100);
     // std::cout << myvector.size() << std::endl;
     // std::cout << myvector.capacity() << std::endl;

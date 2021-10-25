@@ -603,13 +603,13 @@ namespace ft
             _size = dt;
             _capacity = dt;
             _arr = _alloc.allocate(_capacity);
-            for (size_t i = 0; i < _size; i++)
+            for (size_type i = 0; i < _size; i++)
                 _arr[i] = *(first + i);
         }
         void assign(size_type n, const value_type& val)
         {
             this->clear();
-            for (size_t i = 0; i < n; i++)
+            for (size_type i = 0; i < n; i++)
                 this->push_back(val);
         }
         void push_back(const value_type& val)
@@ -622,7 +622,7 @@ namespace ft
             if (_size == _capacity)
             {
                 value_type *new_ptr = _alloc.allocate(_capacity * 2);
-                for (size_t i = 0; i < _size; i++)
+                for (size_type i = 0; i < _size; i++)
                 {
                     new_ptr[i] = _arr[i];
                 }
@@ -653,7 +653,7 @@ namespace ft
             if (_size == _capacity)
             {
                 value_type *new_ptr = _alloc.allocate(_capacity * 2);
-                for (size_t i = 0; i < _size; i++)
+                for (size_type i = 0; i < _size; i++)
                 {
                     new_ptr[i] = _arr[i];
                 }
@@ -664,7 +664,7 @@ namespace ft
             }
             _arr[_size] = val;
             _size++;
-            for (size_t i = _size - 1; i > pos; i--)
+            for (size_type i = _size - 1; i > pos; i--)
             {
                 _arr[i] = _arr[i - 1];
             }
@@ -676,7 +676,7 @@ namespace ft
             size_type pos = position - begin();
             if ((_size + n) > _capacity)
                 this->reserve(_size + n);
-            for (size_t i = _size; i > pos; i--)
+            for (size_type i = _size; i > pos; i--)
             {
                 _arr[i - 1 + n] = _arr[i - 1];
             }
