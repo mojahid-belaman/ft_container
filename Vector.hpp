@@ -459,6 +459,7 @@ namespace ft
                 _size = x._size;
                 _capacity = x._capacity;
                 _alloc = x._alloc;
+                _alloc.deallocate(_arr, _capacity);
                 _arr = _alloc.allocate(_capacity);
                 for (size_t i = 0; i < _size; i++)
                 {

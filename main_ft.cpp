@@ -2,6 +2,7 @@
 #include "Stack.hpp"
 #include "Map.hpp"
 #include <iostream>
+
 typedef struct data
 {
     int a;

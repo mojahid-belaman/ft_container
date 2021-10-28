@@ -5,6 +5,33 @@
 
 namespace ft
 {
+    //NOTE - Make Binary Search Tree (BST)
+    template <class T>
+    class BST
+    {
+        public:
+            typedef T   value_type;
+            //NOTE - Constructor
+            BST()
+            {
+
+            }
+            //NOTE - Create Leaf Node
+            node*   create_leaf(int data)
+            {
+                
+            }
+        private:
+            struct node
+            {
+                value_type  _data;
+                node        *left;
+                node        *right;
+            };
+            //NOTE - Start Tree
+            node    *root;
+    }; 
+
     //NOTE - class template (Pair of values)
     template <class T1, class T2>
     struct pair
