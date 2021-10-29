@@ -46,10 +46,10 @@ int main()
 
     // //NOTE - Assign content (operator=)
     // std::cout << "------------- Library FT -------------" << std::endl;
-    // std::vector<int> foo1 (3,0);
-    // std::vector<int> bar1 (5,0);
+    // ft::vector<int> foo1 (3,0);
+    // ft::vector<int> bar1 (5,0);
     // bar1 = foo1;
-    // foo1 = std::vector<int>();
+    // foo1 = ft::vector<int>();
     // std::cout << "Size of foo: " << int(foo1.size()) << '\n';
     // std::cout << "Size of bar: " << int(bar1.size()) << '\n';
 
@@ -644,5 +644,5 @@ int main()
     // if (foo> bar) std::cout << "foo is greater than bar\n";
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
-
+    
 }
