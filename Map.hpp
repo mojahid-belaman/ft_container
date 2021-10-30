@@ -6,37 +6,23 @@
 namespace ft
 {
     template <class T>
-    struct node
+    struct BST_node
     {
-        T           _data;
-        node        *left;
-        node        *right;
+        T               _data;
+        BST_node        *left;
+        BST_node        *right;
+        BST_node        *parent;
     };
+
     //NOTE - Make Binary Search Tree (BST)
-    template <class T, class Alloc = std::allocator<T> >
+    template <class T, class Compare = std::less<T>, class Alloc = std::allocator<BST_Node<T> > >
     class BST
     {
-        private:
-            //NOTE - Start Tree
-            node<T>    *root;
         public:
-            typedef typename Alloc::template rebind< node<T> >::other node_alloc; 
-        public:
-            node_alloc n;
-            //NOTE - Constructor
-            BST()
-            {
-                root = nullptr; 
-            }
-            //NOTE - Create Leaf Node
-            node<T>*   create_leaf(int data)
-            {
-                 node<T>*  new_node = n.allocate(1);
-                 new_node->_data = data;
-                 new_node->left = nullptr;
-                 new_node->right = nullptr;
-                 return new_node;
-            }
+            typedef T               value_type;
+            typedef BST_node<T>     node_type;
+            typedef node_type       *node_pointer;
+
     }; 
 
     //NOTE - class template (Pair of values)
