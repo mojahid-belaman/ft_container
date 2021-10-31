@@ -12,6 +12,7 @@ namespace ft
         node        *left;
         node        *right;
     };
+
     //NOTE - Make Binary Search Tree (BST)
     template <class T, class Compare, class Alloc = std::allocator<node<T> > >
     class BST
@@ -28,7 +29,6 @@ namespace ft
 
             void    insert_node(value_type data)
             {
-                
                 ptr_node new_node = _alloc.allocate(1);
                 new_node->_data = data;
                 new_node->left = nullptr;
@@ -68,7 +68,7 @@ namespace ft
             }
         private:
             //NOTE - Start Tree
-            node<T>             *_root;
+            ptr_node            _root;
             allocator_type      _alloc;
             key_compare         _cmp;
 
