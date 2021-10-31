@@ -644,5 +644,17 @@ int main()
     // if (foo> bar) std::cout << "foo is greater than bar\n";
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
-    
-}
+
+    ft::pair<int, int> p;
+    p.first = 1;
+    p.second = 1337;
+    ft::pair<int, int> p1;
+    p1.first = 1;
+    p1.second = 42;
+
+
+    ft::BST<ft::pair<int, int>, std::less<int> > b;
+    b.insert_node(p); 
+    b.insert_node(p1); 
+    b.print_first();
+} 

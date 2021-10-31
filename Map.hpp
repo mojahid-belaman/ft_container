@@ -13,30 +13,65 @@ namespace ft
         node        *right;
     };
     //NOTE - Make Binary Search Tree (BST)
-    template <class T, class Alloc = std::allocator<T> >
+    template <class T, class Compare, class Alloc = std::allocator<node<T> > >
     class BST
     {
+        public:
+            typedef T           value_type;
+            typedef node<T>     *ptr_node;
+            typedef Alloc       allocator_type;
+            typedef Compare     key_compare;
+        
+            BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _alloc(alloc), _cmp(comp)
+            {
+            }
+
+            void    insert_node(value_type data)
+            {
+                
+                ptr_node new_node = _alloc.allocate(1);
+                new_node->_data = data;
+                new_node->left = nullptr;
+                new_node->right = nullptr;
+
+                if (_root == nullptr)
+                {
+                    _root = new_node;
+                    return ;
+                }
+                ptr_node tmp = _root;
+                ptr_node parent = nullptr;
+                while (tmp != nullptr)
+                {
+                    parent = tmp;
+                    if (_cmp(new_node->_data.first, tmp->_data.first))
+                        tmp = tmp->left;
+                    else if (new_node->_data.first == tmp->_data.first)
+                    {
+                        tmp->_data = new_node->_data;
+                        _alloc.deallocate(new_node, 1);
+                        return ;
+                    }
+                    else
+                        tmp = tmp->right;
+                }
+                if (_cmp(new_node->_data.first, parent->_data.first))
+                    parent->left = new_node;
+                else
+                    parent->right = new_node;
+            }
+
+            void    print_first()
+            {
+                std::cout << _root->_data.first << " , " << _root->_data.second << std::endl;
+                std::cout << _root->right->_data.first << " , " << _root->right->_data.second << std::endl;
+            }
         private:
             //NOTE - Start Tree
-            node<T>    *root;
-        public:
-            typedef typename Alloc::template rebind< node<T> >::other node_alloc; 
-        public:
-            node_alloc n;
-            //NOTE - Constructor
-            BST()
-            {
-                root = nullptr; 
-            }
-            //NOTE - Create Leaf Node
-            node<T>*   create_leaf(int data)
-            {
-                 node<T>*  new_node = n.allocate(1);
-                 new_node->_data = data;
-                 new_node->left = nullptr;
-                 new_node->right = nullptr;
-                 return new_node;
-            }
+            node<T>             *_root;
+            allocator_type      _alloc;
+            key_compare         _cmp;
+
     }; 
 
     //NOTE - class template (Pair of values)
@@ -48,8 +83,8 @@ namespace ft
         typedef T2  second_type;
 
         //NOTE - Member variables
-        T1 first;
-        T2 second;
+        first_type  first;
+        second_type second;
 
         //NOTE - default constructor
         pair() : first(), second()
@@ -154,7 +189,8 @@ namespace ft
         typedef typename allocator_type::reference              reference;
         typedef typename allocator_type::const_reference        const_reference;
         typedef typename allocator_type::pointer                pointer;
-        typedef typename allocator_type::const_pointer          const_pointer;        
+        typedef typename allocator_type::const_pointer          const_pointer;
+        typedef BST<value_type, value_compare>                    tree;
     };
 }
 
