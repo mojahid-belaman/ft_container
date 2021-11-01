@@ -646,15 +646,37 @@ int main()
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
     ft::pair<int, int> p;
-    p.first = 1;
-    p.second = 1337;
+    p.first = 21;
+    p.second = 15;
     ft::pair<int, int> p1;
-    p1.first = 2;
-    p1.second = 42;
+    p1.first = 18;
+    p1.second = 6;
+    ft::pair<int, int> p2;
+    p2.first = 25;
+    p2.second = 20;
+    ft::pair<int, int> p3;
+    p3.first = 26;
+    p3.second = 25;
+    ft::pair<int, int> p5;
+    p5.first = 19;
+    p5.second = 9;
+    ft::pair<int, int> p6;
+    p6.first = 16;
+    p6.second = 3;
+    ft::pair<int, int> p7;
+    p7.first = 20;
+    p7.second = 8;
 
 
     ft::BST<ft::pair<int, int>, std::less<int> > b;
     b.insert_node(p); 
-    b.insert_node(p1); 
+    b.insert_node(p1);
+    b.insert_node(p2);
+    b.insert_node(p3);
+    b.insert_node(p5);
+    b.insert_node(p6);
+    b.insert_node(p7);
+    ft::node<ft::pair<int, int> >* ptr = b.search_node(p);
     b.print_first();
+    std::cout << ptr->_data.second << std::endl;
 } 

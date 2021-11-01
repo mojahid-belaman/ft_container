@@ -18,10 +18,12 @@ namespace ft
     class BST
     {
         public:
-            typedef T           value_type;
-            typedef node<T>     *ptr_node;
-            typedef Alloc       allocator_type;
-            typedef Compare     key_compare;
+            typedef T                           value_type;
+            // typedef typename value_type::first  key_value;
+            // typedef typename value_type::second mapped_value;
+            typedef node<T>                     *ptr_node;
+            typedef Alloc                       allocator_type;
+            typedef Compare                     key_compare;
         
             BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _alloc(alloc), _cmp(comp)
             {
@@ -61,16 +63,65 @@ namespace ft
                     parent->right = new_node;
             }
 
+            value_type get_max()
+            {
+                ptr_node tmp = _root;
+                while (tmp->right != nullptr)
+                    tmp = tmp->right;
+                return tmp->_data;
+            }
+            value_type get_min()
+            {
+                ptr_node tmp = _root;
+                while (tmp->left != nullptr)
+                    tmp = tmp->left;
+                return tmp->_data;
+            }
+
+            ptr_node  search_node(value_type val)
+            {
+                ptr_node tmp = _root;
+                while (tmp->_data.first != val.first)
+                {
+                    if (tmp != nullptr)
+                    {
+                        if (tmp->_data.first > val.first)
+                            tmp = tmp->left;
+                        else
+                            tmp = tmp->right;
+                    }
+                    if (tmp == nullptr)
+                        return nullptr;
+                }
+                return tmp;
+                
+            }
+
+            void    delete_node(value_type val)
+            {
+                _root = remove_helper(_root, val);
+            }
             void    print_first()
             {
-                std::cout << _root->_data.first << " , " << _root->_data.second << std::endl;
-                std::cout << _root->right->_data.first << " , " << _root->right->_data.second << std::endl;
+                // std::cout << _root->_data.first << " , " << _root->_data.second << std::endl;
+                std::cout << get_max().second << std::endl;
+                std::cout << get_min().second << std::endl;
             }
         private:
             //NOTE - Start Tree
             ptr_node            _root;
             allocator_type      _alloc;
             key_compare         _cmp;
+
+            ptr_node    remove_helper(ptr_node root, value_type val)
+            {
+                if (root == nullptr)
+                    return root;
+                else if (val.first < root->_data.first)
+                    root->left = remove_helper(root->left, val);
+                else if (val.first > root->_data.first)
+                    root->right = remove_helper(root->right, val);
+            }
 
     }; 
 
@@ -190,7 +241,7 @@ namespace ft
         typedef typename allocator_type::const_reference        const_reference;
         typedef typename allocator_type::pointer                pointer;
         typedef typename allocator_type::const_pointer          const_pointer;
-        typedef BST<value_type, value_compare>                    tree;
+        typedef BST<value_type, value_compare>                  tree;
     };
 }
 
