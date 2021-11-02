@@ -642,5 +642,4 @@ int main()
     // if (foo> bar) std::cout << "foo is greater than bar\n";
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
-
 }

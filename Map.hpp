@@ -19,8 +19,6 @@ namespace ft
     {
         public:
             typedef T                           value_type;
-            // typedef typename value_type::first  key_value;
-            // typedef typename value_type::second mapped_value;
             typedef node<T>                     *ptr_node;
             typedef Alloc                       allocator_type;
             typedef Compare                     key_compare;
@@ -63,19 +61,16 @@ namespace ft
                     parent->right = new_node;
             }
 
-            value_type get_max()
+            void    get_max()
             {
                 ptr_node tmp = _root;
-                while (tmp->right != nullptr)
-                    tmp = tmp->right;
-                return tmp->_data;
+                tmp = get_max_helper(tmp);
             }
-            value_type get_min()
+
+            void    get_min()
             {
                 ptr_node tmp = _root;
-                while (tmp->left != nullptr)
-                    tmp = tmp->left;
-                return tmp->_data;
+                tmp = get_min_helper(tmp);
             }
 
             ptr_node  search_node(value_type val)
@@ -99,28 +94,73 @@ namespace ft
 
             void    delete_node(value_type val)
             {
-                _root = remove_helper(_root, val);
+                _root = delete_helper(_root, val);
             }
-            void    print_first()
+            void    print_bst()
             {
-                // std::cout << _root->_data.first << " , " << _root->_data.second << std::endl;
-                std::cout << get_max().second << std::endl;
-                std::cout << get_min().second << std::endl;
+                print_bst_preorder(this->_root);
             }
+
         private:
             //NOTE - Start Tree
             ptr_node            _root;
             allocator_type      _alloc;
             key_compare         _cmp;
 
-            ptr_node    remove_helper(ptr_node root, value_type val)
+            value_type get_max_helper(ptr_node tmp)
+            {
+                while (tmp->right != nullptr)
+                    tmp = tmp->right;
+                return tmp->_data;
+            }
+
+            value_type get_min_helper(ptr_node tmp)
+            {
+                while (tmp->left != nullptr)
+                    tmp = tmp->left;
+                return tmp->_data;
+            }
+
+            ptr_node    delete_helper(ptr_node root, value_type val)
             {
                 if (root == nullptr)
                     return root;
                 else if (val.first < root->_data.first)
-                    root->left = remove_helper(root->left, val);
+                    root->left = delete_helper(root->left, val);
                 else if (val.first > root->_data.first)
-                    root->right = remove_helper(root->right, val);
+                    root->right = delete_helper(root->right, val);
+                else
+                {
+                    if (root->left == nullptr)
+                    {
+                        ptr_node tmp = root->right;
+                        _alloc.deallocate(root, 1);
+                        return tmp;
+                    }
+                    else if (root->right == nullptr)
+                    {
+                        ptr_node tmp = root->left;
+                        _alloc.deallocate(root, 1);
+                        return tmp;
+                    }
+                    else
+                    {
+                        value_type max_val = this->get_max_helper(root->left);
+                        root->_data = max_val;
+                        root->left = delete_helper(root->left, max_val);
+                    }
+                }
+                return root;
+            }
+
+            void    print_bst_preorder(ptr_node root)
+            {
+                if (root != nullptr)
+                {
+                    std::cout << root->_data.second << "\t";
+                    print_bst_preorder(root->left);
+                    print_bst_preorder(root->right);
+                }
             }
 
     }; 
