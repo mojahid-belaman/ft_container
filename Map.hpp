@@ -39,20 +39,61 @@ namespace ft
         }
         tree_iterator&  operator++()
         {
-             if (curr_node->right != nullptr)
-             {
-                 this-curr_node = this->curr_node->right;
-                 while (curr_node->left != nullptr)
-                    this->curr_node = this->curr_node->left;
-             }
-             else
-             {
-                
-             }
              
         }
         private:
             ptr_node    curr_node;
+        //     node_pointer next()
+        //     {
+        //         TreeNode<T> *curr;
+        //         TreeNode<T> *last;
+
+        //         curr = _ptr;
+        //         if (curr->right)
+        //         {
+        //             curr = curr->right;
+        //             while (curr->left)
+        //                 curr = curr->left;
+        //             return curr;
+        //         }
+        //         else
+        //         {
+        //             while (curr->parent)
+        //             {
+        //                 last = curr;
+        //                 curr = curr->parent;
+        //                 if (curr->right != last)
+        //                     return curr;
+        //             }
+        //         }
+        //         return nullptr;
+        //     }
+
+		// node_pointer previous()
+		// {
+		// 	TreeNode<T> *curr;
+		// 	TreeNode<T> *last;
+
+		// 	curr = _ptr;
+		// 	if (curr->left)
+		// 	{
+		// 		curr = curr->left;
+		// 		while (curr->right)
+		// 			curr = curr->right;
+		// 		return curr;
+		// 	}
+		// 	else
+		// 	{
+		// 		while (curr->parent)
+		// 		{
+		// 			last = curr;
+		// 			curr = curr->parent;
+		// 			if (curr->right == last)
+		// 				return curr;
+		// 		}
+		// 	}
+		// 	return nullptr;
+		// }
     };
 
 
