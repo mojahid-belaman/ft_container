@@ -642,4 +642,13 @@ int main()
     // if (foo> bar) std::cout << "foo is greater than bar\n";
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+    std::map<char,int> mymap;
+
+    mymap['b'] = 100;
+    mymap['a'] = 200;
+    mymap['c'] = 300;
+    // show content:
+    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 }

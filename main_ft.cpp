@@ -677,10 +677,10 @@ int main()
     b.insert_node(p6);
     b.insert_node(p7);
     b.print_bst();
-     std::cout << "\nsearch node" << std::endl;
+    std::cout << "\nsearch node" << std::endl;
     ft::node<ft::pair<int, int> >* ptr = b.search_node(p3);
-    // b.print_first();
     std::cout << ptr->_data.first << ", " << ptr->_data.second << std::endl;
+    std::cout << ptr->parent->_data.first << std::endl;
     std::cout << "delete node" << std::endl;
     b.delete_node(p);
     b.print_bst();
