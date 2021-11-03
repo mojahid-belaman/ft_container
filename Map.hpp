@@ -2,6 +2,7 @@
 #define MAP_HPP
 
 #include <iostream>
+#include "Utility.hpp"
 
 namespace ft
 {
@@ -11,7 +12,49 @@ namespace ft
         T           _data;
         node        *left;
         node        *right;
+        node        *parent;
     };
+
+    //NOTE - define Iterator Tree
+    template <class T>
+    class tree_iterator
+    {
+        typedef T           value_type;
+        typedef node<T>*    ptr_node;
+
+        tree_iterator() : curr_node(nullptr)
+        {
+        }
+        tree_iterator(ptr_node ptr) : curr_node(ptr)
+        {
+        }
+
+        value_type &operator*() const
+        {
+            return (curr_node->_data);
+        }
+        value_type *operator->() const
+        {
+            return (&(curr_node->_data));
+        }
+        tree_iterator&  operator++()
+        {
+             if (curr_node->right != nullptr)
+             {
+                 this-curr_node = this->curr_node->right;
+                 while (curr_node->left != nullptr)
+                    this->curr_node = this->curr_node->left;
+             }
+             else
+             {
+                
+             }
+             
+        }
+        private:
+            ptr_node    curr_node;
+    };
+
 
     //NOTE - Make Binary Search Tree (BST)
     template <class T, class Compare, class Alloc = std::allocator<node<T> > >
@@ -33,6 +76,7 @@ namespace ft
                 new_node->_data = data;
                 new_node->left = nullptr;
                 new_node->right = nullptr;
+                new_node->parent = nullptr;
 
                 if (_root == nullptr)
                 {
@@ -59,6 +103,7 @@ namespace ft
                     parent->left = new_node;
                 else
                     parent->right = new_node;
+                new_node->parent = parent;
             }
 
             void    get_max()
