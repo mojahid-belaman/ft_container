@@ -26,6 +26,9 @@ namespace ft
             tree_iterator() : curr_node(nullptr)
             {
             }
+            tree_iterator(tree_iterator const &src) : curr_node(src.curr_node)
+            {
+            }
             tree_iterator(ptr_node ptr) : curr_node(ptr)
             {
             }
