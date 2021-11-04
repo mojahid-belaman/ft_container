@@ -643,4 +643,19 @@ int main()
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
+    std::map<int, int> m;
+    m[25] = 15;
+    m[30] = 18;    
+    m[28] = 17;    
+    m[35] = 20;    
+    m[15] = 6;    
+    m[18] = 7;    
+    m[19] = 13;    
+    m[20] = 9;    
+    m[13] = 3;    
+    m[14] = 4;    
+    m[12] = 2;    
+    std::map<int, int>::iterator it = m.begin();
+    ++it;
+    std::cout << it->first << std::endl;
 }

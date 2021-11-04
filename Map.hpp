@@ -19,96 +19,77 @@ namespace ft
     template <class T>
     class tree_iterator
     {
-        typedef T           value_type;
-        typedef node<T>*    ptr_node;
+        public:
+            typedef T           value_type;
+            typedef node<T>*    ptr_node;
 
-        tree_iterator() : curr_node(nullptr)
-        {
-        }
-        tree_iterator(ptr_node ptr) : curr_node(ptr)
-        {
-        }
-        value_type &operator*() const
-        {
-            return (curr_node->_data);
-        }
-        value_type *operator->() const
-        {
-            return (&(curr_node->_data));
-        }
-        tree_iterator&  operator++()
-        {
-              curr_node = successor();
-              return (*this);
-        }
-        protected:
-            ptr_node    curr_node;
+            tree_iterator() : curr_node(nullptr)
+            {
+            }
+            tree_iterator(ptr_node ptr) : curr_node(ptr)
+            {
+            }
+            value_type &operator*() const
+            {
+                return (curr_node->_data);
+            }
+            value_type *operator->() const
+            {
+                return (&(curr_node->_data));
+            }
+            tree_iterator&  operator++(int)
+            {
+               curr_node = successor();
+               return *this;
+            }
+            tree_iterator   operator++()
+            {
+                tree_iterator itr(*this);
+                ++(*this);
+                return itr;
+            }
+            tree_iterator& operator--(int)
+            {
+                curr_node = predecessor();
+                return *this;
+            }
+            tree_iterator   operator--()
+            {
+                tree_iterator itr(*this);
+                --(*this);
+                return (itr);
+            }
+            ~tree_iterator() {}
         private:
+            ptr_node    curr_node;
             ptr_node    successor()
             {
-                if (curr_node != nullptr)
+                ptr_node curr;
+
+                curr = curr_node;
+                if (curr->right != nullptr)
                 {
-                    curr_node = curr_node->right;
-                    while (curr_node->left)
-                        curr_node = curr_node->left;
-                    return curr_node;
+                    curr = curr->right;
+                    while (curr->left != nullptr)
+                        curr = curr->left;
+                    return curr;
                 }
                 else
                 {
-
+                    ptr_node ptr_parent = curr->parent;
+                    while (ptr_parent != nullptr && curr == ptr_parent->right)
+                    {
+                        curr = ptr_parent;
+                        ptr_parent = ptr_parent->parent;
+                    }
+                    return ptr_parent;
+                    
                 }
             }
-        //     node_pointer next()
-        //     {
-        //         TreeNode<T> *curr;
-        //         TreeNode<T> *last;
+            ptr_node    predecessor()
+            {
 
-        //         curr = _ptr;
-        //         if (curr->right)
-        //         {
-        //             curr = curr->right;
-        //             while (curr->left)
-        //                 curr = curr->left;
-        //             return curr;
-        //         }
-        //         else
-        //         {
-        //             while (curr->parent)
-        //             {
-        //                 last = curr;
-        //                 curr = curr->parent;
-        //                 if (curr->right != last)
-        //                     return curr;
-        //             }
-        //         }
-        //         return nullptr;
-        //     }
-
-		// node_pointer previous()
-		// {
-		// 	TreeNode<T> *curr;
-		// 	TreeNode<T> *last;
-
-		// 	curr = _ptr;
-		// 	if (curr->left)
-		// 	{
-		// 		curr = curr->left;
-		// 		while (curr->right)
-		// 			curr = curr->right;
-		// 		return curr;
-		// 	}
-		// 	else
-		// 	{
-		// 		while (curr->parent)
-		// 		{
-		// 			last = curr;
-		// 			curr = curr->parent;
-		// 			if (curr->right == last)
-		// 				return curr;
-		// 		}
-		// 	}
-		// 	return nullptr;
-		// }
+            }
     };
 
 
@@ -361,32 +342,35 @@ namespace ft
     template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
     class map
     {
-        //NOTE - Member types
-        typedef Key                                             key_type;
-        typedef T                                               mapped_type;
-        typedef pair<const key_type, mapped_type>               value_type;
-        typedef Compare                                         key_compare;
-        //NOTE - Nested function class to compare elements
-        class value_compare : std::binary_function<value_type, value_type, bool>
-        {
-            friend class map;
-            protected:
-                Compare comp;
-                value_compare(Compare c) : comp(c)
-                {
-                }
-            public:
-                bool operator()(const value_type& x, const value_type& y)
-                {
-                    return comp(x.first, y.first);
-                }
-        };
-        typedef Alloc                                           allocator_type;
-        typedef typename allocator_type::reference              reference;
-        typedef typename allocator_type::const_reference        const_reference;
-        typedef typename allocator_type::pointer                pointer;
-        typedef typename allocator_type::const_pointer          const_pointer;
-        typedef BST<value_type, value_compare>                  tree;
+        public:
+            //NOTE - Member types
+            typedef Key                                             key_type;
+            typedef T                                               mapped_type;
+            typedef pair<const key_type, mapped_type>               value_type;
+            typedef Compare                                         key_compare;
+            //NOTE - Nested function class to compare elements
+            class value_compare : std::binary_function<value_type, value_type, bool>
+            {
+                friend class map;
+                protected:
+                    Compare comp;
+                    value_compare(Compare c) : comp(c)
+                    {
+                    }
+                public:
+                    bool operator()(const value_type& x, const value_type& y)
+                    {
+                        return comp(x.first, y.first);
+                    }
+            };
+            typedef Alloc                                           allocator_type;
+            typedef typename allocator_type::reference              reference;
+            typedef typename allocator_type::const_reference        const_reference;
+            typedef typename allocator_type::pointer                pointer;
+            typedef typename allocator_type::const_pointer          const_pointer;
+            typedef node<value_type>                                *ptr_node;
+            typedef BST<value_type, value_compare>                  tree;
+            typedef tree_iterator<value_type>                       iterator;
     };
 }
 
