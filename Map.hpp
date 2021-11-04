@@ -28,7 +28,6 @@ namespace ft
         tree_iterator(ptr_node ptr) : curr_node(ptr)
         {
         }
-
         value_type &operator*() const
         {
             return (curr_node->_data);
@@ -39,10 +38,26 @@ namespace ft
         }
         tree_iterator&  operator++()
         {
-             
+              curr_node = successor();
+              return (*this);
         }
-        private:
+        protected:
             ptr_node    curr_node;
+        private:
+            ptr_node    successor()
+            {
+                if (curr_node != nullptr)
+                {
+                    curr_node = curr_node->right;
+                    while (curr_node->left)
+                        curr_node = curr_node->left;
+                    return curr_node;
+                }
+                else
+                {
+
+                }
+            }
         //     node_pointer next()
         //     {
         //         TreeNode<T> *curr;
@@ -220,12 +235,16 @@ namespace ft
                     if (root->left == nullptr)
                     {
                         ptr_node tmp = root->right;
+                        if (tmp != nullptr)
+                            tmp->parent = root->parent;
                         _alloc.deallocate(root, 1);
                         return tmp;
                     }
                     else if (root->right == nullptr)
                     {
                         ptr_node tmp = root->left;
+                        if (tmp != nullptr)
+                            tmp->parent = root->parent;
                         _alloc.deallocate(root, 1);
                         return tmp;
                     }
@@ -243,7 +262,7 @@ namespace ft
             {
                 if (root != nullptr)
                 {
-                    std::cout << root->_data.second << "\t";
+                    std::cout << root->_data.first << "\t";
                     print_bst_preorder(root->left);
                     print_bst_preorder(root->right);
                 }
