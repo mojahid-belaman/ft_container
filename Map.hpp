@@ -149,10 +149,10 @@ namespace ft
                 tmp = get_max_helper(tmp);
             }
 
-            void    get_min()
+            ptr_node    get_min()
             {
                 ptr_node tmp = _root;
-                tmp = get_min_helper(tmp);
+                return get_min_helper(tmp);
             }
 
             ptr_node  search_node(value_type val)
@@ -196,11 +196,11 @@ namespace ft
                 return tmp->_data;
             }
 
-            value_type get_min_helper(ptr_node tmp)
+            ptr_node get_min_helper(ptr_node tmp)
             {
                 while (tmp->left != nullptr)
                     tmp = tmp->left;
-                return tmp->_data;
+                return tmp;
             }
 
             ptr_node    delete_helper(ptr_node root, value_type val)
@@ -368,7 +368,6 @@ namespace ft
             typedef typename allocator_type::const_reference        const_reference;
             typedef typename allocator_type::pointer                pointer;
             typedef typename allocator_type::const_pointer          const_pointer;
-            typedef node<value_type>                                *ptr_node;
             typedef BST<value_type, value_compare>                  tree;
             typedef tree_iterator<value_type>                       iterator;
     };
