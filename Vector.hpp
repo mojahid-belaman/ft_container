@@ -413,11 +413,11 @@ namespace ft
         typedef ptrdiff_t                                   difference_type;
         typedef size_t                                      size_type;
         // TODO - Implement Constructor Default (empty)
-        vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _arr(nullptr), _alloc(alloc)
+        explicit vector (const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _arr(nullptr), _alloc(alloc)
         {
         }
         // TODO - Implement Constructor Fill (Parametrize)
-        vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+        explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
                 : _size(n), _capacity(n), _alloc(alloc)
         {
             _arr = _alloc.allocate(_capacity);

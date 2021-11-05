@@ -667,25 +667,33 @@ int main()
     p7.first = 20;
     p7.second = 8;
 
-
-    ft::BST<ft::pair<int, int>, std::less<int> > b;
-    b.insert_node(p); 
+    ft::map<int, int>::tree b;
     b.insert_node(p1);
     b.insert_node(p2);
     b.insert_node(p3); // 26
     b.insert_node(p5);
     b.insert_node(p6);
     b.insert_node(p7);
-    // b.print_bst();
-    // std::cout << "\nsearch node" << std::endl;
-    // ft::node<ft::pair<int, int> >* ptr = b.search_node(p3);
-    // std::cout << ptr->_data.first << ", " << ptr->_data.second << std::endl;
+    b.print_bst();
+    // // std::cout << "\nsearch node" << std::endl;
+    // ft::node<ft::pair<const int, int> >* ptr = b.search_node(p3);
+    // std::cout << "\n search" << ptr->_data.first << ", " << ptr->_data.second << std::endl;
     // std::cout << ptr->parent->_data.first << std::endl;
     // std::cout << "delete node" << std::endl;
-    // b.delete_node(p);
+    // b.delete_node(p3);
     // b.print_bst();
 
-    // //iterator
-    ft::map<int, int>::iterator it(b.get_min());
-
+    // iterator
+    ft::map<int, int>::const_iterator it(b.get_max());
+    ft::map<int, int>::const_iterator it1(b.get_min());
+    for (; it != it1; it--)
+    {
+    std::cout << it->first << "\t";
+    std::cout << it->second << std::endl;
+    }
+    std::cout << it->first << "\t";
+    std::cout << it->second << std::endl;
+    // it++;
+    // std::cout << it->first << std::endl;
+    // std::cout << it->second << std::endl;
 } 

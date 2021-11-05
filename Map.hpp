@@ -2,107 +2,17 @@
 #define MAP_HPP
 
 #include <iostream>
-#include "Utility.hpp"
+#include "Utility_map.hpp"
 
 namespace ft
 {
-    template <class T>
-    struct node
-    {
-        T           _data;
-        node        *left;
-        node        *right;
-        node        *parent;
-    };
-
-    //NOTE - define Iterator Tree
-    template <class T>
-    class tree_iterator
-    {
-        public:
-            typedef T           value_type;
-            typedef node<T>*    ptr_node;
-
-            tree_iterator() : curr_node(nullptr)
-            {
-            }
-            tree_iterator(tree_iterator const &src) : curr_node(src.curr_node)
-            {
-            }
-            tree_iterator(ptr_node ptr) : curr_node(ptr)
-            {
-            }
-            value_type &operator*() const
-            {
-                return (curr_node->_data);
-            }
-            value_type *operator->() const
-            {
-                return (&(curr_node->_data));
-            }
-            tree_iterator&  operator++(int)
-            {
-               curr_node = successor();
-               return *this;
-            }
-            tree_iterator   operator++()
-            {
-                tree_iterator itr(*this);
-                ++(*this);
-                return itr;
-            }
-            tree_iterator& operator--(int)
-            {
-                curr_node = predecessor();
-                return *this;
-            }
-            tree_iterator   operator--()
-            {
-                tree_iterator itr(*this);
-                --(*this);
-                return (itr);
-            }
-            ~tree_iterator() {}
-        private:
-            ptr_node    curr_node;
-            ptr_node    successor()
-            {
-                ptr_node curr;
-
-                curr = curr_node;
-                if (curr->right != nullptr)
-                {
-                    curr = curr->right;
-                    while (curr->left != nullptr)
-                        curr = curr->left;
-                    return curr;
-                }
-                else
-                {
-                    ptr_node ptr_parent = curr->parent;
-                    while (ptr_parent != nullptr && curr == ptr_parent->right)
-                    {
-                        curr = ptr_parent;
-                        ptr_parent = ptr_parent->parent;
-                    }
-                    return ptr_parent;
-                    
-                }
-            }
-            ptr_node    predecessor()
-            {
-
-            }
-    };
-
-
     //NOTE - Make Binary Search Tree (BST)
     template <class T, class Compare, class Alloc = std::allocator<node<T> > >
     class BST
     {
         public:
-            typedef T                           value_type;
-            typedef node<T>                     *ptr_node;
+            typedef T                           value_type; //pair
+            typedef node<T>*                    ptr_node;
             typedef Alloc                       allocator_type;
             typedef Compare                     key_compare;
         
@@ -113,7 +23,7 @@ namespace ft
             void    insert_node(value_type data)
             {
                 ptr_node new_node = _alloc.allocate(1);
-                new_node->_data = data;
+                _alloc.construct(new_node, data);
                 new_node->left = nullptr;
                 new_node->right = nullptr;
                 new_node->parent = nullptr;
@@ -130,9 +40,10 @@ namespace ft
                     parent = tmp;
                     if (_cmp(new_node->_data.first, tmp->_data.first))
                         tmp = tmp->left;
+                    //FIXME - not fixed
                     else if (new_node->_data.first == tmp->_data.first)
                     {
-                        tmp->_data = new_node->_data;
+                        tmp->_data.second = new_node->_data.second;
                         _alloc.deallocate(new_node, 1);
                         return ;
                     }
@@ -146,10 +57,10 @@ namespace ft
                 new_node->parent = parent;
             }
 
-            void    get_max()
+            ptr_node    get_max()
             {
                 ptr_node tmp = _root;
-                tmp = get_max_helper(tmp);
+                return get_max_helper(tmp);
             }
 
             ptr_node    get_min()
@@ -192,11 +103,11 @@ namespace ft
             allocator_type      _alloc;
             key_compare         _cmp;
 
-            value_type get_max_helper(ptr_node tmp)
+            ptr_node get_max_helper(ptr_node tmp)
             {
                 while (tmp->right != nullptr)
                     tmp = tmp->right;
-                return tmp->_data;
+                return tmp;
             }
 
             ptr_node get_min_helper(ptr_node tmp)
@@ -234,9 +145,10 @@ namespace ft
                     }
                     else
                     {
-                        value_type max_val = this->get_max_helper(root->left);
-                        root->_data = max_val;
-                        root->left = delete_helper(root->left, max_val);
+                        ptr_node max_val = this->get_max_helper(root->left);
+                        // root->_data.second = max_val;
+                        _alloc.construct(root, max_val->_data);
+                        root->left = delete_helper(root->left, max_val->_data);
                     }
                 }
                 return root;
@@ -371,8 +283,11 @@ namespace ft
             typedef typename allocator_type::const_reference        const_reference;
             typedef typename allocator_type::pointer                pointer;
             typedef typename allocator_type::const_pointer          const_pointer;
-            typedef BST<value_type, value_compare>                  tree;
+            typedef const value_type                                const_value_type;
+            typedef BST<value_type, key_compare>                    tree;
             typedef tree_iterator<value_type>                       iterator;
+            typedef tree_iterator<const_value_type>                 const_iterator;
+
     };
 }
 
