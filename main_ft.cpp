@@ -648,44 +648,45 @@ int main()
     // ft::pair<int, int> p;
     // // p.first = 21;
     // // p.second = 15;
-    ft::pair<const int, int> p1(18, 6);
-    // p1.first = 18;
-    // p1.second = 6;
-    ft::pair<const int, int> p2(25, 20);
-    // p2.first = 25;
-    // p2.second = 20;
-    // ft::pair<int, int> p3;
-    // p3.first = 26;
-    // p3.second = 25;
-    // ft::pair<int, int> p5;
-    // p5.first = 19;
-    // p5.second = 9;
-    // ft::pair<int, int> p6;
-    // p6.first = 16;
-    // p6.second = 3;
-    // ft::pair<int, int> p7;
-    // p7.first = 20;
-    // p7.second = 8;
+    ft::pair<int, int> p1;
+    p1.first = 18;
+    p1.second = 6;
+    ft::pair<int, int> p2;
+    p2.first = 25;
+    p2.second = 20;
+    ft::pair<int, int> p3;
+    p3.first = 26;
+    p3.second = 25;
+    ft::pair<int, int> p5;
+    p5.first = 19;
+    p5.second = 9;
+    ft::pair<int, int> p6;
+    p6.first = 16;
+    p6.second = 3;
+    ft::pair<int, int> p7;
+    p7.first = 20;
+    p7.second = 8;
 
     ft::map<int, int>::tree b;
     b.insert_node(p1);
     b.insert_node(p2);
-    // b.insert_node(p3); // 26
-    // b.insert_node(p5);
-    // b.insert_node(p6);
-    // b.insert_node(p7);
-    // b.print_bst();
+    b.insert_node(p3); // 26
+    b.insert_node(p5);
+    b.insert_node(p6);
+    b.insert_node(p7);
+    b.print_bst();
     // // std::cout << "\nsearch node" << std::endl;
     // ft::node<ft::pair<const int, int> >* ptr = b.search_node(p3);
     // std::cout << "\n search" << ptr->_data.first << ", " << ptr->_data.second << std::endl;
     // std::cout << ptr->parent->_data.first << std::endl;
-    // std::cout << "delete node" << std::endl;
-    // b.delete_node(p3);
+    // std::cout << "\ndelete node" << std::endl;
+    // b.delete_node(p1);
     // b.print_bst();
 
     // iterator
-    ft::map<int, int>::const_iterator it(b.get_max());
-    ft::map<int, int>::const_iterator it1(b.get_min());
+    // ft::map<int, int>::const_iterator it(b.get_max());
+    // ft::map<int, int>::const_iterator it1(b.get_min());
+    // std::cout << it->first << " " << it->second << std::endl;
     // for (; it != it1; it--)
     // {
     // std::cout << it->first << "\t";

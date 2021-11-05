@@ -11,7 +11,7 @@ namespace ft
     class BST
     {
         public:
-            typedef T                           value_type; //pair
+            typedef T                           value_type;
             typedef node<T>*                    ptr_node;
             typedef Alloc                       allocator_type;
             typedef Compare                     key_compare;
@@ -146,7 +146,6 @@ namespace ft
                     else
                     {
                         ptr_node max_val = this->get_max_helper(root->left);
-                        // root->_data.second = max_val;
                         _alloc.construct(root, max_val->_data);
                         root->left = delete_helper(root->left, max_val->_data);
                     }
@@ -284,9 +283,8 @@ namespace ft
             typedef typename allocator_type::pointer                pointer;
             typedef typename allocator_type::const_pointer          const_pointer;
             typedef const value_type                                const_value_type;
-            typedef node<value_type>                                node;
-            typedef node*                                           ptr_node;
             typedef BST<value_type, key_compare>                    tree;
+            typedef typename tree::ptr_node                         ptr_node;
             typedef tree_iterator<value_type, ptr_node>             iterator;
             typedef tree_iterator<const_value_type, ptr_node>       const_iterator;
     };

@@ -25,7 +25,6 @@ namespace ft
     {
         public:
             typedef T                   value_type;
-            // typedef node<T>*            ptr_node;
 
             tree_iterator() : curr_node(nullptr)
             {
