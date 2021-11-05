@@ -284,10 +284,11 @@ namespace ft
             typedef typename allocator_type::pointer                pointer;
             typedef typename allocator_type::const_pointer          const_pointer;
             typedef const value_type                                const_value_type;
+            typedef node<value_type>                                node;// todo
+            typedef node*                                ptr_node; // todo
             typedef BST<value_type, key_compare>                    tree;
-            typedef tree_iterator<value_type>                       iterator;
-            typedef tree_iterator<const_value_type>                 const_iterator;
-
+            // typedef tree_iterator<value_type>                       iterator;
+            typedef tree_iterator<const_value_type, ptr_node>                 const_iterator;
     };
 }
 

@@ -20,12 +20,12 @@ namespace ft
     };
 
     //NOTE - define Iterator Tree
-    template <class T>
+    template <class T, class ptr_node>
     class tree_iterator
     {
         public:
             typedef T                   value_type;
-            typedef node<T>*            ptr_node;
+            // typedef node<T>*            ptr_node;
 
             tree_iterator() : curr_node(nullptr)
             {
