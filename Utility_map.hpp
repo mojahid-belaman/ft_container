@@ -2,10 +2,9 @@
 #define UTILITY_MAP_HPP
 
 #include <iostream>
-
+#include "Utility.hpp"
 namespace ft
 {
-
     template <class T>
     struct node
     {
@@ -119,6 +118,90 @@ namespace ft
 
                 }
             }
+    };
+
+    //NOTE - define Reverse Iterator Tree
+    template <class iter>
+    class tree_reverse_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<iter>::value_type>
+    {
+        private:
+            iter _it;
+        public:
+            typedef    iter                                             iterator_type;
+            typedef typename    iterator_traits<iter>::difference_type  difference_type;
+            typedef typename    iterator_traits<iter>::reference        reference;
+            typedef typename    iterator_traits<iter>::pointer          pointer;
+
+            iterator_type base() const
+            {
+                return (_it);
+            }
+            tree_reverse_iterator() : _it()
+            {
+            }
+            explicit tree_reverse_iterator (iterator_type it) : _it(it)
+            {
+            }
+            template <class Iter>
+            tree_reverse_iterator (const tree_reverse_iterator<Iter>& rev_it) : _it(rev_it.base())
+            {
+            }
+            reference operator*() const
+            {
+                iter tmp = _it;
+                return *--tmp;
+            }
+            tree_reverse_iterator operator+ (difference_type n) const
+            {
+                return tree_reverse_iterator(_it - n);
+            }
+            tree_reverse_iterator& operator++()
+            {
+                --_it;
+                return *this;
+            }
+            tree_reverse_iterator  operator++(int)
+            {
+                tree_reverse_iterator tmp(*this);
+                --_it;
+                return (tmp);
+            }
+            tree_reverse_iterator& operator+= (difference_type n)
+            {
+                _it -= n;
+                return (*this);
+            }
+            tree_reverse_iterator operator- (difference_type n) const
+            {
+                return (tree_reverse_iterator(_it + n));
+            }
+            tree_reverse_iterator& operator--()
+            {
+                ++_it;
+                return (*this);
+            }
+            tree_reverse_iterator  operator--(int)
+            {
+                tree_reverse_iterator tmp(*this);
+                ++_it;
+                return (tmp);
+            }
+            tree_reverse_iterator& operator-= (difference_type n)
+            {
+                _it += n;
+                return (*this);
+            }
+            pointer operator->() const
+            {
+                return (this->_it);
+            }
+            reference operator[] (difference_type n) const
+            {
+                return(*(_it - n));
+            }
+
+            
+
     };
 }
 #endif

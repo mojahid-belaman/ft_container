@@ -287,6 +287,7 @@ namespace ft
             typedef typename tree::ptr_node                         ptr_node;
             typedef tree_iterator<value_type, ptr_node>             iterator;
             typedef tree_iterator<const_value_type, ptr_node>       const_iterator;
+            typedef tree_reverse_iterator<iterator>                 reverse_iterator;
     };
 }
 
