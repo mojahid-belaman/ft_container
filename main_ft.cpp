@@ -684,9 +684,12 @@ int main()
     // b.print_bst();
 
     // iterator
+    // ft::map<int, int>::iterator it(b.get_max());
+    // ft::map<int, int>::reverse_iterator rit(it);
+    // std::cout << "\n" << it->first << std::endl;
     // ft::map<int, int>::const_iterator it(b.get_max());
     // ft::map<int, int>::const_iterator it1(b.get_min());
-    // std::cout << it->first << " " << it->second << std::endl;
+    // std::cout << "\n" << it->first << " " << it->second << std::endl;
     // for (; it != it1; it--)
     // {
     // std::cout << it->first << "\t";

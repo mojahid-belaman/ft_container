@@ -282,12 +282,14 @@ namespace ft
             typedef typename allocator_type::const_reference        const_reference;
             typedef typename allocator_type::pointer                pointer;
             typedef typename allocator_type::const_pointer          const_pointer;
-            typedef const value_type                                const_value_type;
             typedef BST<value_type, key_compare>                    tree;
             typedef typename tree::ptr_node                         ptr_node;
             typedef tree_iterator<value_type, ptr_node>             iterator;
-            typedef tree_iterator<const_value_type, ptr_node>       const_iterator;
+            typedef const_tree_iterator<value_type, ptr_node>       const_iterator;
             typedef tree_reverse_iterator<iterator>                 reverse_iterator;
+            typedef tree_reverse_iterator<const_iterator>           const_reverse_iterator;
+        private:
+            tree    _tree;
     };
 }
 

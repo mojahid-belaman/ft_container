@@ -35,7 +35,7 @@ void    do_some(MyIter f, MyIter l)
 
 int main()
 {
-    // std::vector<int>v;
+    std::vector<int>v;
     // for (int i = 0; i < 10; i++)
     // {
     //     v.push_back(i);

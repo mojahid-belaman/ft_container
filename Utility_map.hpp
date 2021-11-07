@@ -2,9 +2,51 @@
 #define UTILITY_MAP_HPP
 
 #include <iostream>
-#include "Utility.hpp"
 namespace ft
 {
+    //TODO - Define Iterator traits
+template <class T>
+class iterator_traits
+{
+    public:
+        typedef typename T::value_type value_type;
+        typedef typename T::difference_type difference_type;
+        typedef typename T::iterator_category iterator_category;
+        typedef typename T::pointer pointer;
+        typedef typename T::reference reference;
+};
+template <typename T>
+class iterator_traits<T*>
+{
+    public:
+        typedef std::bidirectional_iterator_tag iterator_category;
+        typedef T                               value_type;
+        typedef T*                              pointer;
+        typedef T&                              reference;
+        typedef std::ptrdiff_t                  difference_type;
+};
+template <typename T>
+class iterator_traits<const T*>
+{
+    public:
+        typedef std::bidirectional_iterator_tag iterator_category;
+        typedef T                               value_type;
+        typedef const T*                        pointer;
+        typedef const T&                        reference;
+        typedef std::ptrdiff_t                  difference_type;
+};
+//TODO - Base Iterator
+template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+class iterator 
+{
+    public:
+        typedef T         value_type;
+        typedef Distance  difference_type;
+        typedef Pointer   pointer;
+        typedef Reference reference;
+        typedef Category  iterator_category;
+};
+
     template <class T>
     struct node
     {
@@ -20,10 +62,11 @@ namespace ft
 
     //NOTE - define Iterator Tree
     template <class T, class ptr_node>
-    class tree_iterator
+    class tree_iterator : public ft::iterator<std::bidirectional_iterator_tag, typename ft::iterator_traits<T*>::value_type>
     {
         public:
-            typedef T                   value_type;
+            typedef typename ft::iterator_traits<T*>::reference reference;
+            typedef typename ft::iterator_traits<T*>::pointer pointer;
 
             tree_iterator() : curr_node(nullptr)
             {
@@ -31,11 +74,11 @@ namespace ft
             tree_iterator(ptr_node ptr) : curr_node(ptr)
             {
             }
-            value_type   &operator*() const
+            reference operator*() const
             {
                 return (curr_node->_data);
             }
-            value_type *operator->() const
+            pointer operator->() const
             {
                 return (&(curr_node->_data));
             }
@@ -120,6 +163,109 @@ namespace ft
             }
     };
 
+    //NOTE - define const Iterator Tree
+    template <class T, class ptr_node>
+    class const_tree_iterator
+    {
+        public:
+            typedef typename ft::iterator_traits<const T*>::value_type      value_type;
+            typedef typename ft::iterator_traits<const T*>::reference       reference;
+            typedef typename ft::iterator_traits<const T*>::pointer          pointer;
+
+            const_tree_iterator() : curr_node(nullptr)
+            {
+            }
+            const_tree_iterator(ptr_node ptr) : curr_node(ptr)
+            {
+            }
+            reference   operator*() const
+            {
+                return (curr_node->_data);
+            }
+            pointer operator->() const
+            {
+                return (&(curr_node->_data));
+            }
+            const_tree_iterator&  operator++()
+            {
+               curr_node = successor();
+               return *this;
+            }
+            const_tree_iterator   operator++(int)
+            {
+                const_tree_iterator itr(*this);
+                ++(*this);
+                return itr;
+            }
+            const_tree_iterator& operator--()
+            {
+                curr_node = predecessor();
+                return *this;
+            }
+            const_tree_iterator   operator--(int)
+            {
+                const_tree_iterator itr(*this);
+                --(*this);
+                return (itr);
+            }
+            friend  bool  operator==(const const_tree_iterator& x, const const_tree_iterator& y)
+            {
+                return (x.curr_node == y.curr_node);
+            }
+            friend  bool  operator!=(const const_tree_iterator& x, const const_tree_iterator& y)
+            {
+                return (x.curr_node != y.curr_node);
+            }
+            ~const_tree_iterator() {}
+        private:
+            ptr_node    curr_node;
+            ptr_node    successor()
+            {
+                ptr_node curr;
+
+                curr = curr_node;
+                if (curr->right != nullptr)
+                {
+                    curr = curr->right;
+                    while (curr->left != nullptr)
+                        curr = curr->left;
+                    return curr;
+                }
+                else
+                {
+                    ptr_node ptr_parent = curr->parent;
+                    while (ptr_parent != nullptr && curr == ptr_parent->right)
+                    {
+                        curr = ptr_parent;
+                        ptr_parent = ptr_parent->parent;
+                    }
+                    return ptr_parent;
+                }
+            }
+            ptr_node    predecessor()
+            {
+                ptr_node curr;
+                curr = curr_node;
+                if (curr->left != nullptr)
+                {
+                    curr = curr->left;
+                    while (curr->right != nullptr)
+                        curr = curr->right;
+                    return curr;
+                }
+                else
+                {
+                    ptr_node ptr_parent = curr->parent;
+                    while (ptr_parent != nullptr && curr == ptr_parent->left)
+                    {
+                        curr = ptr_parent;
+                        ptr_parent = ptr_parent->parent;
+                    }
+                    return ptr_parent;
+
+                }
+            }
+    };
     //NOTE - define Reverse Iterator Tree
     template <class iter>
     class tree_reverse_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<iter>::value_type>
@@ -199,9 +345,6 @@ namespace ft
             {
                 return(*(_it - n));
             }
-
-            
-
     };
 }
 #endif
