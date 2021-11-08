@@ -16,10 +16,9 @@ namespace ft
             typedef Alloc                       allocator_type;
             typedef Compare                     key_compare;
         
-            BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _alloc(alloc), _cmp(comp)
+            BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _end(nullptr), _alloc(alloc), _cmp(comp)
             {
             }
-
             void    insert_node(value_type data)
             {
                 ptr_node new_node = _alloc.allocate(1);
@@ -30,7 +29,10 @@ namespace ft
 
                 if (_root == nullptr)
                 {
+                    _end = _alloc.allocate(1);
                     _root = new_node;
+                    _root->parent = _end;
+                    _end->left = _root;
                     return ;
                 }
                 ptr_node tmp = _root;
@@ -56,7 +58,6 @@ namespace ft
                     parent->right = new_node;
                 new_node->parent = parent;
             }
-
             ptr_node    get_max()
             {
                 ptr_node tmp = _root;
@@ -100,6 +101,7 @@ namespace ft
         private:
             //NOTE - Start Tree
             ptr_node            _root;
+            ptr_node            _end;
             allocator_type      _alloc;
             key_compare         _cmp;
 
@@ -107,7 +109,7 @@ namespace ft
             {
                 while (tmp->right != nullptr)
                     tmp = tmp->right;
-                return tmp;
+                return _end;
             }
 
             ptr_node get_min_helper(ptr_node tmp)
@@ -288,8 +290,62 @@ namespace ft
             typedef const_tree_iterator<value_type, ptr_node>       const_iterator;
             typedef tree_reverse_iterator<iterator>                 reverse_iterator;
             typedef tree_reverse_iterator<const_iterator>           const_reverse_iterator;
+            typedef ptrdiff_t                                       difference_type;
+            typedef size_t                                          size_type;
+
+            //NOTE - Default Constructor
+            explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : 
+                            _tree(), _cmp(comp), _alloc(alloc)
+            {
+            }
+            //NOTE - Range Constructor
+            // template <class InputIterator>
+            // map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+            //     tree(), _cmp(comp), _alloc(alloc)
+            // {
+                
+            // }
+
+            //NOTE - Return iterator to beginning
+            iterator begin()
+            {
+                return iterator(_tree.get_min());
+            }
+            const_iterator begin() const
+            {
+                iterator(_tree.get_min());
+            }
+            //NOTE - Return iterator to end
+            iterator end()
+            {
+                return iterator(_tree.get_max());
+            }
+            const_iterator end() const
+            {
+                return iterator(_tree.get_max());
+            }
+            //NOTE - Return reverse iterator to reverse beginning
+            reverse_iterator rbegin()
+            {
+                return reverse_iterator(this->end());
+            }
+            const_reverse_iterator rbegin() const
+            {
+                return reverse_iterator(this->end());
+            }
+            //NOTE - Return reverse iterator to reverse end
+            reverse_iterator rend()
+            {
+                return reverse_iterator(this->begin());
+            }
+            const_reverse_iterator rend() const
+            {
+                return reverse_iterator(this->begin());
+            }
         private:
             tree    _tree;
+            key_compare _cmp;
+            allocator_type _alloc;
     };
 }
 

@@ -642,5 +642,21 @@ int main()
     // if (foo> bar) std::cout << "foo is greater than bar\n";
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+    //NOTE - Construct map
+    // std::map<char,int> first;
+    // first['a']=10;
+    // first['b']=30;
+    // first['c']=50;
+    // first['d']=70;
+    // std::map<char, int>::iterator i = first.end();
+    // std::cout << i->first << "\t" << i->second << std::endl;
+    // i++;
+    // std::cout << i->first << "\t" << i->second << std::endl;
+    // std::map<char,int> second (first.begin(),first.end());
+    // for (std::map<char, int>::iterator i = second.begin(); i != second.end(); i++)
+    // {
+    //     std::cout << i->first << "\t" << i->second << std::endl;
+    // }
     
 }

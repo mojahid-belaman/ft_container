@@ -55,7 +55,7 @@ class iterator
         node        *right;
         node        *parent;
 
-        node(const T& src) : _data(src)
+        node(const T& src_data) : _data(src_data)
         {
         }
     };

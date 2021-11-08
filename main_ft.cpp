@@ -2,6 +2,8 @@
 #include "Stack.hpp"
 #include "Map.hpp"
 #include <iostream>
+#include <map>
+
 
 typedef struct data
 {
@@ -645,9 +647,10 @@ int main()
     // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
-    // ft::pair<int, int> p;
-    // // p.first = 21;
-    // // p.second = 15;
+    //NOTE - Construct map
+    ft::pair<int, int> p;
+    p.first = 21;
+    p.second = 15;
     ft::pair<int, int> p1;
     p1.first = 18;
     p1.second = 6;
@@ -667,14 +670,66 @@ int main()
     p7.first = 20;
     p7.second = 8;
 
+
+    std::pair<int, int> p551;
+    p551.first = 21;
+    p551.second = 15;
+    std::pair<int, int> p51;
+    p51.first = 18;
+    p51.second = 6;
+    std::pair<int, int> p52;
+    p52.first = 25;
+    p52.second = 20;
+    std::pair<int, int> p53;
+    p53.first = 26;
+    p53.second = 25;
+    std::pair<int, int> p55;
+    p55.first = 19;
+    p55.second = 9;
+    std::pair<int, int> p56;
+    p56.first = 16;
+    p56.second = 3;
+    std::pair<int, int> p57;
+    p57.first = 20;
+    p57.second = 8;
+
+    std::map<int, int> y;
+    std::map<int, int>::iterator it5;
+    y.insert(p551);
+    y.insert(p51);
+    y.insert(p52);
+    y.insert(p53); // 26
+    y.insert(p55);
+    y.insert(p56);
+    y.insert(p57);
+
+it5 = y.begin();
+while (it5 != y.end())
+{
+    std::cout << it5->first << std::endl;
+    it5++;
+}
+
+
+    ft::map<int, int> m;
     ft::map<int, int>::tree b;
+
+    b.insert_node(p);
     b.insert_node(p1);
     b.insert_node(p2);
     b.insert_node(p3); // 26
     b.insert_node(p5);
     b.insert_node(p6);
     b.insert_node(p7);
-    b.print_bst();
+    ft::map<int, int>::iterator it6(b.get_min());;
+    ft::map<int, int>::iterator it7(b.get_max());
+    std::cout << "my tree" << std::endl;
+while (it6 != it7)
+{
+    std::cout << it6->first << std::endl;
+    it6++;
+}
+    // b.print_bst();
     // // std::cout << "\nsearch node" << std::endl;
     // ft::node<ft::pair<const int, int> >* ptr = b.search_node(p3);
     // std::cout << "\n search" << ptr->_data.first << ", " << ptr->_data.second << std::endl;
@@ -685,10 +740,12 @@ int main()
 
     // iterator
     // ft::map<int, int>::iterator it(b.get_max());
+    // std::cout << "\n" << it->first << " " << it->second << std::endl;
     // ft::map<int, int>::reverse_iterator rit(it);
     // std::cout << "\n" << it->first << std::endl;
     // ft::map<int, int>::const_iterator it(b.get_max());
     // ft::map<int, int>::const_iterator it1(b.get_min());
+    // --it;
     // std::cout << "\n" << it->first << " " << it->second << std::endl;
     // for (; it != it1; it--)
     // {
