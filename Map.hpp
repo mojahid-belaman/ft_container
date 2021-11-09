@@ -301,9 +301,8 @@ namespace ft
             //NOTE - Range Constructor
             // template <class InputIterator>
             // map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-            //     tree(), _cmp(comp), _alloc(alloc)
+            //     _tree(), _cmp(comp), _alloc(alloc)
             // {
-                
             // }
 
             //NOTE - Return iterator to beginning
