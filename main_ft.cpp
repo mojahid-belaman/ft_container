@@ -752,5 +752,10 @@ int main()
     // std::cout << it->first << std::endl;
     // std::cout << it->second << std::endl;
 
-    
+    // ft::map<int, int>::tree tr;
+    // for (size_t i = 0; i < 100000; i++)
+    // {
+    //     tr.insert_node(ft::make_pair(i, i*2));
+    // }
+    // std::cout << tr.search_node(ft::make_pair(99999, 12))->_data.second << std::endl;
 } 
