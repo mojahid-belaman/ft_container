@@ -38,57 +38,67 @@ public:
                  ptr->left = create_leaf(data);
         }
     }
-    //     node_pointer next()
-        //     {
-        //         TreeNode<T> *curr;
-        //         TreeNode<T> *last;
+    //  size_type       height
 
-        //         curr = _ptr;
-        //         if (curr->right)
-        //         {
-        //             curr = curr->right;
-        //             while (curr->left)
-        //                 curr = curr->left;
-        //             return curr;
-        //         }
-        //         else
-        //         {
-        //             while (curr->parent)
-        //             {
-        //                 last = curr;
-        //                 curr = curr->parent;
-        //                 if (curr->right != last)
-        //                     return curr;
-        //             }
-        //         }
-        //         return nullptr;
-        //     }
+    //  size_type   max(size_type a, size_type b) {
+    //     return (a > b) ? a : b;
+    // }
 
-		// node_pointer previous()
-		// {
-		// 	TreeNode<T> *curr;
-		// 	TreeNode<T> *last;
+    //  size_type   heightOf(AvlNode node) {
+    //     return (node == NULL) ? 0 : node->height;
+    // }
 
-		// 	curr = _ptr;
-		// 	if (curr->left)
-		// 	{
-		// 		curr = curr->left;
-		// 		while (curr->right)
-		// 			curr = curr->right;
-		// 		return curr;
-		// 	}
-		// 	else
-		// 	{
-		// 		while (curr->parent)
-		// 		{
-		// 			last = curr;
-		// 			curr = curr->parent;
-		// 			if (curr->right == last)
-		// 				return curr;
-		// 		}
-		// 	}
-		// 	return nullptr;
-		// }
+    //  int getBalanceFactor(AvlNode node) {
+    //     return (node == NULL) ? 0 : heightOf(node->left) - heightOf(node->right);
+    // }
+
+    //  AvlNode rightRotate(AvlNode y) {
+    //     AvlNode		x = y->left;
+
+    //     if(x->right != NULL)
+    //         x->right->parent = y;
+	// 	x->parent = y->parent;
+	// 	y->parent = x;
+    //     y->left = x->right;
+	// 	x->right = y;
+    //     y->height = max(heightOf(y->left), heightOf(y->right)) + 1;
+    //     x->height = max(heightOf(x->left), heightOf(x->right)) + 1;
+    //     return x;
+    // }
+
+    //  AvlNode leftRotate(AvlNode x) {
+    //     AvlNode     y = x->right;
+
+    //     if(y->left != NULL)
+    //         y->left->parent = x;
+    //     y->parent = x->parent;
+	// 	x->parent = y;
+	// 	x->right = y->left;
+	// 	y->left = x;
+    //     x->height = max(heightOf(x->left), heightOf(x->right)) + 1;
+    //     y->height = max(heightOf(y->left), heightOf(y->right)) + 1;
+    //     return y;
+    // }
+
+    // node->height = max(heightOf(node->left), heightOf(node->right)) + 1;
+    //     int balanceFactor = getBalanceFactor(node);
+    //     if (balanceFactor > 1) {
+    //         if (m_comp(data, node->left->data)) {
+    //             return rightRotate(node);
+    //         } else {
+    //             node->left = leftRotate(node->left);
+    //             return rightRotate(node);
+    //         }
+    //     } else if (balanceFactor < -1) {
+    //         if (m_comp(node->right->data, data)) {
+    //             return leftRotate(node);
+    //         } else {
+    //             node->right = rightRotate(node->right);
+    //             return leftRotate(node);
+    //         }
+    //     }
+    //     return node;
+
 };
 
 #endif
