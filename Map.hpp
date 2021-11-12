@@ -26,6 +26,7 @@ namespace ft
                 new_node->left = nullptr;
                 new_node->right = nullptr;
                 new_node->parent = nullptr;
+                new_node->bf = 0;
 
                 if (_root == nullptr)
                 {
@@ -42,7 +43,6 @@ namespace ft
                     parent = tmp;
                     if (_cmp(new_node->_data.first, tmp->_data.first))
                         tmp = tmp->left;
-                    //FIXME - not fixed
                     else if (new_node->_data.first == tmp->_data.first)
                     {
                         tmp->_data.second = new_node->_data.second;
@@ -57,6 +57,9 @@ namespace ft
                 else
                     parent->right = new_node;
                 new_node->parent = parent;
+
+                //NOTE - Calcule bf every node
+                update_balance_factor(new_node);                
             }
             ptr_node    get_max()
             {
@@ -162,6 +165,27 @@ namespace ft
                     std::cout << root->_data.first << "\t";
                     print_bst_preorder(root->left);
                     print_bst_preorder(root->right);
+                }
+            }
+            void    rebalance(ptr_node)
+            {
+
+            }
+            void    update_balance_factor(ptr_node node)
+            {
+                if (node->bf < -1 || node->bf > 1)
+                {
+                    rebalance(node);
+                    return ;
+                }
+                if (node->parent != nullptr)
+                {
+                    if (node == node->parent->left)
+                        node->parent->bf -= 1;
+                    if (node == node->parent->right)
+                        node->parent->bf += 1;
+                    if (node->parent->bf != 0)
+                        update_balance_factor(node->parent);
                 }
             }
 
@@ -319,28 +343,28 @@ namespace ft
             {
                 return iterator(_tree.get_max());
             }
-            const_iterator end() const
-            {
-                return iterator(_tree.get_max());
-            }
+            // const_iterator end() const
+            // {
+            //     return iterator(_tree.get_max());
+            // }
             //NOTE - Return reverse iterator to reverse beginning
             reverse_iterator rbegin()
             {
                 return reverse_iterator(this->end());
             }
-            const_reverse_iterator rbegin() const
-            {
-                return reverse_iterator(this->end());
-            }
+            // const_reverse_iterator rbegin() const
+            // {
+            //     return reverse_iterator(this->end());
+            // }
             //NOTE - Return reverse iterator to reverse end
             reverse_iterator rend()
             {
                 return reverse_iterator(this->begin());
             }
-            const_reverse_iterator rend() const
-            {
-                return reverse_iterator(this->begin());
-            }
+            // const_reverse_iterator rend() const
+            // {
+            //     return reverse_iterator(this->begin());
+            // }
         private:
             tree    _tree;
             key_compare _cmp;

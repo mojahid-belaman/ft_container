@@ -92,6 +92,11 @@ namespace ft
     {
         static const bool value = true;
     };
+    template <>
+    struct is_integral<float>
+    {
+        static const bool value = true;
+    };
 
     // //TODO - Define Iterator traits
     // template <class T>

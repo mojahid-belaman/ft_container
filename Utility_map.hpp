@@ -2,51 +2,9 @@
 #define UTILITY_MAP_HPP
 
 #include <iostream>
+#include "Utility.hpp"
 namespace ft
 {
-    //TODO - Define Iterator traits
-template <class T>
-class iterator_traits
-{
-    public:
-        typedef typename T::value_type value_type;
-        typedef typename T::difference_type difference_type;
-        typedef typename T::iterator_category iterator_category;
-        typedef typename T::pointer pointer;
-        typedef typename T::reference reference;
-};
-template <typename T>
-class iterator_traits<T*>
-{
-    public:
-        typedef std::bidirectional_iterator_tag iterator_category;
-        typedef T                               value_type;
-        typedef T*                              pointer;
-        typedef T&                              reference;
-        typedef std::ptrdiff_t                  difference_type;
-};
-template <typename T>
-class iterator_traits<const T*>
-{
-    public:
-        typedef std::bidirectional_iterator_tag iterator_category;
-        typedef T                               value_type;
-        typedef const T*                        pointer;
-        typedef const T&                        reference;
-        typedef std::ptrdiff_t                  difference_type;
-};
-//TODO - Base Iterator
-template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-class iterator 
-{
-    public:
-        typedef T         value_type;
-        typedef Distance  difference_type;
-        typedef Pointer   pointer;
-        typedef Reference reference;
-        typedef Category  iterator_category;
-};
-
     template <class T>
     struct node
     {
@@ -54,6 +12,7 @@ class iterator
         node        *left;
         node        *right;
         node        *parent;
+        int         bf;
 
         node(const T& src_data) : _data(src_data)
         {
@@ -62,11 +21,11 @@ class iterator
 
     //NOTE - define Iterator Tree
     template <class T, class ptr_node>
-    class tree_iterator : public ft::iterator<std::bidirectional_iterator_tag, typename ft::iterator_traits<T*>::value_type>
+    class tree_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<T*>::value_type>
     {
         public:
-            typedef typename ft::iterator_traits<T*>::reference reference;
-            typedef typename ft::iterator_traits<T*>::pointer pointer;
+            typedef typename iterator_traits<T*>::reference reference;
+            typedef typename iterator_traits<T*>::pointer pointer;
 
             tree_iterator() : curr_node(nullptr)
             {
@@ -113,6 +72,9 @@ class iterator
                 return (x.curr_node != y.curr_node);
             }
             ~tree_iterator() {}
+            ptr_node base() const {
+                return curr_node;
+            }
         private:
             ptr_node    curr_node;
             ptr_node    successor()
@@ -168,9 +130,9 @@ class iterator
     class const_tree_iterator
     {
         public:
-            typedef typename ft::iterator_traits<const T*>::value_type      value_type;
-            typedef typename ft::iterator_traits<const T*>::reference       reference;
-            typedef typename ft::iterator_traits<const T*>::pointer          pointer;
+            typedef typename iterator_traits<const T*>::value_type      value_type;
+            typedef typename iterator_traits<const T*>::reference       reference;
+            typedef typename iterator_traits<const T*>::pointer          pointer;
 
             const_tree_iterator() : curr_node(nullptr)
             {
@@ -339,7 +301,7 @@ class iterator
             }
             pointer operator->() const
             {
-                return (this->_it);
+                return &(*(--static_cast<iter>(_it)));
             }
             reference operator[] (difference_type n) const
             {

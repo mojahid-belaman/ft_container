@@ -685,35 +685,35 @@ int main()
     //     std::cout << it5->first << std::endl;
     //     it5++;
     // }
-    // ft::pair<int, int> p;
-    // p.first = 21;
-    // p.second = 15;
-    // ft::pair<int, int> p1;
-    // p1.first = 18;
-    // p1.second = 6;
-    // ft::pair<int, int> p2;
-    // p2.first = 25;
-    // p2.second = 20;
-    // ft::pair<int, int> p3;
-    // p3.first = 26;
-    // p3.second = 25;
-    // ft::pair<int, int> p5;
-    // p5.first = 19;
-    // p5.second = 9;
-    // ft::pair<int, int> p6;
-    // p6.first = 16;
-    // p6.second = 3;
-    // ft::pair<int, int> p7;
-    // p7.first = 20;
-    // p7.second = 8;
-    // ft::map<int, int>::tree b;
-    // b.insert_node(p);
-    // b.insert_node(p1);
-    // b.insert_node(p2);
-    // b.insert_node(p3);
-    // b.insert_node(p5);
-    // b.insert_node(p6);
-    // b.insert_node(p7);
+    ft::pair<int, int> p;
+    p.first = 21;
+    p.second = 15;
+    ft::pair<int, int> p1;
+    p1.first = 18;
+    p1.second = 6;
+    ft::pair<int, int> p2;
+    p2.first = 25;
+    p2.second = 20;
+    ft::pair<int, int> p3;
+    p3.first = 26;
+    p3.second = 25;
+    ft::pair<int, int> p5;
+    p5.first = 19;
+    p5.second = 9;
+    ft::pair<int, int> p6;
+    p6.first = 16;
+    p6.second = 3;
+    ft::pair<int, int> p7;
+    p7.first = 20;
+    p7.second = 8;
+    ft::map<int, int>::tree b;
+    b.insert_node(p);
+    b.insert_node(p1);
+    b.insert_node(p2);
+    b.insert_node(p3);
+    b.insert_node(p5);
+    b.insert_node(p6);
+    b.insert_node(p7);
     // ft::map<int, int>::iterator it6(b.get_min());
     // ft::map<int, int>::iterator it7(b.get_max());
     // std::cout << "my tree" << std::endl;
@@ -733,8 +733,13 @@ int main()
 
     // iterator
     // ft::map<int, int>::iterator it(b.get_max());
+
     // std::cout << "\n" << it->first << " " << it->second << std::endl;
+
     // ft::map<int, int>::reverse_iterator rit(it);
+    // --rit;
+    // ++rit;
+    // std::cout << rit->first << std::endl;
     // std::cout << "\n" << it->first << std::endl;
     // ft::map<int, int>::const_iterator it(b.get_max());
     // ft::map<int, int>::const_iterator it1(b.get_min());
@@ -758,4 +763,5 @@ int main()
     //     tr.insert_node(ft::make_pair(i, i*2));
     // }
     // std::cout << tr.search_node(ft::make_pair(99999, 12))->_data.second << std::endl;
+
 } 
