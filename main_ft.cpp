@@ -707,13 +707,13 @@ int main()
     p7.first = 20;
     p7.second = 8;
     ft::map<int, int>::tree b;
-    b.insert_node(p);
-    b.insert_node(p1);
-    b.insert_node(p2);
-    b.insert_node(p3);
-    b.insert_node(p5);
-    b.insert_node(p6);
-    b.insert_node(p7);
+    // b.insert_node(p);
+    // b.insert_node(p1);
+    // b.insert_node(p2);
+    // b.insert_node(p3);
+    // b.insert_node(p5);
+    // b.insert_node(p6);
+    // b.insert_node(p7);
     // ft::map<int, int>::iterator it6(b.get_min());
     // ft::map<int, int>::iterator it7(b.get_max());
     // std::cout << "my tree" << std::endl;
@@ -757,11 +757,18 @@ int main()
     // std::cout << it->first << std::endl;
     // std::cout << it->second << std::endl;
 
-    // ft::map<int, int>::tree tr;
-    // for (size_t i = 0; i < 100000; i++)
-    // {
-    //     tr.insert_node(ft::make_pair(i, i*2));
-    // }
+    ft::map<int, int>::tree tr;
+    ft::map<int, int> mp;
+    std::map<int, int> m;
+    for (size_t i = 0; i < 5; i++)
+    {
+        tr.insert_node(ft::make_pair(i, i*2));
+        // m.insert(std::make_pair(i, i*2));
+    }
+    ft::map<int, int>::iterator it(tr.get_max());
+    --it;
+    std::cout << it->second << std::endl;
+    tr.print_bst();
     // std::cout << tr.search_node(ft::make_pair(99999, 12))->_data.second << std::endl;
 
 } 

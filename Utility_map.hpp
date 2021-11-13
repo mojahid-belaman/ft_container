@@ -14,7 +14,7 @@ namespace ft
         node        *parent;
         int         bf;
 
-        node(const T& src_data) : _data(src_data)
+        node(const T& src_data) : _data(src_data), left(nullptr), right(nullptr), parent(nullptr), bf(0)
         {
         }
     };

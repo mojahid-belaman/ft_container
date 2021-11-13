@@ -23,10 +23,10 @@ namespace ft
             {
                 ptr_node new_node = _alloc.allocate(1);
                 _alloc.construct(new_node, data);
-                new_node->left = nullptr;
-                new_node->right = nullptr;
-                new_node->parent = nullptr;
-                new_node->bf = 0;
+                // new_node->left = nullptr;
+                // new_node->right = nullptr;
+                // new_node->parent = nullptr;
+                // new_node->bf = 0;
 
                 if (_root == nullptr)
                 {
@@ -57,7 +57,7 @@ namespace ft
                 else
                     parent->right = new_node;
                 new_node->parent = parent;
-
+                
                 //NOTE - Calcule bf every node
                 update_balance_factor(new_node);                
             }
@@ -167,9 +167,82 @@ namespace ft
                     print_bst_preorder(root->right);
                 }
             }
-            void    rebalance(ptr_node)
+            int     max(int a, int b)
             {
+                return (a > b ? a : b);
+            }
+            int     min(int a, int b)
+            {
+                return (a < b ? a : b);
+            }
+            void    right_rotation(ptr_node node)
+            {
+                ptr_node tmp = node->left;
+                node->left = tmp->right;
+                if (tmp->right != nullptr)
+                    tmp->right->parent = node;
+                tmp->parent = node->parent;
+                if (node->parent == _end)
+                {
+                    this->_root = tmp;
+                    tmp->parent = _end;
+                }
+                else if (node == node->parent->right)
+                    node->parent->right = tmp;
+                else
+                    node->parent->left = tmp;
+                
+                tmp->right = node;
+                node->parent = tmp;
+                node->bf = node->bf + 1 - min(0, tmp->bf);
+                tmp->bf = tmp->bf + 1 + max(0, node->bf);
+            }
+            void    left_rotation(ptr_node node)
+            {
+                ptr_node    tmp = node->right;
+                node->right = tmp->left;
+                if (tmp->left != nullptr)
+                    tmp->left->parent = node;
+                tmp->parent = node->parent;
+                if (node->parent == _end)
+                {
+                    this->_root = tmp;
+                    tmp->parent = _end;
+                }
+                else if (node == node->parent->left)
+                    node->parent->left = tmp;
+                else
+                    node->parent->right = tmp;
+                
+                tmp->left = node;
+                node->parent = tmp;
+                node->bf = node->bf + 1 - min(0, tmp->bf);
+                tmp->bf = tmp->bf + 1 + max(0, node->bf);
 
+            }
+            void    rebalance(ptr_node node)
+            {
+                if (node->bf < 0)
+                {
+                    if (node->right->bf > 0)
+                    {
+                        right_rotation(node->right);
+                        left_rotation(node);
+                    }
+                    else
+                        left_rotation(node);
+                }
+                else if (node->bf > 0)
+                {
+                    if (node->left->bf < 0)
+                    {
+                        left_rotation(node->left);
+                        right_rotation(node);
+                    }
+                    else
+                        right_rotation(node);
+
+                }
             }
             void    update_balance_factor(ptr_node node)
             {
@@ -181,9 +254,9 @@ namespace ft
                 if (node->parent != nullptr)
                 {
                     if (node == node->parent->left)
-                        node->parent->bf -= 1;
-                    if (node == node->parent->right)
                         node->parent->bf += 1;
+                    if (node == node->parent->right)
+                        node->parent->bf -= 1;
                     if (node->parent->bf != 0)
                         update_balance_factor(node->parent);
                 }
