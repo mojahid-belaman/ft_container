@@ -760,15 +760,19 @@ int main()
     ft::map<int, int>::tree tr;
     ft::map<int, int> mp;
     std::map<int, int> m;
-    for (size_t i = 0; i < 5; i++)
+    for (size_t i = 5; i > 0; i--)
     {
         tr.insert_node(ft::make_pair(i, i*2));
         // m.insert(std::make_pair(i, i*2));
+        // m[i] = i*2;
     }
-    ft::map<int, int>::iterator it(tr.get_max());
-    --it;
-    std::cout << it->second << std::endl;
     tr.print_bst();
+    std::cout << "Delete" << std::endl;
+    tr.delete_node(ft::pair<int, int>(1, 2));
+    tr.print_bst();
+    // ft::map<int, int>::iterator it(tr.get_max());
+    // --it;
+    // std::cout << "\n" << it->first << std::endl;
     // std::cout << tr.search_node(ft::make_pair(99999, 12))->_data.second << std::endl;
 
 } 

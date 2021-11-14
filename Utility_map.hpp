@@ -79,9 +79,7 @@ namespace ft
             ptr_node    curr_node;
             ptr_node    successor()
             {
-                ptr_node curr;
-
-                curr = curr_node;
+                ptr_node curr = curr_node;
                 if (curr->right != nullptr)
                 {
                     curr = curr->right;
@@ -102,8 +100,7 @@ namespace ft
             }
             ptr_node    predecessor()
             {
-                ptr_node curr;
-                curr = curr_node;
+                ptr_node curr = curr_node;
                 if (curr->left != nullptr)
                 {
                     curr = curr->left;

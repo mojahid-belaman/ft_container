@@ -59,7 +59,7 @@ namespace ft
                 new_node->parent = parent;
                 
                 //NOTE - Calcule bf every node
-                update_balance_factor(new_node);                
+                update_balance_factor(new_node);     
             }
             ptr_node    get_max()
             {
@@ -162,7 +162,7 @@ namespace ft
             {
                 if (root != nullptr)
                 {
-                    std::cout << root->_data.first << "\t";
+                    std::cout <<root->_data.first << "\t"<< root->bf << std::endl;
                     print_bst_preorder(root->left);
                     print_bst_preorder(root->right);
                 }
@@ -194,8 +194,8 @@ namespace ft
                 
                 tmp->right = node;
                 node->parent = tmp;
-                node->bf = node->bf + 1 - min(0, tmp->bf);
-                tmp->bf = tmp->bf + 1 + max(0, node->bf);
+                node->bf = node->bf - 1 - max(0, tmp->bf);
+                tmp->bf = tmp->bf - 1 - min(0, node->bf);
             }
             void    left_rotation(ptr_node node)
             {
@@ -207,7 +207,8 @@ namespace ft
                 if (node->parent == _end)
                 {
                     this->_root = tmp;
-                    tmp->parent = _end;
+                    this->_root->parent = _end;
+                    _end->left = this->_root;
                 }
                 else if (node == node->parent->left)
                     node->parent->left = tmp;
@@ -251,7 +252,7 @@ namespace ft
                     rebalance(node);
                     return ;
                 }
-                if (node->parent != nullptr)
+                if (node->parent != _end)
                 {
                     if (node == node->parent->left)
                         node->parent->bf += 1;
