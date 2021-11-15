@@ -95,6 +95,9 @@ namespace ft
             void    delete_node(value_type val)
             {
                 _root = delete_helper(_root, val);
+                // std::cout << "************" << std::endl;
+                // std::cout << _root->_data.first << std::endl;
+                // std::cout << "************" << std::endl;
             }
             void    print_bst()
             {
@@ -121,7 +124,6 @@ namespace ft
                     tmp = tmp->left;
                 return tmp;
             }
-
             ptr_node    delete_helper(ptr_node root, value_type val)
             {
                 if (root == nullptr)
@@ -155,6 +157,19 @@ namespace ft
                         root->left = delete_helper(root->left, max_val->_data);
                     }
                 }
+
+                // std::cout << "============" << std::endl;
+                // std::cout << root->bf << std::endl;
+                // std::cout << "============" << std::endl;
+
+                if (root != _end)
+                {
+                    if (root->_data.first > val.first)
+                        root->bf -= 1;
+                    if (root->_data.first < val.first)
+                        root->bf += 1;
+                }
+
                 return root;
             }
 
