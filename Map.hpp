@@ -23,10 +23,10 @@ namespace ft
             {
                 ptr_node new_node = _alloc.allocate(1);
                 _alloc.construct(new_node, data);
-                // new_node->left = nullptr;
-                // new_node->right = nullptr;
-                // new_node->parent = nullptr;
-                // new_node->bf = 0;
+                new_node->left = nullptr;
+                new_node->right = nullptr;
+                new_node->parent = nullptr;
+                new_node->bf = 0;
 
                 if (_root == nullptr)
                 {
@@ -59,7 +59,7 @@ namespace ft
                 new_node->parent = parent;
                 
                 //NOTE - Calcule bf every node
-                update_balance_factor(new_node);     
+                insert_balance_factor(new_node);     
             }
             ptr_node    get_max()
             {
@@ -94,10 +94,9 @@ namespace ft
 
             void    delete_node(value_type val)
             {
+                ptr_node _node = this->search_node(val)->parent;
                 _root = delete_helper(_root, val);
-                // std::cout << "************" << std::endl;
-                // std::cout << _root->_data.first << std::endl;
-                // std::cout << "************" << std::endl;
+                delete_balance_factor(_node, val);
             }
             void    print_bst()
             {
@@ -115,7 +114,7 @@ namespace ft
             {
                 while (tmp->right != nullptr)
                     tmp = tmp->right;
-                return _end;
+                return tmp;
             }
 
             ptr_node get_min_helper(ptr_node tmp)
@@ -156,18 +155,6 @@ namespace ft
                         _alloc.construct(root, max_val->_data);
                         root->left = delete_helper(root->left, max_val->_data);
                     }
-                }
-
-                // std::cout << "============" << std::endl;
-                // std::cout << root->bf << std::endl;
-                // std::cout << "============" << std::endl;
-
-                if (root != _end)
-                {
-                    if (root->_data.first > val.first)
-                        root->bf -= 1;
-                    if (root->_data.first < val.first)
-                        root->bf += 1;
                 }
 
                 return root;
@@ -260,7 +247,7 @@ namespace ft
 
                 }
             }
-            void    update_balance_factor(ptr_node node)
+            void    insert_balance_factor(ptr_node node)
             {
                 if (node->bf < -1 || node->bf > 1)
                 {
@@ -274,7 +261,24 @@ namespace ft
                     if (node == node->parent->right)
                         node->parent->bf -= 1;
                     if (node->parent->bf != 0)
-                        update_balance_factor(node->parent);
+                        insert_balance_factor(node->parent);
+                }
+            }
+            void    delete_balance_factor(ptr_node node, value_type val)
+            {
+                if (node != _end)
+                {
+                    if (node->_data.first > val.first)
+                        node->bf -= 1;
+                    else if (node->_data.first < val.first)
+                        node->bf += 1;
+                    if (node->bf < -1 || node->bf > 1)
+                    {
+                        rebalance(node);
+                        return ;
+                    }
+                    if (node->bf == 0)
+                        delete_balance_factor(node->parent, val);
                 }
             }
 
