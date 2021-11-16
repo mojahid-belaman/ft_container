@@ -26,7 +26,6 @@ namespace ft
                 new_node->left = nullptr;
                 new_node->right = nullptr;
                 new_node->parent = nullptr;
-                new_node->bf = 0;
 
                 if (_root == nullptr)
                 {
