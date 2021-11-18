@@ -14,7 +14,7 @@ namespace ft
         node        *parent;
         int         bf;
 
-        node(const T& src_data) : _data(src_data), bf(0)
+        node(const T& src_data) : _data(src_data)
         {
         }
     };

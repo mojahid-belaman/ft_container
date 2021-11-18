@@ -26,6 +26,7 @@ namespace ft
                 new_node->left = nullptr;
                 new_node->right = nullptr;
                 new_node->parent = nullptr;
+                new_node->bf = 0;
 
                 if (_root == nullptr)
                 {
@@ -93,14 +94,21 @@ namespace ft
 
             void    delete_node(value_type val)
             {
-                ptr_node _node = this->search_node(val)->parent;
+                bool isonechild = false;
+                ptr_node node = this->search_node(val);
+                ptr_node node_p= this->search_node(val)->parent;
+                if (node->left == nullptr || node->right == nullptr)
+                    isonechild = true;
                 _root = delete_helper(_root, val);
-                delete_balance_factor(_node, val);
+                if (isonechild == true)
+                    delete_balance_factor(node_p, val);
             }
             void    print_bst()
             {
                 print_bst_preorder(this->_root);
             }
+
+            ptr_node get_end() {return _end;}
 
         private:
             //NOTE - Start Tree
@@ -124,6 +132,7 @@ namespace ft
             }
             ptr_node    delete_helper(ptr_node root, value_type val)
             {
+                ptr_node tmp;
                 if (root == nullptr)
                     return root;
                 else if (val.first < root->_data.first)
@@ -151,11 +160,15 @@ namespace ft
                     else
                     {
                         ptr_node max_val = this->get_max_helper(root->left);
-                        _alloc.construct(root, max_val->_data);
+                        value_type vt = max_val->_data;
+                        ptr_node node = max_val->parent;
                         root->left = delete_helper(root->left, max_val->_data);
+                        tmp = delete_balance_factor(node, vt);
+                        _alloc.construct(root, max_val->_data);
+                        if (tmp != nullptr)
+                            root = tmp;
                     }
                 }
-
                 return root;
             }
 
@@ -176,7 +189,7 @@ namespace ft
             {
                 return (a < b ? a : b);
             }
-            void    right_rotation(ptr_node node)
+            ptr_node    right_rotation(ptr_node node)
             {
                 ptr_node tmp = node->left;
                 node->left = tmp->right;
@@ -197,8 +210,9 @@ namespace ft
                 node->parent = tmp;
                 node->bf = node->bf - 1 - max(0, tmp->bf);
                 tmp->bf = tmp->bf - 1 - min(0, node->bf);
+                return tmp;
             }
-            void    left_rotation(ptr_node node)
+            ptr_node    left_rotation(ptr_node node)
             {
                 ptr_node    tmp = node->right;
                 node->right = tmp->left;
@@ -220,31 +234,34 @@ namespace ft
                 node->parent = tmp;
                 node->bf = node->bf + 1 - min(0, tmp->bf);
                 tmp->bf = tmp->bf + 1 + max(0, node->bf);
-
+                return tmp;
             }
-            void    rebalance(ptr_node node)
+            ptr_node    rebalance(ptr_node node)
             {
+                ptr_node tmp = nullptr;
+
                 if (node->bf < 0)
                 {
                     if (node->right->bf > 0)
                     {
                         right_rotation(node->right);
-                        left_rotation(node);
+                        tmp = left_rotation(node);
                     }
                     else
-                        left_rotation(node);
+                        tmp = left_rotation(node);
                 }
                 else if (node->bf > 0)
                 {
                     if (node->left->bf < 0)
                     {
                         left_rotation(node->left);
-                        right_rotation(node);
+                        tmp = right_rotation(node);
                     }
                     else
-                        right_rotation(node);
+                        tmp = right_rotation(node);
 
                 }
+                return tmp;
             }
             void    insert_balance_factor(ptr_node node)
             {
@@ -263,7 +280,7 @@ namespace ft
                         insert_balance_factor(node->parent);
                 }
             }
-            void    delete_balance_factor(ptr_node node, value_type val)
+            ptr_node    delete_balance_factor(ptr_node node, value_type val)
             {
                 if (node != _end)
                 {
@@ -273,12 +290,12 @@ namespace ft
                         node->bf += 1;
                     if (node->bf < -1 || node->bf > 1)
                     {
-                        rebalance(node);
-                        return ;
+                        return rebalance(node);
                     }
                     if (node->bf == 0)
                         delete_balance_factor(node->parent, val);
                 }
+                return nullptr;
             }
 
     }; 
@@ -415,12 +432,30 @@ namespace ft
             {
             }
             //NOTE - Range Constructor
-            // template <class InputIterator>
-            // map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
-            //     _tree(), _cmp(comp), _alloc(alloc)
-            // {
-            // }
+            template <class InputIterator>
+            map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) :
+                _tree(), _cmp(comp), _alloc(alloc)
+            {
+                while (first != last)
+                {
+                    _tree.insert_node(*first);
+                    first++;
+                }
+                
+            }
+            //NOTE - copy constructor
+            map (const map& x)
+            {
+                this->_tree = x._tree;
+                this->_cmp = x._cmp;
+                this->_alloc = x._alloc;
 
+            }
+            //NOTE - Access element
+            mapped_type& operator[] (const key_type& k)
+            {
+                
+            }
             //NOTE - Return iterator to beginning
             iterator begin()
             {
@@ -433,30 +468,30 @@ namespace ft
             //NOTE - Return iterator to end
             iterator end()
             {
-                return iterator(_tree.get_max());
+                return iterator(_tree.get_end());
             }
-            // const_iterator end() const
-            // {
-            //     return iterator(_tree.get_max());
-            // }
+            const_iterator end() const
+            {
+                return iterator(_tree.get_end());
+            }
             //NOTE - Return reverse iterator to reverse beginning
             reverse_iterator rbegin()
             {
                 return reverse_iterator(this->end());
             }
-            // const_reverse_iterator rbegin() const
-            // {
-            //     return reverse_iterator(this->end());
-            // }
+            const_reverse_iterator rbegin() const
+            {
+                return reverse_iterator(this->end());
+            }
             //NOTE - Return reverse iterator to reverse end
             reverse_iterator rend()
             {
                 return reverse_iterator(this->begin());
             }
-            // const_reverse_iterator rend() const
-            // {
-            //     return reverse_iterator(this->begin());
-            // }
+            const_reverse_iterator rend() const
+            {
+                return reverse_iterator(this->begin());
+            }
         private:
             tree    _tree;
             key_compare _cmp;
