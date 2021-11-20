@@ -473,7 +473,6 @@ namespace ft
             map (const map& x) : _cmp(x._cmp), _alloc(x._alloc)
             {
                 insert(x.begin(), x.end());
-                _tree.print_bst();
             }
             //NOTE - Map destructor
             ~map()

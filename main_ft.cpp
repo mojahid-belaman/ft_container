@@ -716,7 +716,11 @@ int main()
         std::cout << it->first << " => " << it->second << '\n';
     // third insert function version (range insertion):
     ft::map<char,int> anothermap(mymap);
-
+    for (ft::map<char, int>::iterator i = anothermap.begin(); i != anothermap.end(); i++)
+    {
+        std::cout << i->first << "\t" << i->second << std::endl;
+    }
+    
     // anothermap.insert(mymap.begin(),mymap.end());
     
     
