@@ -644,19 +644,72 @@ int main()
     // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
     //NOTE - Construct map
+    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::map<char,int> first;
     // first['a']=10;
     // first['b']=30;
     // first['c']=50;
     // first['d']=70;
-    // std::map<char, int>::iterator i = first.end();
-    // std::cout << i->first << "\t" << i->second << std::endl;
-    // i++;
-    // std::cout << i->first << "\t" << i->second << std::endl;
     // std::map<char,int> second (first.begin(),first.end());
     // for (std::map<char, int>::iterator i = second.begin(); i != second.end(); i++)
     // {
     //     std::cout << i->first << "\t" << i->second << std::endl;
     // }
+
+    //NOTE - Access element
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,std::string> mymap;
+    // mymap['a']="an element";
+    // mymap['b']="another element";
+    // mymap['c']=mymap['b'];
+    // std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+    // std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+    // std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+    // std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+    // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
+
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,int> mymap;
+    // mymap['a']=10;
+    // mymap['b']=20;
+    // mymap['c']=30;
+    // while (!mymap.empty())
+    // {
+    //     std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+    //     mymap.erase(mymap.begin());
+    // }
+
+    //NOTE - Return maximum size
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // int i;
+    // std::map<int,int> mymap;
+    // if (mymap.max_size()>1000)
+    // {
+    //     for (i=0; i<1000; i++) mymap[i]=0;
+    //     std::cout << "The map contains 1000 elements.\n";
+    // }
+    // else std::cout << "The map could not hold 1000 elements.\n";
+    // std::cout << mymap.max_size() << std::endl;
+
+        //NOTE - Insert elements
+    std::cout << "------------- Library STD -------------" << std::endl;
+    std::map<char,int> mymap;
+    mymap.insert ( std::pair<char,int>('a',100) );
+    mymap.insert ( std::pair<char,int>('z',200) );
+    std::pair<std::map<char,int>::iterator,bool> ret;
+    ret = mymap.insert ( std::pair<char,int>('z',500) );
+    if (ret.second==false) {
+        std::cout << "element 'z' already existed";
+        std::cout << " with a value of " << ret.first->second << '\n';
+    }
+     std::cout << mymap.size() << std::endl;
+     // second insert function version (with hint position):
+    std::map<char,int>::iterator it = mymap.begin();
+    mymap.insert (it, std::pair<char,int>('b',300));  // max efficiency inserting
+    mymap.insert (it, std::pair<char,int>('c',400));
+    std::cout << "mymap contains:\n";
+    for (it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
     
+    std::map<char,int> anothermap(mymap);
 }

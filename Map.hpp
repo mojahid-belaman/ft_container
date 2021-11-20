@@ -15,9 +15,22 @@ namespace ft
             typedef node<T>*                    ptr_node;
             typedef Alloc                       allocator_type;
             typedef Compare                     key_compare;
+            typedef size_t                      size_type;
         
-            BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _end(nullptr), _alloc(alloc), _cmp(comp)
+            BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _end(nullptr), _alloc(alloc), _cmp(comp), _size(0)
             {
+            }
+            size_type size() const
+            {
+                return _size;
+            }
+            bool empty() const
+            {
+                return _size = 0;
+            }
+            size_type max_size() const
+            {
+                return (_alloc.max_size());
             }
             void    insert_node(value_type data)
             {
@@ -34,6 +47,7 @@ namespace ft
                     _root = new_node;
                     _root->parent = _end;
                     _end->left = _root;
+                    _size++;
                     return ;
                 }
                 ptr_node tmp = _root;
@@ -53,9 +67,15 @@ namespace ft
                         tmp = tmp->right;
                 }
                 if (_cmp(new_node->_data.first, parent->_data.first))
+                {
                     parent->left = new_node;
+                    _size++;
+                }
                 else
+                {
                     parent->right = new_node;
+                    _size++;
+                }
                 new_node->parent = parent;
                 
                 //NOTE - Calcule bf every node
@@ -67,7 +87,7 @@ namespace ft
                 return get_max_helper(tmp);
             }
 
-            ptr_node    get_min()
+            ptr_node    get_min() const
             {
                 ptr_node tmp = _root;
                 return get_min_helper(tmp);
@@ -76,6 +96,8 @@ namespace ft
             ptr_node  search_node(value_type val)
             {
                 ptr_node tmp = _root;
+                if (tmp == nullptr)
+                    return (nullptr);
                 while (tmp->_data.first != val.first)
                 {
                     if (tmp != nullptr)
@@ -108,7 +130,7 @@ namespace ft
                 print_bst_preorder(this->_root);
             }
 
-            ptr_node get_end() {return _end;}
+            ptr_node get_end() const {return _end;}
 
         private:
             //NOTE - Start Tree
@@ -116,6 +138,8 @@ namespace ft
             ptr_node            _end;
             allocator_type      _alloc;
             key_compare         _cmp;
+            size_type           _size;
+            
 
             ptr_node get_max_helper(ptr_node tmp)
             {
@@ -124,7 +148,7 @@ namespace ft
                 return tmp;
             }
 
-            ptr_node get_min_helper(ptr_node tmp)
+            ptr_node get_min_helper(ptr_node tmp) const
             {
                 while (tmp->left != nullptr)
                     tmp = tmp->left;
@@ -147,6 +171,7 @@ namespace ft
                         if (tmp != nullptr)
                             tmp->parent = root->parent;
                         _alloc.deallocate(root, 1);
+                        _size--;
                         return tmp;
                     }
                     else if (root->right == nullptr)
@@ -155,6 +180,7 @@ namespace ft
                         if (tmp != nullptr)
                             tmp->parent = root->parent;
                         _alloc.deallocate(root, 1);
+                        _size--;
                         return tmp;
                     }
                     else
@@ -444,17 +470,70 @@ namespace ft
                 
             }
             //NOTE - copy constructor
-            map (const map& x)
+            map (const map& x) : _cmp(x._cmp), _alloc(x._alloc)
             {
-                this->_tree = x._tree;
-                this->_cmp = x._cmp;
-                this->_alloc = x._alloc;
-
+                insert(x.begin(), x.end());
+                _tree.print_bst();
+            }
+            //NOTE - Map destructor
+            ~map()
+            {
             }
             //NOTE - Access element
             mapped_type& operator[] (const key_type& k)
             {
-                
+                ptr_node node = _tree.search_node(ft::make_pair(k, mapped_type()));
+                if (node == nullptr)
+                    _tree.insert_node(ft::make_pair(k, mapped_type()));
+                node = _tree.search_node(ft::make_pair(k, mapped_type()));
+                return (node->_data.second);
+            }
+            //NOTE - size_type size() const
+            size_type size() const
+            {
+                return _tree.size();
+            }
+            //NOTE - Test whether container is empty
+            bool empty() const
+            {
+                _tree.empty();
+            }
+            //NOTE - Return maximum size
+            size_type max_size() const
+            {
+                return (_tree.max_size());
+            }
+            //NOTE - Insert elements
+            pair<iterator,bool> insert(const value_type& val)
+            {
+                ptr_node node = _tree.search_node(val);
+                if (node != nullptr)
+                    return ft::pair<iterator, bool>(iterator(node), false);
+                _tree.insert_node(val);
+                node = _tree.search_node(val);
+                return (ft::pair<iterator, bool>(iterator(node), true));
+            }
+            iterator    insert(iterator position, const value_type& val)
+            {
+                static_cast<void>(position);
+                ptr_node node = _tree.search_node(val);
+                if (node != nullptr)
+                {
+                    if (node->_data.first == val.first)
+                        return iterator(node);
+                }
+                _tree.insert_node(val);
+                node = _tree.search_node(val);
+                return (iterator(node));
+            }
+            template <class InputIterator>
+            void insert (InputIterator first, InputIterator last)
+            {
+                while (first != last)
+                {
+                    _tree.insert_node(*first);
+                    first++;
+                }
             }
             //NOTE - Return iterator to beginning
             iterator begin()
@@ -463,7 +542,7 @@ namespace ft
             }
             const_iterator begin() const
             {
-                iterator(_tree.get_min());
+                return const_iterator(_tree.get_min());
             }
             //NOTE - Return iterator to end
             iterator end()
@@ -472,7 +551,7 @@ namespace ft
             }
             const_iterator end() const
             {
-                return iterator(_tree.get_end());
+                return const_iterator(_tree.get_end());
             }
             //NOTE - Return reverse iterator to reverse beginning
             reverse_iterator rbegin()
@@ -481,7 +560,7 @@ namespace ft
             }
             const_reverse_iterator rbegin() const
             {
-                return reverse_iterator(this->end());
+                return const_reverse_iterator(this->end());
             }
             //NOTE - Return reverse iterator to reverse end
             reverse_iterator rend()
@@ -490,7 +569,7 @@ namespace ft
             }
             const_reverse_iterator rend() const
             {
-                return reverse_iterator(this->begin());
+                return const_reverse_iterator(this->begin());
             }
         private:
             tree    _tree;

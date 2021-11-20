@@ -519,10 +519,9 @@ namespace ft
         {
             return (_capacity);
         }
-        //FIXME - not complete
         size_type max_size() const
         {
-            return (std::numeric_limits<size_type>::max());
+            return (_alloc.max_size());
         }
         bool empty() const
         {
