@@ -691,25 +691,48 @@ int main()
     // else std::cout << "The map could not hold 1000 elements.\n";
     // std::cout << mymap.max_size() << std::endl;
 
-        //NOTE - Insert elements
+    //NOTE - Insert elements
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // // first insert function version (single parameter):
+    // std::map<char,int> mymap;
+    // mymap.insert ( std::pair<char,int>('a',100) );
+    // mymap.insert ( std::pair<char,int>('z',200) );
+    // std::pair<std::map<char,int>::iterator,bool> ret;
+    // ret = mymap.insert ( std::pair<char,int>('z',500) );
+    // if (ret.second==false) {
+    //     std::cout << "element 'z' already existed";
+    //     std::cout << " with a value of " << ret.first->second << '\n';
+    // }
+    //  std::cout << mymap.size() << std::endl;
+    //  // second insert function version (with hint position):
+    // std::map<char,int>::iterator it = mymap.begin();
+    // mymap.insert (it, std::pair<char,int>('b',300));  // max efficiency inserting
+    // mymap.insert (it, std::pair<char,int>('c',400));
+    // std::cout << "mymap contains:\n";
+    // for (it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // // third insert function version (range insertion):
+    // std::map<char,int> anothermap;
+    // anothermap.insert(mymap.begin(),mymap.end());
+    // for (std::map<char, int>::iterator i = anothermap.begin(); i != anothermap.end(); i++)
+    // {
+    //     std::cout << i->first << "\t" << i->second << std::endl;
+    // }
+
+    //NOTE - Clear content
     std::cout << "------------- Library STD -------------" << std::endl;
     std::map<char,int> mymap;
-    mymap.insert ( std::pair<char,int>('a',100) );
-    mymap.insert ( std::pair<char,int>('z',200) );
-    std::pair<std::map<char,int>::iterator,bool> ret;
-    ret = mymap.insert ( std::pair<char,int>('z',500) );
-    if (ret.second==false) {
-        std::cout << "element 'z' already existed";
-        std::cout << " with a value of " << ret.first->second << '\n';
-    }
-     std::cout << mymap.size() << std::endl;
-     // second insert function version (with hint position):
-    std::map<char,int>::iterator it = mymap.begin();
-    mymap.insert (it, std::pair<char,int>('b',300));  // max efficiency inserting
-    mymap.insert (it, std::pair<char,int>('c',400));
+    mymap['x']=100;
+    mymap['y']=200;
+    mymap['z']=300;
     std::cout << "mymap contains:\n";
-    for (it=mymap.begin(); it!=mymap.end(); ++it)
+    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
         std::cout << it->first << " => " << it->second << '\n';
-    
-    std::map<char,int> anothermap(mymap);
+    mymap.clear();
+    mymap['a']=1101;
+    mymap['b']=2202;
+    std::cout << "mymap contains:\n";
+    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
 }

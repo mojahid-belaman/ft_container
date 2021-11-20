@@ -32,6 +32,21 @@ namespace ft
             {
                 return (_alloc.max_size());
             }
+            ptr_node    all_clean_tree(ptr_node node)
+            {
+                if (node != nullptr)
+                {
+                    all_clean_tree(node->left);
+                    all_clean_tree(node->right);
+                    _alloc.deallocate(node, 1);
+                }
+                return nullptr;
+            }
+            void clear()
+            {
+                _root = all_clean_tree(_root);
+                _size = 0;
+            }
             void    insert_node(value_type data)
             {
                 ptr_node new_node = _alloc.allocate(1);
@@ -81,7 +96,7 @@ namespace ft
                 //NOTE - Calcule bf every node
                 insert_balance_factor(new_node);     
             }
-            ptr_node    get_max()
+            ptr_node    get_max() const
             {
                 ptr_node tmp = _root;
                 return get_max_helper(tmp);
@@ -131,6 +146,12 @@ namespace ft
             }
 
             ptr_node get_end() const {return _end;}
+
+            ~BST()
+            {
+                _root = all_clean_tree(_root);
+                _alloc.deallocate(_end, 1);
+            }
 
         private:
             //NOTE - Start Tree
@@ -517,10 +538,7 @@ namespace ft
                 static_cast<void>(position);
                 ptr_node node = _tree.search_node(val);
                 if (node != nullptr)
-                {
-                    if (node->_data.first == val.first)
-                        return iterator(node);
-                }
+                    return iterator(node);
                 _tree.insert_node(val);
                 node = _tree.search_node(val);
                 return (iterator(node));
@@ -530,9 +548,15 @@ namespace ft
             {
                 while (first != last)
                 {
+                    //FIXME - Notice that the range includes all the elements between first and last, including the element pointed by first but not the one pointed by last.
                     _tree.insert_node(*first);
                     first++;
                 }
+            }
+            //NOTE - Clear content
+            void clear()
+            {
+                _tree.clear();
             }
             //NOTE - Return iterator to beginning
             iterator begin()
