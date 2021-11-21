@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "Utility_map.hpp"
+#include "Pair.hpp"
+#include "Make_pair.hpp"
 
 namespace ft
 {
@@ -24,13 +26,13 @@ namespace ft
             {
                 return _size;
             }
-            bool empty() const
-            {
-                return _size = 0;
-            }
             size_type max_size() const
             {
                 return (_alloc.max_size());
+            }
+            void swap (BST& x)
+            {
+                
             }
             ptr_node    all_clean_tree(ptr_node node)
             {
@@ -99,12 +101,16 @@ namespace ft
             ptr_node    get_max() const
             {
                 ptr_node tmp = _root;
+                if (tmp == nullptr)
+                    return nullptr;
                 return get_max_helper(tmp);
             }
 
             ptr_node    get_min() const
             {
                 ptr_node tmp = _root;
+                if (tmp == nullptr)
+                    return nullptr;
                 return get_min_helper(tmp);
             }
 
@@ -137,6 +143,11 @@ namespace ft
                 if (node->left == nullptr || node->right == nullptr)
                     isonechild = true;
                 _root = delete_helper(_root, val);
+                if (_root == nullptr)
+                {
+                    _alloc.deallocate(_end, 1);
+                    _end = nullptr;
+                }
                 if (isonechild == true)
                     delete_balance_factor(node_p, val);
             }
@@ -345,95 +356,7 @@ namespace ft
                 return nullptr;
             }
 
-    }; 
-
-    //NOTE - class template (Pair of values)
-    template <class T1, class T2>
-    struct pair
-    {
-        //NOTE - Member types
-        typedef T1  first_type;
-        typedef T2  second_type;
-
-        //NOTE - Member variables
-        first_type  first;
-        second_type second;
-
-        //NOTE - default constructor
-        pair() : first(), second()
-        {
-        }
-        //NOTE - copy constructor
-        template<class U, class V>
-        pair (const pair<U,V>& pr) : first(pr.first), second(pr.second)
-        {
-        }
-        //NOTE - initialization constructor
-        pair (const first_type& a, const second_type& b) : first(a), second(b)
-        {
-        }
-        //NOTE - Assign contents
-        pair& operator= (const pair& pr)
-        {
-            if (this != &pr)
-            {
-                first = pr.first;
-                second = pr.second;
-            }
-            return (*this);
-        }
-        //NOTE - Relational operators for pair
-        template <class t1, class t2>
-        friend bool operator== (const pair<t1,t2>& lhs, const pair<t1,t2>& rhs);
-        template <class t1, class t2>
-        friend bool operator!= (const pair<t1,t2>& lhs, const pair<t1,t2>& rhs);
-        template <class t1, class t2>
-        friend bool operator< (const pair<t1,t2>& lhs, const pair<t1,t2>& rhs);
-        template <class t1, class t2>
-        friend bool operator<= (const pair<t1,t2>& lhs, const pair<t1,t2>& rhs);
-        template <class t1, class t2>
-        friend bool operator> (const pair<t1,t2>& lhs, const pair<t1,t2>& rhs);
-        template <class t1, class t2>
-        friend bool operator>= (const pair<t1,t2>& lhs, const pair<t1,t2>& rhs);
-
     };
-
-    template <class T1, class T2>
-    bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-    {
-        return (lhs.first == rhs.first && lhs.second == rhs.second);
-    }
-    template <class T1, class T2>
-    bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-    {
-        return (!(lhs == rhs));
-    }
-    template <class T1, class T2>
-    bool operator< (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-    {
-        return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
-    }
-    template <class T1, class T2>
-    bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-    {
-        return !(rhs < lhs);
-    }
-    template <class T1, class T2>
-    bool operator> (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-    {
-        return (rhs < lhs);
-    }
-    template <class T1, class T2>
-    bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-    {
-        return !(lhs < rhs);
-    }
-    //NOTE - function template (make_pair)
-    template <class T1, class T2>
-    pair<T1,T2> make_pair(T1 x, T2 y)
-    {
-        return pair<T1, T2>(x, y);
-    }
 
     template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
     class map
@@ -495,6 +418,21 @@ namespace ft
             {
                 insert(x.begin(), x.end());
             }
+            //NOTE - Copy container content
+            map& operator= (const map& x)
+            {
+                if (x.size() == 0)
+                {
+                    this->clear();
+                    return *this;
+                }
+                if (this != &x)
+                {
+                    this->clear();
+                    insert(x.begin(), x.end());
+                }
+                return *this;
+            }
             //NOTE - Map destructor
             ~map()
             {
@@ -516,7 +454,7 @@ namespace ft
             //NOTE - Test whether container is empty
             bool empty() const
             {
-                _tree.empty();
+                return(_tree.size() == 0);
             }
             //NOTE - Return maximum size
             size_type max_size() const
@@ -548,10 +486,39 @@ namespace ft
             {
                 while (first != last)
                 {
-                    //FIXME - Notice that the range includes all the elements between first and last, including the element pointed by first but not the one pointed by last.
                     _tree.insert_node(*first);
                     first++;
                 }
+            }
+            //NOTE - Erase elements
+            void    erase(iterator position)
+            {
+                if (position != iterator(nullptr))
+                    _tree.delete_node(ft::make_pair(position->first, position->second));
+            }
+            size_type   erase(const key_type& k)
+            {
+                ptr_node node = _tree.search_node(ft::make_pair(k, mapped_type()));
+                if (node != nullptr)
+                {
+                    _tree.delete_node(ft::make_pair(k, mapped_type()));
+                    return 1;
+                }
+                else
+                    return 0;
+            }
+            void    erase(iterator first, iterator last)
+            {
+                while (first != last)
+                {
+                    this->erase(first);
+                    first++;
+                }
+            }
+            //NOTE - Swap content
+            void swap (map& x)
+            {
+
             }
             //NOTE - Clear content
             void clear()

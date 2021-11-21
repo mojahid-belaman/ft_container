@@ -668,6 +668,7 @@ int main()
     // std::cout << "mymap['d'] is " << mymap['d'] << '\n';
     // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 
+    //NOTE - Test whether container is empty
     // std::cout << "------------- Library STD -------------" << std::endl;
     // std::map<char,int> mymap;
     // mymap['a']=10;
@@ -720,19 +721,66 @@ int main()
     // }
 
     //NOTE - Clear content
-    std::cout << "------------- Library STD -------------" << std::endl;
-    std::map<char,int> mymap;
-    mymap['x']=100;
-    mymap['y']=200;
-    mymap['z']=300;
-    std::cout << "mymap contains:\n";
-    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
-    mymap.clear();
-    mymap['a']=1101;
-    mymap['b']=2202;
-    std::cout << "mymap contains:\n";
-    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,int> mymap;
+    // mymap['x']=100;
+    // mymap['y']=200;
+    // mymap['z']=300;
+    // std::cout << "mymap contains:\n";
+    // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // mymap.clear();
+    // mymap['a']=1101;
+    // mymap['b']=2202;
+    // std::cout << "mymap contains:\n";
+    // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
 
+    //NOTE - Assignement Operator (new_map = old_map)
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,int> first;
+    // std::map<char,int> second;
+    // first['x']=8;
+    // first['y']=16;
+    // first['z']=32;
+    // second=first;                // second now contains 3 ints
+    // first = std::map<char,int>();  // and first is now empty
+    // std::cout << "Size of first: " << first.size() << '\n';
+    // std::cout << "Size of second: " << second.size() << '\n';
+
+    //NOTE - Erase elements
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,int> mymap;
+    // // insert some values:
+    // mymap['a']=10;
+    // mymap['b']=20;
+    // mymap['c']=30;
+    // mymap['d']=40;
+    // mymap['e']=50;
+    // mymap['f']=60;
+    // std::map<char,int>::iterator it = mymap.begin();
+    // // it=mymap.find('b');
+    // mymap.erase (it, mymap.end());                   // erasing by iterator
+    // mymap.erase ('c');                  // erasing by key
+    // // it=mymap.find ('e');
+    // // mymap.erase ( it, mymap.end() );    // erasing by range
+    // // show content:
+    // for (it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
+
+    //NOTE - Swap content
+    std::map<char,int> foo,bar;
+    foo['x']=100;
+    foo['y']=200;
+    
+    bar['a']=11;
+    bar['b']=22;
+    bar['c']=33;
+    foo.swap(bar);
+    std::cout << "foo contains:\n";
+    for (std::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+    std::cout << "bar contains:\n";
+    for (std::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 }

@@ -681,7 +681,7 @@ int main()
     // while (!mymap.empty())
     // {
     //     std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-        // mymap.erase(mymap.begin());
+    //     mymap.erase(mymap.begin());
     // }
 
     //NOTE - Return maximum size
@@ -724,21 +724,58 @@ int main()
     // }
 
     //NOTE - Clear content
-    std::cout << "------------- Library FT -------------" << std::endl;
-    ft::map<char,int> mymap;
-    mymap['x']=100;
-    mymap['y']=200;
-    mymap['z']=300;
-    std::cout << "mymap contains:\n";
-    for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
-    mymap.clear();
-    mymap['a']=1101;
-    mymap['b']=2202;
-    std::cout << "mymap contains:\n";
-    for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::map<char,int> mymap;
+    // mymap['x']=100;
+    // mymap['y']=200;
+    // mymap['z']=300;
+    // std::cout << "mymap contains:\n";
+    // for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // mymap.clear();
+    // mymap['a']=1101;
+    // mymap['b']=2202;
+    // std::cout << "mymap contains:\n";
+    // for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
     
+    //NOTE - Assignement Operator (new_map = old_map)
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::map<char,int> first;
+    // ft::map<char,int> second;
+    // first['x']=8;
+    // first['y']=16;
+    // first['z']=32;
+    // second=first;                // second now contains 3 ints
+    // first = ft::map<char,int>();  // and first is now empty
+    // std::cout << "Size of first: " << first.size() << '\n';
+    // std::cout << "Size of second: " << second.size() << '\n';
+
+    //NOTE - Erase elements
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::map<char,int> mymap;
+    // // insert some values:
+    // mymap['a']=10;
+    // mymap['b']=20;
+    // mymap['c']=30;
+    // mymap['d']=40;
+    // mymap['e']=50;
+    // mymap['f']=60;
+    // ft::map<char,int>::iterator it = mymap.begin();
+    // // it=mymap.find('b');
+    // mymap.erase(it, mymap.end());                   // erasing by iterator
+    // mymap.erase ('c');                  // erasing by key
+    
+    // // it=mymap.find ('e');
+    // // mymap.erase ( it, mymap.end() );    // erasing by range
+    // // show content:
+    // for (it=mymap.begin(); it!=mymap.end(); ++it)
+    // {     
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // }
+
+
+
     
     // std::pair<int, int> p551;
     // p551.first = 21;
