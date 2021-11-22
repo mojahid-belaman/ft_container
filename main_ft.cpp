@@ -774,9 +774,48 @@ int main()
     //     std::cout << it->first << " => " << it->second << '\n';
     // }
 
+    //NOTE - Swap content
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::map<char,int> foo,bar;
+    // foo['x']=100;
+    // foo['y']=200;
 
+    // bar['a']=11;
+    // bar['b']=22;
+    // bar['c']=33;
+    // foo.swap(bar);
+    // std::cout << "foo contains:\n";
+    // for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+    // {
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // }
+    // std::cout << "bar contains:\n";
+    // for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
 
+    //NOTE - Return key comparison object
+    std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::map<int, int> m ;   
+    // ft::map<int, int>::key_compare comp = m.key_comp() ;   
+    // std::cout  <<"Compare keys (1 is true and 0 is false):  "<<  comp ( 1 ,  5 )  << std::endl ;   
+    // std::cout  <<"Compare keys (1 is true and 0 is false):  "<<  comp ( 3 ,  2 )  << std::endl ;
     
+    ft::map<int, int> mymap;  
+    int highest;  
+    ft::map<int, int>::key_compare mycomp = mymap.key_comp();  
+    for (int i=0; i<=5; i++)
+    {
+        mymap.insert(ft::make_pair(i, i*2)); 
+    }
+    std::cout << "myset contains:";  
+    highest = (*(--mymap.end())).first;
+    std::cout << highest << std::endl;
+    ft::map<int, int>::iterator it=mymap.begin();
+    do {  
+        std::cout << it->first << "\t" << it->second;
+    }while ( mycomp((*(++it)).first,highest) );  
+  
+    std::cout << '\n';  
     // std::pair<int, int> p551;
     // p551.first = 21;
     // p551.second = 15;

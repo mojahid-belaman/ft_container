@@ -32,7 +32,19 @@ namespace ft
             }
             void swap (BST& x)
             {
-                
+                size_type       s_size = x._size;
+                allocator_type  s_alloc = x._alloc;
+                ptr_node        s_end = x._end;
+                ptr_node        s_root = x._root;
+                x._size = _size;
+                _size = s_size;
+                x._alloc = _alloc;
+                _alloc = s_alloc;
+                x._end = _end;
+                _end = s_end;
+                x._root = _root;
+                _root = s_root;
+
             }
             ptr_node    all_clean_tree(ptr_node node)
             {
@@ -117,6 +129,7 @@ namespace ft
             ptr_node  search_node(value_type val)
             {
                 ptr_node tmp = _root;
+                
                 if (tmp == nullptr)
                     return (nullptr);
                 while (tmp->_data.first != val.first)
@@ -518,12 +531,17 @@ namespace ft
             //NOTE - Swap content
             void swap (map& x)
             {
-
+                _tree.swap(x._tree);
             }
             //NOTE - Clear content
             void clear()
             {
                 _tree.clear();
+            }
+            //NOTE - Return key comparison object
+            key_compare key_comp() const
+            {
+                return key_compare();
             }
             //NOTE - Return iterator to beginning
             iterator begin()
