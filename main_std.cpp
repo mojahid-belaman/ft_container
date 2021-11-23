@@ -786,25 +786,19 @@ int main()
     //     std::cout << it->first << " => " << it->second << '\n';
 
     //NOTE - Return key comparison object
-    std::cout << "------------- Library STD -------------" << std::endl;
-    // std::map<int, int> m ;   
-    // std::map<int, int>::key_compare comp = m.key_comp() ;   
-    // std::cout  <<"Compare keys (1 is true and 0 is false):  "<<  comp ( 1 ,  5 )  << std::endl ;   
-    // std::cout  <<"Compare keys (1 is true and 0 is false):  "<<  comp ( 3 ,  2 )  << std::endl ;  
+    std::cout << "------------- Library STD -------------" << std::endl; 
+    std::map<char,int> mymap;
+    std::map<char,int>::key_compare mycomp = mymap.key_comp();
+    mymap['a']=100;
+    mymap['b']=200;
+    mymap['c']=300;
+    std::cout << "mymap contains:\n";
+    char highest = mymap.rbegin()->first;     // key value of last element
+    std::map<char,int>::iterator it = mymap.begin();
+    do {
+        std::cout << it->first << " => " << it->second << '\n';
+    } while ( mycomp((*it++).first, highest) );
 
-    std::map<int, int> mymap;  
-    std::pair<int, int>();
-    int highest;  
-    std::map<int, int>::key_compare mycomp = mymap.key_comp();  
-    for (int i=0; i<=5; i++) mymap.insert(std::make_pair(i, i*2));  
-    std::cout << "myset contains:";  
-    highest = (*mymap.end()).first;
-    std::cout << highest << std::endl;
-    std::map<int, int>::iterator it=mymap.begin();  
-    do {  
-        std::cout << ' ' << it->first << "\t" << it->second;
-    }while ( mycomp((*(++it)).first,highest) );  
-  
-    std::cout << '\n'; 
+    std::cout << '\n';  
 
 }
