@@ -36,13 +36,13 @@ int main()
     // //NOTE - Constructor
     // std::cout << "------------- Library FT -------------" << std::endl;
     // ft::vector<int> first1;                                
-    // ft::vector<int> second1 (4,100);                       
-    // ft::vector<int> third1 (second.begin(),second.end());  
-    // ft::vector<int> fourth1 (third1);               
-    // int myints1[] = {16,2,77,29};
-    // ft::vector<int> fifth1 (myints, myints + sizeof(myints) / sizeof(int) );
+    // ft::vector<int> second (4,100);                       
+    // ft::vector<int> third (second.begin(),second.end());  
+    // ft::vector<int> fourth (third);               
+    // int myints[] = {16,2,77,29};
+    // ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
     // std::cout << "The contents of fifth are:";
-    // for (ft::vector<int>::iterator it = fifth1.begin(); it != fifth1.end(); ++it)
+    // for (ft::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
     //     std::cout << ' ' << *it;
     // std::cout << '\n';
 
@@ -752,27 +752,26 @@ int main()
     // std::cout << "Size of second: " << second.size() << '\n';
 
     //NOTE - Erase elements
-    // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::map<char,int> mymap;
-    // // insert some values:
-    // mymap['a']=10;
-    // mymap['b']=20;
-    // mymap['c']=30;
-    // mymap['d']=40;
-    // mymap['e']=50;
-    // mymap['f']=60;
-    // ft::map<char,int>::iterator it = mymap.begin();
-    // // it=mymap.find('b');
-    // mymap.erase(it, mymap.end());                   // erasing by iterator
-    // mymap.erase ('c');                  // erasing by key
-    
-    // // it=mymap.find ('e');
-    // // mymap.erase ( it, mymap.end() );    // erasing by range
-    // // show content:
-    // for (it=mymap.begin(); it!=mymap.end(); ++it)
-    // {     
-    //     std::cout << it->first << " => " << it->second << '\n';
-    // }
+    std::cout << "------------- Library FT -------------" << std::endl;
+    ft::map<char,int> mymap;
+    // insert some values:
+    mymap['a']=10;
+    mymap['b']=20;
+    mymap['c']=30;
+    mymap['d']=40;
+    mymap['e']=50;
+    mymap['f']=60;
+    ft::map<char,int>::iterator it = mymap.begin();
+    it=mymap.find('b');
+    mymap.erase(it, mymap.end());        // erasing by iterator
+    mymap.erase ('c');                  // erasing by key
+    it=mymap.find ('e');
+    mymap.erase ( it, mymap.end() );    // erasing by range
+    // show content:
+    for (it=mymap.begin(); it!=mymap.end(); ++it)
+    {     
+        std::cout << it->first << " => " << it->second << '\n';
+    }
 
     //NOTE - Swap content
     // std::cout << "------------- Library FT -------------" << std::endl;
@@ -821,21 +820,21 @@ int main()
     // } while ( mymap.value_comp()(*it++, highest) );
     
         //NOTE - Get iterator to element
-    std::cout << "------------- Library FT -------------" << std::endl; 
-    ft::map<char,int> mymap;
-    ft::map<char,int>::iterator it;
-    mymap['a']=50;
-    mymap['b']=100;
-    mymap['c']=150;
-    mymap['d']=200;
-    it = mymap.find('z');
-    if (it != mymap.end())
-        mymap.erase (it);
-    // print content:
-    std::cout << "elements in mymap:" << '\n';
-    std::cout << "a => " << mymap.find('a')->second << '\n';
-    std::cout << "c => " << mymap.find('c')->second << '\n';
-    std::cout << "d => " << mymap.find('d')->second << '\n';
+    // std::cout << "------------- Library FT -------------" << std::endl; 
+    // ft::map<char,int> mymap;
+    // ft::map<char,int>::iterator it;
+    // mymap['a']=50;
+    // mymap['b']=100;
+    // mymap['c']=150;
+    // mymap['d']=200;
+    // it = mymap.find('b');
+    // if (it != mymap.end())
+    //     mymap.erase (it);
+    // // print content:
+    // std::cout << "elements in mymap:" << '\n';
+    // std::cout << "a => " << mymap.find('a')->second << '\n';
+    // std::cout << "c => " << mymap.find('c')->second << '\n';
+    // std::cout << "d => " << mymap.find('d')->second << '\n';
 
     // std::pair<int, int> p551;
     // p551.first = 21;

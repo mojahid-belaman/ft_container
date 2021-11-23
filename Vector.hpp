@@ -2,146 +2,13 @@
 #define VECTOR_HPP
 
 #include <iostream>
-#include <limits>
-#include "Utility.hpp"
+#include "Iterator_traits.hpp"
+#include "Reverse_iterator.hpp"
+#include "Enable_if.hpp"
+#include "Is_integral.hpp"
 
 namespace ft
 {
-    //TODO - Define enable_if
-    template <bool Cond, class T = void>
-    struct enable_if {};
-    template <class T>
-    struct enable_if<true, T>
-    {
-        typedef T type;
-    };
-
-    //TODO - Define Is integral
-    template <class T> 
-    struct is_integral
-    {
-        static const bool value = false;
-    };
-    template <>
-    struct is_integral<char>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<char16_t>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<char32_t>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<wchar_t>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<signed char>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<short int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<long int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<long long int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<unsigned char>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<unsigned short int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<unsigned int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<unsigned long int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<unsigned long long int>
-    {
-        static const bool value = true;
-    };
-    template <>
-    struct is_integral<float>
-    {
-        static const bool value = true;
-    };
-
-    // //TODO - Define Iterator traits
-    // template <class T>
-    // class iterator_traits
-    // {
-    //     public:
-    //         typedef typename T::value_type value_type;
-    //         typedef typename T::difference_type difference_type;
-    //         typedef typename T::iterator_category iterator_category;
-    //         typedef typename T::pointer pointer;
-    //         typedef typename T::reference reference;
-    // };
-    // template <typename T>
-    // class iterator_traits<T*>
-    // {
-    //     public:
-    //         typedef std::random_access_iterator_tag iterator_category;
-    //         typedef T                               value_type;
-    //         typedef T*                              pointer;
-    //         typedef T&                              reference;
-    //         typedef std::ptrdiff_t                  difference_type;
-    // };
-    // template <typename T>
-    // class iterator_traits<const T*>
-    // {
-    //     public:
-    //         typedef std::random_access_iterator_tag iterator_category;
-    //         typedef T                               value_type;
-    //         typedef const T*                        pointer;
-    //         typedef const T&                        reference;
-    //         typedef std::ptrdiff_t                  difference_type;
-    // };
-
-    // //TODO - Base Iterator
-    // template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-    // class iterator 
-    // {
-    //     public:
-    //         typedef T         value_type;
-    //         typedef Distance  difference_type;
-    //         typedef Pointer   pointer;
-    //         typedef Reference reference;
-    //         typedef Category  iterator_category;
-    // };
-    // TODO - Implement my_Iterator
     template <class Iterator>
     class vector_iterator : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type>
     {
@@ -268,132 +135,6 @@ namespace ft
         return (lhs.base() - rhs.base());
     }
 
-    //TODO - Reverse iterator
-    template <class Iterator>
-    class vector_iterator_reverse : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type>
-    {
-        public:
-            typedef Iterator iterator_type;
-            typedef typename iterator_traits<Iterator>::difference_type     difference_type;
-            typedef typename iterator_traits<Iterator>::pointer             pointer;
-            typedef typename iterator_traits<Iterator>::reference           reference;
-
-            //TODO - Constructor Default
-            vector_iterator_reverse() : _ptr(nullptr) {}
-            //TODO - initialization
-            explicit vector_iterator_reverse (iterator_type it) : _ptr(it) {}
-            //TODO - copy
-            template <class Iter>
-            vector_iterator_reverse (const vector_iterator_reverse<Iter>& rev_it) : _ptr(rev_it._ptr) {}
-            //TODO - Return base iterator
-            iterator_type base() const
-            {
-                return _ptr;
-            }
-            //TODO - Dereference iterator
-            reference operator*() const
-            {
-                return (*(--this->base()));
-            }
-            //TODO - Addition operator
-            vector_iterator_reverse operator+ (difference_type n) const
-            {
-                return vector_iterator_reverse(_ptr - n);
-            }
-            //TODO - Increment iterator position
-            vector_iterator_reverse& operator++()
-            {
-                --_ptr;
-                return (*this);
-            }
-            vector_iterator_reverse  operator++(int)
-            {
-                vector_iterator_reverse tmp = *this;
-                ++(*this);
-                return tmp;
-            }
-            vector_iterator_reverse& operator+= (difference_type n)
-            {
-                this->_ptr -= n;
-                return (*this);
-            }
-            vector_iterator_reverse operator- (difference_type n) const
-            {
-                return vector_iterator_reverse(this->_ptr + n);
-            }
-            vector_iterator_reverse& operator--()
-            {
-                return (++(this->base()));
-            }
-            vector_iterator_reverse  operator--(int)
-            {
-                vector_iterator_reverse tmp = *this;
-                --(*this);
-                return (tmp);
-            }
-            vector_iterator_reverse& operator-= (difference_type n)
-            {
-                _ptr += n;
-                return (*this);
-            }
-            pointer operator->() const
-            {
-                return (this->_ptr);
-            }
-            reference operator[] (difference_type n) const
-            {
-                return (*(_ptr - n));
-            }
-        private:
-            iterator_type _ptr;
-    };
-    template <class Iterator>
-    bool operator== (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (rhs.base() == lhs.base());
-    }
-
-    template <class Iterator>
-    bool operator!= (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (rhs.base() != lhs.base());
-    }
-
-    template <class Iterator>
-    bool operator< (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (rhs.base() < lhs.base());
-    }
-
-    template <class Iterator>
-    bool operator<= (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (rhs.base() <= lhs.base());
-    }
-
-    template <class Iterator>
-    bool operator> (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (rhs.base() > lhs.base());
-    }
-
-    template <class Iterator>
-    bool operator>= (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (rhs.base() >= lhs.base());
-    }
-
-    template <class Iterator>
-    vector_iterator_reverse<Iterator> operator+ (typename vector_iterator_reverse<Iterator>::difference_type n, const vector_iterator_reverse<Iterator>& rev_it)
-    {
-        return (*(rev_it.base() - n));
-    }
-
-    template <class Iterator>
-    typename vector_iterator_reverse<Iterator>::difference_type operator- (const vector_iterator_reverse<Iterator>& lhs, const vector_iterator_reverse<Iterator>& rhs)
-    {
-        return (lhs.base() - rhs.base());
-    }
     template <class T, class Alloc = std::allocator<T> >
     class vector
     {
@@ -413,8 +154,8 @@ namespace ft
         typedef typename allocator_type::const_pointer      const_pointer;
         typedef vector_iterator<pointer>                    iterator;
         typedef vector_iterator<const_pointer>              const_iterator;
-        typedef vector_iterator_reverse<iterator>           reverse_iterator;
-        typedef vector_iterator_reverse<const_iterator>     const_reverse_iterator;
+        typedef myiterator_reverse<iterator>                reverse_iterator;
+        typedef myiterator_reverse<const_iterator>          const_reverse_iterator;
         typedef ptrdiff_t                                   difference_type;
         typedef size_t                                      size_type;
         // TODO - Implement Constructor Default (empty)
@@ -794,17 +535,6 @@ namespace ft
     template <class T, class Alloc>
     bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        // if (lhs.size() == rhs.size())
-        // {
-        //     for (size_t i = 0; i < lhs.size(); i++)
-        //     {
-        //         if (lhs.at(i) != rhs.at(i))
-        //             return false;
-        //     }
-        //     return true;
-        // }
-        // else
-        //     return false;
         return (equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
     template <class T, class Alloc>

@@ -749,24 +749,24 @@ int main()
     // std::cout << "Size of second: " << second.size() << '\n';
 
     //NOTE - Erase elements
-    // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::map<char,int> mymap;
-    // // insert some values:
-    // mymap['a']=10;
-    // mymap['b']=20;
-    // mymap['c']=30;
-    // mymap['d']=40;
-    // mymap['e']=50;
-    // mymap['f']=60;
-    // std::map<char,int>::iterator it = mymap.begin();
-    // // it=mymap.find('b');
-    // mymap.erase (it, mymap.end());                   // erasing by iterator
-    // mymap.erase ('c');                  // erasing by key
-    // // it=mymap.find ('e');
-    // // mymap.erase ( it, mymap.end() );    // erasing by range
-    // // show content:
-    // for (it=mymap.begin(); it!=mymap.end(); ++it)
-    //     std::cout << it->first << " => " << it->second << '\n';
+    std::cout << "------------- Library STD -------------" << std::endl;
+    std::map<char,int> mymap;
+    // insert some values:
+    mymap['a']=10;
+    mymap['b']=20;
+    mymap['c']=30;
+    mymap['d']=40;
+    mymap['e']=50;
+    mymap['f']=60;
+    std::map<char,int>::iterator it = mymap.begin();
+    it=mymap.find('b');
+    mymap.erase (it, mymap.end());                   // erasing by iterator
+    mymap.erase ('c');                  // erasing by key
+    it=mymap.find ('e');
+    mymap.erase ( it, mymap.end() );    // erasing by range
+    // show content:
+    for (it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 
     //NOTE - Swap content
     // std::cout << "------------- Library STD -------------" << std::endl;
@@ -813,19 +813,19 @@ int main()
     // } while ( mymap.value_comp()(*it++, highest) );
 
     //NOTE - Get iterator to element
-    std::cout << "------------- Library STD -------------" << std::endl; 
-    std::map<char,int> mymap;
-    std::map<char,int>::iterator it;
-    mymap['a']=50;
-    mymap['b']=100;
-    mymap['c']=150;
-    mymap['d']=200;
-    it = mymap.find('b');
-    if (it != mymap.end())
-        mymap.erase (it);
-    // print content:
-    std::cout << "elements in mymap:" << '\n';
-    std::cout << "a => " << mymap.find('a')->second << '\n';
-    std::cout << "c => " << mymap.find('c')->second << '\n';
-    std::cout << "d => " << mymap.find('d')->second << '\n';
+    // std::cout << "------------- Library STD -------------" << std::endl; 
+    // std::map<char,int> mymap;
+    // std::map<char,int>::iterator it;
+    // mymap['a']=50;
+    // mymap['b']=100;
+    // mymap['c']=150;
+    // mymap['d']=200;
+    // it = mymap.find('b');
+    // if (it != mymap.end())
+    //     mymap.erase (it);
+    // // print content:
+    // std::cout << "elements in mymap:" << '\n';
+    // std::cout << "a => " << mymap.find('a')->second << '\n';
+    // std::cout << "c => " << mymap.find('c')->second << '\n';
+    // std::cout << "d => " << mymap.find('d')->second << '\n';
 }
