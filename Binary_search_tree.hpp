@@ -246,7 +246,7 @@ namespace ft
                         ptr_node node = max_val->parent;
                         root->left = delete_helper(root->left, max_val->_data);
                         tmp = delete_balance_factor(node, vt);
-                        _alloc.construct(root, max_val->_data);
+                        _alloc.construct(root, vt);
                         if (tmp != nullptr)
                             root = tmp;
                     }

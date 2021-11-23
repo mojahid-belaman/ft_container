@@ -190,11 +190,17 @@ namespace ft
             //NOTE - Get iterator to element
             iterator    find(const key_type& k)
             {
-                return iterator(_tree.search_node(ft::make_pair(k, mapped_type())));
+                ptr_node node = _tree.search_node(ft::make_pair(k, mapped_type()));
+                if (node == nullptr)
+                    return iterator(_tree.get_end());
+                return iterator(node);
             }
             const_iterator  find(const key_type& k) const
             {
-                return const_iterator(_tree.search_node(ft::make_pair(k, mapped_type())));
+                ptr_node node = _tree.search_node(ft::make_pair(k, mapped_type()));
+                if (node == nullptr)
+                    return const_iterator(_tree.get_end());
+                return const_iterator(node);
             }
             //NOTE - Return iterator to beginning
             iterator begin()
