@@ -368,7 +368,6 @@ namespace ft
                 }
                 return nullptr;
             }
-
     };
 
     template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
@@ -542,6 +541,16 @@ namespace ft
             key_compare key_comp() const
             {
                 return key_compare();
+            }
+            //NOTE - Return value comparison object
+            value_compare value_comp() const
+            {
+                return value_compare(_cmp);
+            }
+            //NOTE - Get iterator to element
+            iterator    find(const key_type& k)
+            {
+                return (_tree.search_node(ft::make_pair(k, mapped_type())));
             }
             //NOTE - Return iterator to beginning
             iterator begin()

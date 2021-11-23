@@ -786,19 +786,46 @@ int main()
     //     std::cout << it->first << " => " << it->second << '\n';
 
     //NOTE - Return key comparison object
+    // std::cout << "------------- Library STD -------------" << std::endl; 
+    // std::map<char,int> mymap;
+    // mymap['a']=100;
+    // mymap['b']=200;
+    // mymap['c']=300;
+    // std::cout << "mymap contains:\n";
+    // char highest = mymap.rbegin()->first;     // key value of last element
+    // std::map<char,int>::iterator it = mymap.begin();
+    // do {
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // } while ( mymap.key_comp()((*it++).first, highest) );
+    // std::cout << '\n';  
+
+    //NOTE - Return value comparison object
+    // std::cout << "------------- Library STD -------------" << std::endl; 
+    // std::map<char,int> mymap;
+    // mymap['x']=1001;
+    // mymap['y']=2002;
+    // mymap['z']=3003;
+    // std::cout << "mymap contains:\n";
+    // std::pair<char,int> highest = *mymap.rbegin();          // last element
+    // std::map<char,int>::iterator it = mymap.begin();
+    // do {
+    //     std::cout << it->first << " => " << it->second << '\n';
+    // } while ( mymap.value_comp()(*it++, highest) );
+
+    //NOTE - Get iterator to element
     std::cout << "------------- Library STD -------------" << std::endl; 
     std::map<char,int> mymap;
-    std::map<char,int>::key_compare mycomp = mymap.key_comp();
-    mymap['a']=100;
-    mymap['b']=200;
-    mymap['c']=300;
-    std::cout << "mymap contains:\n";
-    char highest = mymap.rbegin()->first;     // key value of last element
-    std::map<char,int>::iterator it = mymap.begin();
-    do {
-        std::cout << it->first << " => " << it->second << '\n';
-    } while ( mycomp((*it++).first, highest) );
-
-    std::cout << '\n';  
-
+    std::map<char,int>::iterator it;
+    mymap['a']=50;
+    mymap['b']=100;
+    mymap['c']=150;
+    mymap['d']=200;
+    it = mymap.find('b');
+    if (it != mymap.end())
+        mymap.erase (it);
+    // print content:
+    std::cout << "elements in mymap:" << '\n';
+    std::cout << "a => " << mymap.find('a')->second << '\n';
+    std::cout << "c => " << mymap.find('c')->second << '\n';
+    std::cout << "d => " << mymap.find('d')->second << '\n';
 }

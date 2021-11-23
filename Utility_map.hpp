@@ -298,7 +298,7 @@ namespace ft
             }
             pointer operator->() const
             {
-                return &(*(--static_cast<iter>(_it)));
+                return &(operator*());
             }
             reference operator[] (difference_type n) const
             {
