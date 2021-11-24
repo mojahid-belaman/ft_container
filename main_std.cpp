@@ -855,9 +855,11 @@ int main()
     mymap['d']=80;
     mymap['e']=100;
     itlow=mymap.lower_bound ('b');  // itlow points to b
+    std::cout << itlow->first << "\t" << itlow->second << std::endl;
     itup=mymap.upper_bound ('d');   // itup points to e (not d!)
-    mymap.erase(itlow,itup);        // erases [itlow,itup)
+    std::cout << itup->first << "\t" << itup->second << std::endl;
+    // mymap.erase(itlow,itup);        // erases [itlow,itup)
     // print content:
-    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
+    // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
 }
