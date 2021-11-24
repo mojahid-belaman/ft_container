@@ -749,24 +749,24 @@ int main()
     // std::cout << "Size of second: " << second.size() << '\n';
 
     //NOTE - Erase elements
-    std::cout << "------------- Library STD -------------" << std::endl;
-    std::map<char,int> mymap;
-    // insert some values:
-    mymap['a']=10;
-    mymap['b']=20;
-    mymap['c']=30;
-    mymap['d']=40;
-    mymap['e']=50;
-    mymap['f']=60;
-    std::map<char,int>::iterator it = mymap.begin();
-    it=mymap.find('b');
-    mymap.erase (it, mymap.end());                   // erasing by iterator
-    mymap.erase ('c');                  // erasing by key
-    it=mymap.find ('e');
-    mymap.erase ( it, mymap.end() );    // erasing by range
-    // show content:
-    for (it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,int> mymap;
+    // // insert some values:
+    // mymap['a']=10;
+    // mymap['b']=20;
+    // mymap['c']=30;
+    // mymap['d']=40;
+    // mymap['e']=50;
+    // mymap['f']=60;
+    // std::map<char,int>::iterator it = mymap.begin();
+    // it=mymap.find('b');
+    // mymap.erase (it);                   // erasing by iterator
+    // mymap.erase ('c');                  // erasing by key
+    // it=mymap.find ('e');
+    // mymap.erase ( it, mymap.end() );    // erasing by range
+    // // show content:
+    // for (it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
 
     //NOTE - Swap content
     // std::cout << "------------- Library STD -------------" << std::endl;
@@ -828,4 +828,36 @@ int main()
     // std::cout << "a => " << mymap.find('a')->second << '\n';
     // std::cout << "c => " << mymap.find('c')->second << '\n';
     // std::cout << "d => " << mymap.find('d')->second << '\n';
+
+
+    //NOTE - Count elements with a specific key
+    // std::cout << "------------- Library STD -------------" << std::endl; 
+    // std::map<char,int> mymap;
+    // char c;
+    // mymap ['a']=101;
+    // mymap ['c']=202;
+    // mymap ['f']=303;
+    // for (c='a'; c<'h'; c++)
+    // {
+    //     std::cout << c;
+    //     if (mymap.count(c)>0)
+    //     std::cout << " is an element of mymap.\n";
+    //     else 
+    //     std::cout << " is not an element of mymap.\n";
+    // }
+
+    std::map<char,int> mymap;
+    std::map<char,int>::iterator itlow,itup;
+
+    mymap['a']=20;
+    mymap['b']=40;
+    mymap['c']=60;
+    mymap['d']=80;
+    mymap['e']=100;
+    itlow=mymap.lower_bound ('b');  // itlow points to b
+    itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+    mymap.erase(itlow,itup);        // erases [itlow,itup)
+    // print content:
+    for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 }

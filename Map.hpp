@@ -161,10 +161,12 @@ namespace ft
             }
             void    erase(iterator first, iterator last)
             {
+                iterator tmp;
                 while (first != last)
                 {
-                    this->erase(first);
+                    tmp = first;
                     first++;
+                    this->erase(tmp);
                 }
             }
             //NOTE - Swap content
@@ -201,6 +203,11 @@ namespace ft
                 if (node == nullptr)
                     return const_iterator(_tree.get_end());
                 return const_iterator(node);
+            }
+            //NOTE - Count elements with a specific key
+            size_type count(const key_type& k) const
+            {
+                return (_tree.search_node(ft::make_pair(k, mapped_type())) == nullptr ? 0 : 1);
             }
             //NOTE - Return iterator to beginning
             iterator begin()

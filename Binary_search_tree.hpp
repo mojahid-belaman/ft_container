@@ -147,7 +147,7 @@ namespace ft
                 {
                     if (tmp != nullptr)
                     {
-                        if (tmp->_data.first > val.first)
+                        if (_cmp(tmp->_data.first, val.first))
                             tmp = tmp->left;
                         else
                             tmp = tmp->right;
