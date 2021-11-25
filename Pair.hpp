@@ -1,6 +1,8 @@
 #ifndef PAIR_HPP
 #define PAIR_HPP
 
+#include <iostream>
+
 namespace ft
 {
         //NOTE - class template (Pair of values)

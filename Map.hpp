@@ -209,6 +209,24 @@ namespace ft
             {
                 return (_tree.search_node(ft::make_pair(k, mapped_type())) == nullptr ? 0 : 1);
             }
+            //NOTE - Return iterator to lower bound
+            iterator    lower_bound(const key_type& k)
+            {
+                return iterator(_tree.lower_bound(ft::make_pair(k, mapped_type())));
+            }
+            const_iterator  lower_bound(const key_type& k) const
+            {
+                return const_iterator(_tree.lower_bound(ft::make_pair(k, mapped_type())));
+            }
+            //NOTE - Return iterator to upper bound
+            iterator    upper_bound(const key_type& k)
+            {
+                return iterator(_tree.upper_bound(ft::make_pair(k, mapped_type())));
+            }
+            const_iterator  upper_bound(const key_type& k) const
+            {
+                return const_iterator(_tree.upper_bound(ft::make_pair(k, mapped_type())));
+            }
             //NOTE - Return iterator to beginning
             iterator begin()
             {

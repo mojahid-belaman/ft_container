@@ -33,6 +33,26 @@ namespace ft
             BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _end(nullptr), _alloc(alloc), _cmp(comp), _size(0)
             {
             }
+            ptr_node    increment(ptr_node curr)
+            {
+                if (curr->right != nullptr)
+                {
+                    curr = curr->right;
+                    while (curr->left != nullptr)
+                        curr = curr->left;
+                    return curr;
+                }
+                else
+                {
+                    ptr_node ptr_parent = curr->parent;
+                    while (ptr_parent != nullptr && curr == ptr_parent->right)
+                    {
+                        curr = ptr_parent;
+                        ptr_parent = ptr_parent->parent;
+                    }
+                    return ptr_parent;
+                }
+            }
             size_type size() const
             {
                 return _size;
@@ -71,6 +91,28 @@ namespace ft
             {
                 _root = all_clean_tree(_root);
                 _size = 0;
+            }
+            ptr_node    lower_bound(value_type val)
+            {
+                ptr_node node = get_min();
+                while (node != _end)
+                {
+                    if (!_cmp(node->_data.first, val.first))
+                        return node;
+                    node = increment(node);
+                }
+                return _end;
+            }
+            ptr_node    upper_bound(value_type val)
+            {
+                ptr_node node = get_min();
+                while (node != _end)
+                {
+                    if (_cmp(val.first, node->_data.first))
+                        return node;
+                    node = increment(node);
+                }
+                return _end;
             }
             void    insert_node(value_type data)
             {

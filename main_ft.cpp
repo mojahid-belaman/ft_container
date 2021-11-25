@@ -838,7 +838,7 @@ int main()
 
 
     //NOTE - Count elements with a specific key
-    // std::cout << "------------- Library STD -------------" << std::endl; 
+    // std::cout << "------------- Library FT -------------" << std::endl; 
     // std::map<char,int> mymap;
     // char c;
     // mymap ['a']=101;
@@ -853,7 +853,22 @@ int main()
     //     std::cout << " is not an element of mymap.\n";
     // }
 
-
+    //NOTE - Return iterator to lower bound
+    //NOTE - Return iterator to upper bound
+    std::cout << "------------- Library FT -------------" << std::endl; 
+    ft::map<char,int> mymap;
+    ft::map<char,int>::iterator itlow,itup;
+    mymap['a']=20;
+    mymap['b']=40;
+    mymap['c']=60;
+    mymap['d']=80;
+    mymap['e']=100;
+    itlow=mymap.lower_bound ('b');  // itlow points to b
+    itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+    mymap.erase(itlow,itup);        // erases [itlow,itup)
+    // print content:
+    for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 
 
 
@@ -982,9 +997,7 @@ int main()
     // ft::map<int, int>::tree tr;
     // for (size_t i = 1; i <= 5; i++)
     // {
-        // tr.insert_node(ft::make_pair(i, i*2));
-        // m.insert(std::make_pair(i, i*2));
-        // m[i] = i*2;
+    //     tr.insert_node(ft::make_pair(i, i*2));
     // }
     // tr.insert_node(p1);
     // tr.insert_node(p2);
@@ -994,7 +1007,7 @@ int main()
     // std::cout << tr.size() << std::endl;
     // tr.print_bst();
     // std::cout << "Delete" << std::endl;
-    // tr.delete_node(p1);
+    // tr.delete_node(ft::make_pair(4, 0));
     // std::cout << tr.size() << std::endl;
     // tr.print_bst();
     // std::cout << "==============" << std::endl;
@@ -1013,7 +1026,5 @@ int main()
     // --it;
     // std::cout << "\n" << it->first << std::endl;
     // std::cout << tr.search_node(ft::make_pair(99999, 12))->_data.second << std::endl;
-    
-
     
 }
