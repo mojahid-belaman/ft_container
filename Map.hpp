@@ -227,6 +227,20 @@ namespace ft
             {
                 return const_iterator(_tree.upper_bound(ft::make_pair(k, mapped_type())));
             }
+            //NOTE - Get range of equal elements
+            pair<iterator,iterator> equal_range(const key_type& k)
+            {
+                return (ft::make_pair(lower_bound(k), upper_bound(k)));
+            }
+            pair<const_iterator,const_iterator> equal_range(const key_type& k) const
+            {
+                 return (ft::make_pair(lower_bound(k), upper_bound(k)));
+            }
+            //NOTE - Get allocator
+            allocator_type  get_allocator() const
+            {
+                return  allocator_type();
+            }
             //NOTE - Return iterator to beginning
             iterator begin()
             {
