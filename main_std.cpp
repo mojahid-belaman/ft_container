@@ -686,7 +686,7 @@ int main()
     // std::map<int,int> mymap;
     // if (mymap.max_size()>1000)
     // {
-    //     for (i=0; i<1000; i++) mymap[i]=0;
+    //     for (i=0; i<1000; i++) mymap[i]=i;
     //     std::cout << "The map contains 1000 elements.\n";
     // }
     // else std::cout << "The map could not hold 1000 elements.\n";
@@ -861,7 +861,7 @@ int main()
     // mymap.erase(itlow,itup);        // erases [itlow,itup)
     // // print content:
     // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-    //     std::cout << it->first << " => " << it->second << '\n';}
+    //     std::cout << it->first << " => " << it->second << '\n';
 
     //NOTE - Get range of equal elements
     // std::cout << "------------- Library STD -------------" << std::endl;
@@ -877,15 +877,16 @@ int main()
     // std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
     //NOTE - Get allocator
-    std::cout << "------------- Library STD -------------" << std::endl;
-    int psize;
-    std::map<char,int> mymap;
-    std::pair<const char,int>* p;
-    // allocate an array of 5 elements using mymap's allocator:
-    p=mymap.get_allocator().allocate(5);
-    // assign some values to array
-    psize = sizeof(std::map<char,int>::value_type)*5;
-    std::cout << "The allocated array has a size of " << psize << " bytes.\n";
-    mymap.get_allocator().deallocate(p,5);
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // int psize;
+    // std::vector<int> v;
+    // std::map<char,int> mymap;
+    // std::pair<const char,int>* p;
+    // // allocate an array of 5 elements using mymap's allocator:
+    // p=mymap.get_allocator().allocate(5);
+    // // assign some values to array
+    // psize = sizeof(std::map<char,int>::value_type)*5;
+    // std::cout << "The allocated array has a size of " << psize << " bytes.\n";
+    // mymap.get_allocator().deallocate(p,5);
 
 }

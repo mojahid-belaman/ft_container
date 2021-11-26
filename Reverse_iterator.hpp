@@ -3,41 +3,55 @@
 
 #include "Iterator_traits.hpp"
 
+namespace ft 
+{
+
 //TODO - Reverse iterator
 template <class Iterator>
-class myiterator_reverse : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type>
+class myiterator_reverse : public iterator< typename iterator_traits<Iterator>::iterator_category,
+                                            typename iterator_traits<Iterator>::value_type,
+                                            typename iterator_traits<Iterator>::difference_type,
+                                            typename iterator_traits<Iterator>::pointer,
+                                            typename iterator_traits<Iterator>::reference>
 {
     public:
         typedef Iterator iterator_type;
         typedef typename iterator_traits<Iterator>::difference_type     difference_type;
         typedef typename iterator_traits<Iterator>::pointer             pointer;
         typedef typename iterator_traits<Iterator>::reference           reference;
+
         //TODO - Constructor Default
-        myiterator_reverse() : _ptr(nullptr) {}
+        myiterator_reverse() : _itr(nullptr) {}
+
         //TODO - initialization
-        explicit myiterator_reverse (iterator_type it) : _ptr(it) {}
+        explicit myiterator_reverse (iterator_type it) : _itr(it) {}
+
         //TODO - copy
         template <class Iter>
-        myiterator_reverse (const myiterator_reverse<Iter>& rev_it) : _ptr(rev_it._ptr) {}
+        myiterator_reverse (const myiterator_reverse<Iter>& rev_it) : _itr(rev_it._itr) {}
+        
         //TODO - Return base iterator
         iterator_type base() const
         {
-            return _ptr;
+            return _itr;
         }
+
         //TODO - Dereference iterator
         reference operator*() const
         {
             return (*(--this->base()));
         }
+
         //TODO - Addition operator
         myiterator_reverse operator+ (difference_type n) const
         {
-            return myiterator_reverse(_ptr - n);
+            return myiterator_reverse(_itr - n);
         }
+
         //TODO - Increment iterator position
         myiterator_reverse& operator++()
         {
-            --_ptr;
+            --_itr;
             return (*this);
         }
         myiterator_reverse  operator++(int)
@@ -48,12 +62,12 @@ class myiterator_reverse : public iterator<std::random_access_iterator_tag, type
         }
         myiterator_reverse& operator+= (difference_type n)
         {
-            this->_ptr -= n;
+            this->_itr -= n;
             return (*this);
         }
         myiterator_reverse operator- (difference_type n) const
         {
-            return myiterator_reverse(this->_ptr + n);
+            return myiterator_reverse(this->_itr + n);
         }
         myiterator_reverse& operator--()
         {
@@ -67,7 +81,7 @@ class myiterator_reverse : public iterator<std::random_access_iterator_tag, type
         }
         myiterator_reverse& operator-= (difference_type n)
         {
-            _ptr += n;
+            _itr += n;
             return (*this);
         }
         pointer operator->() const
@@ -76,11 +90,12 @@ class myiterator_reverse : public iterator<std::random_access_iterator_tag, type
         }
         reference operator[] (difference_type n) const
         {
-            return (*(_ptr - n));
+            return (*(_itr - n));
         }
     private:
-        iterator_type _ptr;
+        iterator_type _itr;
 };
+
 template <class Iterator>
 bool operator== (const myiterator_reverse<Iterator>& lhs, const myiterator_reverse<Iterator>& rhs)
 {
@@ -122,4 +137,5 @@ typename myiterator_reverse<Iterator>::difference_type operator- (const myiterat
     return (lhs.base() - rhs.base());
 }
 
+}
 #endif

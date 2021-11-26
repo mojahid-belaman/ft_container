@@ -11,13 +11,18 @@ namespace ft
     {
         public:
             typedef typename iterator_traits<T*>::reference reference;
-            typedef typename iterator_traits<T*>::pointer pointer;
+            typedef typename iterator_traits<T*>::pointer   pointer;
+            typedef std::bidirectional_iterator_tag         iterator_category;
 
             tree_iterator() : curr_node(nullptr)
             {
             }
             tree_iterator(ptr_node ptr) : curr_node(ptr)
             {
+            }
+            ptr_node base() const
+            {
+                return curr_node;
             }
             reference operator*() const
             {
@@ -56,10 +61,6 @@ namespace ft
             friend  bool  operator!=(const tree_iterator& x, const tree_iterator& y)
             {
                 return (x.curr_node != y.curr_node);
-            }
-            ~tree_iterator() {}
-            ptr_node base() const {
-                return curr_node;
             }
         private:
             ptr_node    curr_node;

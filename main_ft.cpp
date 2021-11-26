@@ -690,7 +690,7 @@ int main()
     // ft::map<int,int> mymap;
     // if (mymap.max_size()>1000)
     // {
-    //     for (i=0; i<1000; i++) mymap[i]=0;
+    //     for (i=0; i<1000; i++) mymap[i]=i;
     //     std::cout << "The map contains 1000 elements.\n";
     // }
     // std::cout << mymap.max_size() << std::endl;
@@ -884,17 +884,16 @@ int main()
     // std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
     //NOTE - Get allocator
-    std::cout << "------------- Library FT -------------" << std::endl;
-    int psize;
-    ft::map<char,int> mymap;
-    ft::pair<const char,int>* p;
-    // allocate an array of 5 elements using mymap's allocator:
-    p=mymap.get_allocator().allocate(5);
-    // assign some values to array
-    psize = sizeof(ft::map<char,int>::value_type)*5;
-    std::cout << "The allocated array has a size of " << psize << " bytes.\n";
-    mymap.get_allocator().deallocate(p,5);
-
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // int psize;
+    // ft::map<char,int> mymap;
+    // ft::pair<const char,int>* p;
+    // // allocate an array of 5 elements using mymap's allocator:
+    // p=mymap.get_allocator().allocate(5);
+    // // assign some values to array
+    // psize = sizeof(ft::map<char,int>::value_type)*5;
+    // std::cout << "The allocated array has a size of " << psize << " bytes.\n";
+    // mymap.get_allocator().deallocate(p,5);
 
 
 

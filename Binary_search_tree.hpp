@@ -90,6 +90,11 @@ namespace ft
             void clear()
             {
                 _root = all_clean_tree(_root);
+                if (_root == nullptr)
+                {
+                    _alloc.deallocate(_end, 1);
+                    _end = nullptr;
+                }
                 _size = 0;
             }
             ptr_node    lower_bound(value_type val)
