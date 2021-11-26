@@ -673,16 +673,18 @@ int main()
     // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 
     //NOTE - Test whether container is empty
-    // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::map<char,int> mymap;
-    // mymap['a']=10;
-    // mymap['b']=20;
-    // mymap['c']=30;
-    // while (!mymap.empty())
-    // {
-    //     std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-    //     mymap.erase(mymap.begin());
-    // }
+    //FIXME - not fixed
+    std::cout << "------------- Library FT -------------" << std::endl;
+    ft::map<char,int, std::greater<char> > mymap;
+    mymap['a']=10;
+    mymap['b']=20;
+    mymap['c']=30;
+    mymap['d']=30;
+    while (!mymap.empty())
+    {
+        std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+        mymap.erase(mymap.begin());
+    }
 
     //NOTE - Return maximum size
     // std::cout << "------------- Library FT -------------" << std::endl;

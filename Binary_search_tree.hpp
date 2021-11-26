@@ -164,9 +164,8 @@ namespace ft
                     _size++;
                 }
                 new_node->parent = parent;
-                
                 //NOTE - Calcule bf every node
-                insert_balance_factor(new_node);     
+                insert_balance_factor(new_node);
             }
             ptr_node    get_max() const
             {

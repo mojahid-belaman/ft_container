@@ -645,13 +645,13 @@ int main()
 
     //NOTE - Construct map
     // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::map<char,int> first;
+    // std::map<char,int, std::greater<char> > first;
     // first['a']=10;
     // first['b']=30;
     // first['c']=50;
     // first['d']=70;
     // std::map<char,int> second (first.begin(),first.end());
-    // for (std::map<char, int>::iterator i = second.begin(); i != second.end(); i++)
+    // for (std::map<char, int >::iterator i = second.begin(); i != second.end(); i++)
     // {
     //     std::cout << i->first << "\t" << i->second << std::endl;
     // }
@@ -669,16 +669,16 @@ int main()
     // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 
     //NOTE - Test whether container is empty
-    // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::map<char,int> mymap;
-    // mymap['a']=10;
-    // mymap['b']=20;
-    // mymap['c']=30;
-    // while (!mymap.empty())
-    // {
-    //     std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-    //     mymap.erase(mymap.begin());
-    // }
+    std::cout << "------------- Library STD -------------" << std::endl;
+    std::map<char,int, std::greater<char> > mymap;
+    mymap['a']=10;
+    mymap['b']=20;
+    mymap['c']=30;
+    while (!mymap.empty())
+    {
+        std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+        mymap.erase(mymap.begin());
+    }
 
     //NOTE - Return maximum size
     // std::cout << "------------- Library STD -------------" << std::endl;
