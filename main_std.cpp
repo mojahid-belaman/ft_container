@@ -34,7 +34,7 @@ int main()
 
     //NOTE - Constructor
     // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::vector<int> first;                                
+    std::vector<int> first;                                
     // std::vector<int> second (4,100);                      
     // std::vector<int> third (second.begin(),second.end()); 
     // std::vector<int> fourth (third);                       
@@ -669,16 +669,16 @@ int main()
     // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 
     //NOTE - Test whether container is empty
-    std::cout << "------------- Library STD -------------" << std::endl;
-    std::map<char,int, std::greater<char> > mymap;
-    mymap['a']=10;
-    mymap['b']=20;
-    mymap['c']=30;
-    while (!mymap.empty())
-    {
-        std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-        mymap.erase(mymap.begin());
-    }
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::map<char,int> mymap;
+    // mymap['a']=10;
+    // mymap['b']=20;
+    // mymap['c']=30;
+    // while (!mymap.empty())
+    // {
+    //     std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+    //     mymap.erase(mymap.begin());
+    // }
 
     //NOTE - Return maximum size
     // std::cout << "------------- Library STD -------------" << std::endl;
@@ -801,13 +801,13 @@ int main()
 
     //NOTE - Return value comparison object
     // std::cout << "------------- Library STD -------------" << std::endl; 
-    // std::map<char,int> mymap;
+    // std::map<char,int, std::greater<char> > mymap;
     // mymap['x']=1001;
     // mymap['y']=2002;
     // mymap['z']=3003;
     // std::cout << "mymap contains:\n";
     // std::pair<char,int> highest = *mymap.rbegin();          // last element
-    // std::map<char,int>::iterator it = mymap.begin();
+    // std::map<char,int, std::greater<char> >::iterator it = mymap.begin();
     // do {
     //     std::cout << it->first << " => " << it->second << '\n';
     // } while ( mymap.value_comp()(*it++, highest) );
@@ -860,7 +860,7 @@ int main()
     // itup=mymap.upper_bound ('d');   // itup points to e (not d!)
     // mymap.erase(itlow,itup);        // erases [itlow,itup)
     // // print content:
-    // for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    // for (std::map<char,int, std::greater<char> >::iterator it=mymap.begin(); it!=mymap.end(); ++it)
     //     std::cout << it->first << " => " << it->second << '\n';
 
     //NOTE - Get range of equal elements

@@ -164,6 +164,8 @@ namespace ft
                 iterator tmp;
                 while (first != last)
                 {
+                    if (first == iterator(_tree.get_end()))
+                        return ;
                     tmp = first;
                     first++;
                     this->erase(tmp);

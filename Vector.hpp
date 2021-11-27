@@ -24,7 +24,7 @@ namespace ft
             explicit vector_iterator(iterator_type it) : _ptr(it) {}
 
             template <class Iter>
-            vector_iterator (const vector_iterator<Iter>& it) : _ptr(it._ptr) {}
+            vector_iterator (const vector_iterator<Iter>& it) : _ptr(it.base()) {}
 
             iterator_type   base() const {return (_ptr);}
 
@@ -194,8 +194,9 @@ namespace ft
             }
         }
         // TODO - Implement Constructor the Copy
-        vector (const vector& x)
+        vector (const vector& x): _capacity(0)
         {
+            std::cout << "dkhal\n";
             *this = x;
         }
         // TODO - Implement Assignment Operator (operator=)
@@ -203,10 +204,13 @@ namespace ft
         {
             if (this != &x)
             {
+                if (_capacity != 0)
+                {
+                    _alloc.deallocate(_arr, _capacity);
+                }
                 _size = x._size;
                 _capacity = x._capacity;
                 _alloc = x._alloc;
-                _alloc.deallocate(_arr, _capacity);
                 _arr = _alloc.allocate(_capacity);
                 for (size_t i = 0; i < _size; i++)
                 {
@@ -314,7 +318,7 @@ namespace ft
         {
             return (_arr[n]);
         }
-        reference at (size_type n)
+        reference at(size_type n)
         {
             if (n >= _size)
                 throw std::out_of_range("index is not within the bound in the vector.");
@@ -350,9 +354,12 @@ namespace ft
             difference_type dt = last - first;
             _size = dt;
             _capacity = dt;
+            _alloc.deallocate(_arr, _capacity);
             _arr = _alloc.allocate(_capacity);
             for (size_type i = 0; i < _size; i++)
+            {
                 _arr[i] = *(first + i);
+            }
         }
         void assign(size_type n, const value_type& val)
         {
@@ -504,7 +511,7 @@ namespace ft
         
         ~vector()
         {
-            delete [] _arr;
+            _alloc.deallocate(_arr, _capacity);
         }
     };
     //TODO - Lexicographical less-than comparison

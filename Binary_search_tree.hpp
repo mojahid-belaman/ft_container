@@ -261,9 +261,9 @@ namespace ft
                 ptr_node tmp;
                 if (root == nullptr)
                     return root;
-                else if (val.first < root->_data.first)
+                else if (_cmp(val.first, root->_data.first))
                     root->left = delete_helper(root->left, val);
-                else if (val.first > root->_data.first)
+                else if (_cmp(root->_data.first, val.first))
                     root->right = delete_helper(root->right, val);
                 else
                 {

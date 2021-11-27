@@ -673,18 +673,16 @@ int main()
     // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 
     //NOTE - Test whether container is empty
-    //FIXME - not fixed
-    std::cout << "------------- Library FT -------------" << std::endl;
-    ft::map<char,int, std::greater<char> > mymap;
-    mymap['a']=10;
-    mymap['b']=20;
-    mymap['c']=30;
-    mymap['d']=30;
-    while (!mymap.empty())
-    {
-        std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-        mymap.erase(mymap.begin());
-    }
+    // std::cout << "------------- Library FT -------------" << std::endl;
+    // ft::map<char,int> mymap;
+    // mymap['a']=10;
+    // mymap['b']=20;
+    // mymap['c']=30;
+    // while (!mymap.empty())
+    // {
+    //     std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+    //     mymap.erase(mymap.begin());
+    // }
 
     //NOTE - Return maximum size
     // std::cout << "------------- Library FT -------------" << std::endl;
@@ -810,13 +808,13 @@ int main()
 
     //NOTE - Return value comparison object
     // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::map<char,int> mymap;
+    // ft::map<char,int, std::greater<char> > mymap;
     // mymap['x']=1001;
     // mymap['y']=2002;
     // mymap['z']=3003;
     // std::cout << "mymap contains:\n";
     // ft::pair<char,int> highest = *mymap.rbegin();          // last element
-    // ft::map<char,int>::iterator it = mymap.begin();
+    // ft::map<char,int, std::greater<char> >::iterator it = mymap.begin();
     // do {
     //     std::cout << it->first << " => " << it->second << '\n';
     // } while ( mymap.value_comp()(*it++, highest) );

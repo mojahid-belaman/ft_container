@@ -36,13 +36,13 @@ void    do_some(MyIter f, MyIter l)
 int main()
 {
     std::vector<int>v;
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     v.push_back(i);
-    // }
-    // do_some(v.begin(), v.end());
-    int arr[] = {1, 2, 3, 4};
-    do_some(&arr[0], &arr[3]);
+    for (int i = 0; i < 10; i++)
+    {
+        v.push_back(i);
+    }
+    do_some(v.begin(), v.end());
+    // int arr[] = {1, 2, 3, 4};
+    // do_some(&arr[0], &arr[3]);
 
     return (0);
 }
