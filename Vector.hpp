@@ -196,7 +196,6 @@ namespace ft
         // TODO - Implement Constructor the Copy
         vector (const vector& x): _capacity(0)
         {
-            std::cout << "dkhal\n";
             *this = x;
         }
         // TODO - Implement Assignment Operator (operator=)
@@ -205,9 +204,7 @@ namespace ft
             if (this != &x)
             {
                 if (_capacity != 0)
-                {
                     _alloc.deallocate(_arr, _capacity);
-                }
                 _size = x._size;
                 _capacity = x._capacity;
                 _alloc = x._alloc;
