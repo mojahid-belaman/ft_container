@@ -25,11 +25,11 @@ namespace ft
     class BST
     {
         public:
-            typedef T                           value_type;
-            typedef node<T>*                    ptr_node;
-            typedef typename Alloc::template rebind<node<value_type> >::other                    allocator_type;
-            typedef Compare                     key_compare;
-            typedef size_t                      size_type;
+            typedef T                                                                               value_type;
+            typedef node<T>*                                                                        ptr_node;
+            typedef typename Alloc::template rebind<node<value_type> >::other                       allocator_type;
+            typedef Compare                                                                         key_compare;
+            typedef size_t                                                                          size_type;
 
         
             BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _end(nullptr), _alloc(alloc), _cmp(comp), _size(0)
