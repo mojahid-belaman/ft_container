@@ -34,7 +34,7 @@ int main()
 
     //NOTE - Constructor
     // std::cout << "------------- Library STD -------------" << std::endl;
-    std::vector<int> first;                                
+    // std::vector<int> first;                                
     // std::vector<int> second (4,100);                      
     // std::vector<int> third (second.begin(),second.end()); 
     // std::vector<int> fourth (third);                       
@@ -321,18 +321,17 @@ int main()
     
     //NOTE - Erase elements
     // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::vector<int> myvector1;
-    // for (int i=1; i<=10; i++) myvector1.push_back(i);
-    // std::cout << myvector1.size() << std::endl;
-    // std::cout << myvector1.capacity() << std::endl;
-    // myvector1.erase (myvector1.begin() - 1);
-    // myvector1.erase (myvector1.begin(),myvector1.begin()+3);
-    // std::cout << myvector1.size() << std::endl;
-    // std::cout << myvector1.capacity() << std::endl;
+    // std::vector<int> myvector;
+    // // set some values (from 1 to 10)
+    // for (int i=1; i<=10; i++) myvector.push_back(i);
+    // // erase the 6th element
+    // myvector.erase (myvector.begin()+5);
+    // // erase the first 3 elements:
+    // myvector.erase (myvector.begin(),myvector.begin()+3);
     // std::cout << "myvector contains:";
-    // for (unsigned i=0; i<myvector1.size(); ++i)
-    //     std::cout << ' ' << myvector1[i];
-    // std::cout << std::endl;
+    // for (unsigned i=0; i<myvector.size(); ++i)
+    //     std::cout << ' ' << myvector[i];
+    // std::cout << '\n';
 
     //NOTE - Swap content
     // std::cout << "------------- Library STD -------------" << std::endl;
@@ -370,15 +369,15 @@ int main()
     // myvector.get_allocator().deallocate(p,5);
     
     //NOTE - Relational operators for vector
-    // std::cout << "------------- Library STD -------------" << std::endl;
-    // std::vector<int> foo (1,200);
-    // std::vector<int> bar (0);
-    // if (foo==bar) std::cout << "foo and bar are equal\n";
-    // if (foo!=bar) std::cout << "foo and bar are not equal\n";
-    // if (foo< bar) std::cout << "foo is less than bar\n";
-    // if (foo> bar) std::cout << "foo is greater than bar\n";
-    // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-    // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+    std::cout << "------------- Library STD -------------" << std::endl;
+    std::vector<int> foo (1,200);
+    std::vector<int> bar (0);
+    if (foo==bar) std::cout << "foo and bar are equal\n";
+    if (foo!=bar) std::cout << "foo and bar are not equal\n";
+    if (foo< bar) std::cout << "foo is less than bar\n";
+    if (foo> bar) std::cout << "foo is greater than bar\n";
+    if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+    if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
  
     //NOTE - Exchange contents of vectors
     // std::cout << "------------- Library STD -------------" << std::endl;

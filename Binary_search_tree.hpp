@@ -19,16 +19,18 @@ namespace ft
         {
         }
     };
+
     //NOTE - Make Binary Search Tree (BST)
-    template <class T, class Compare, class Alloc = std::allocator<node<T> > >
+    template <class T, class Compare, class Alloc>
     class BST
     {
         public:
             typedef T                           value_type;
             typedef node<T>*                    ptr_node;
-            typedef Alloc                       allocator_type;
+            typedef typename Alloc::template rebind<node<value_type> >::other                    allocator_type;
             typedef Compare                     key_compare;
             typedef size_t                      size_type;
+
         
             BST(const allocator_type& alloc = allocator_type(), const key_compare& comp = key_compare()) : _root(nullptr), _end(nullptr), _alloc(alloc), _cmp(comp), _size(0)
             {
@@ -121,6 +123,7 @@ namespace ft
             }
             void    insert_node(value_type data)
             {
+
                 ptr_node new_node = _alloc.allocate(1);
                 _alloc.construct(new_node, data);
                 new_node->left = nullptr;

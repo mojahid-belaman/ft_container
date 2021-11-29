@@ -346,7 +346,7 @@ namespace ft
         //TODO - All functions the Modifiers:
         template <class InputIterator>
         void assign(InputIterator first, InputIterator last,
-                    typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+                    typename  enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
         {
             difference_type dt = last - first;
             _size = dt;
@@ -539,7 +539,7 @@ namespace ft
     template <class T, class Alloc>
     bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
     {
-        return (equal(lhs.begin(), lhs.end(), rhs.begin()));
+        return (lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
     template <class T, class Alloc>
     bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)

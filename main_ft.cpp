@@ -199,7 +199,7 @@ int main()
     // for (unsigned i=0; i<myvector1.size(); i++)
     //     std::cout << ' ' << myvector1.at(i);
     // std::cout << '\n'; 
-
+ 
     //NOTE - Access first element
     // std::cout << "------------- Library FT -------------" << std::endl;
     // ft::vector<int> myvector1;
@@ -321,18 +321,17 @@ int main()
 
     //NOTE - Erase elements
     // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::vector<int> myvector1;
-    // for (int i=1; i<=10; i++) myvector1.push_back(i);
-    // std::cout << myvector1.size() << std::endl;
-    // std::cout << myvector1.capacity() << std::endl;
-    // myvector1.erase (myvector1.begin() - 1);
-    // myvector1.erase (myvector1.begin(),myvector1.begin()+3);
-    // std::cout << myvector1.size() << std::endl;
-    // std::cout << myvector1.capacity() << std::endl;
+    // ft::vector<int> myvector;
+    // // set some values (from 1 to 10)
+    // for (int i=1; i<=10; i++) myvector.push_back(i);
+    // // erase the 6th element
+    // myvector.erase (myvector.begin()+5);
+    // // erase the first 3 elements:
+    // myvector.erase (myvector.begin(),myvector.begin()+3);
     // std::cout << "myvector contains:";
-    // for (unsigned i=0; i<myvector1.size(); ++i)
-    //     std::cout << ' ' << myvector1[i];
-    // std::cout << std::endl;
+    // for (unsigned i=0; i<myvector.size(); ++i)
+    //     std::cout << ' ' << myvector[i];
+    // std::cout << '\n';
 
     //NOTE - Swap content
     // std::cout << "------------- Library FT -------------" << std::endl;
@@ -371,8 +370,12 @@ int main()
     
     //NOTE - Relational operators for vector
     // std::cout << "------------- Library FT -------------" << std::endl;
-    // ft::vector<int> foo (1,200);
-    // ft::vector<int> bar (0);
+    // ft::vector<int> foo (2,200);
+    // ft::vector<int> bar;
+    // bar.push_back(200);
+    // bar.push_back(200);
+    // bar.push_back(300);
+    // bar.push_back(400);
     // if (foo==bar) std::cout << "foo and bar are equal\n";
     // if (foo!=bar) std::cout << "foo and bar are not equal\n";
     // if (foo< bar) std::cout << "foo is less than bar\n";
