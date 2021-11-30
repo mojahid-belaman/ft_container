@@ -451,9 +451,8 @@ int main()
     // NOTE - Stack
     // *************************************************************************
 
-    //                                                                                                                                                 // NOTE - NS::stack::stack
-    //                                                                                                                                                 std::cout
-    //<< "------------- Library FT -------------" << std::endl;
+    // NOTE - NS::stack::stack
+    // std::cout << "------------- Library FT -------------" << std::endl;
     // NS::vector<int> myvector(2, 200); // vector with 2 elements
     // NS::stack<int> first;             // empty stack
     // NS::stack<int> third;             // empty stack using vector
@@ -661,9 +660,8 @@ int main()
     // NOTE - Map
     // *************************************************************************
 
-    //                                                                                                                                                 // NOTE - Construct pair
-    //                                                                                                                                                 std::cout
-    //     << "------------- Library FT -------------" << std::endl;
+    // NOTE - Construct pair
+    //std::cout << "------------- Library FT -------------" << std::endl;
     // NS::pair<std::string, double> product1;
     // NS::pair<std::string, double> product2("tomatoes", 2.30);
     // NS::pair<std::string, double> product3(product2);
