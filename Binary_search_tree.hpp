@@ -207,6 +207,28 @@ namespace ft
                 return tmp;
                 
             }
+            
+            ptr_node  search_node(value_type val) const
+            {
+                ptr_node tmp = _root;
+                
+                if (tmp == nullptr)
+                    return (nullptr);
+                while (tmp->_data.first != val.first)
+                {
+                    if (tmp != nullptr)
+                    {
+                        if (_cmp(val.first, tmp->_data.first))
+                            tmp = tmp->left;
+                        else
+                            tmp = tmp->right;
+                    }
+                    if (tmp == nullptr)
+                        return nullptr;
+                }
+                return tmp;
+                
+            }
 
             void    delete_node(value_type val)
             {

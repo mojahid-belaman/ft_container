@@ -369,15 +369,15 @@ int main()
     // myvector.get_allocator().deallocate(p,5);
     
     //NOTE - Relational operators for vector
-    std::cout << "------------- Library STD -------------" << std::endl;
-    std::vector<int> foo (1,200);
-    std::vector<int> bar (0);
-    if (foo==bar) std::cout << "foo and bar are equal\n";
-    if (foo!=bar) std::cout << "foo and bar are not equal\n";
-    if (foo< bar) std::cout << "foo is less than bar\n";
-    if (foo> bar) std::cout << "foo is greater than bar\n";
-    if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-    if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+    // std::cout << "------------- Library STD -------------" << std::endl;
+    // std::vector<int> foo (1,200);
+    // std::vector<int> bar (0);
+    // if (foo==bar) std::cout << "foo and bar are equal\n";
+    // if (foo!=bar) std::cout << "foo and bar are not equal\n";
+    // if (foo< bar) std::cout << "foo is less than bar\n";
+    // if (foo> bar) std::cout << "foo is greater than bar\n";
+    // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+    // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
  
     //NOTE - Exchange contents of vectors
     // std::cout << "------------- Library STD -------------" << std::endl;

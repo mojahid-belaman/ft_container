@@ -39,10 +39,10 @@ namespace ft
             typedef typename allocator_type::const_reference        const_reference;
             typedef typename allocator_type::pointer                pointer;
             typedef typename allocator_type::const_pointer          const_pointer;
-            typedef BST<value_type, key_compare, Alloc>                    tree;
+            typedef BST<value_type, key_compare, Alloc>             tree;
             typedef typename tree::ptr_node                         ptr_node;
-            typedef tree_iterator<value_type, ptr_node>             iterator;
-            typedef const_tree_iterator<value_type, ptr_node>       const_iterator;
+            typedef tree_iterator<pointer, ptr_node>                iterator;
+            typedef tree_iterator<const_pointer, ptr_node>          const_iterator;
             typedef myiterator_reverse<iterator>                    reverse_iterator;
             typedef myiterator_reverse<const_iterator>              const_reverse_iterator;
             typedef ptrdiff_t                                       difference_type;

@@ -7,19 +7,22 @@ namespace ft
 {
     //NOTE - define Iterator Tree
     template <class T, class ptr_node>
-    class tree_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<T*>::value_type>
+    class tree_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<T>::value_type>
     {
         public:
-            typedef typename iterator_traits<T*>::reference reference;
-            typedef typename iterator_traits<T*>::pointer   pointer;
-            typedef std::bidirectional_iterator_tag         iterator_category;
+            typedef typename iterator_traits<T>::reference      reference;
+            typedef typename iterator_traits<T>::pointer        pointer;
+            typedef std::bidirectional_iterator_tag             iterator_category;
 
             tree_iterator() : curr_node(nullptr)
             {
             }
-            tree_iterator(ptr_node ptr) : curr_node(ptr)
+            explicit tree_iterator(ptr_node ptr) : curr_node(ptr)
             {
             }
+            template <class T1, class ptr_node1>
+            tree_iterator (const tree_iterator<T1, ptr_node1>& it) : curr_node(it.base()) {}
+
             ptr_node base() const
             {
                 return curr_node;
@@ -54,14 +57,10 @@ namespace ft
                 --(*this);
                 return (itr);
             }
-            friend  bool  operator==(const tree_iterator& x, const tree_iterator& y)
-            {
-                return (x.curr_node == y.curr_node);
-            }
-            friend  bool  operator!=(const tree_iterator& x, const tree_iterator& y)
-            {
-                return (x.curr_node != y.curr_node);
-            }
+            template <class t, class node>
+            friend  bool  operator==(const tree_iterator<t, node>& x, const tree_iterator<t, node>& y);
+            template <class t, class node>
+            friend  bool  operator!=(const tree_iterator<t, node>& x, const tree_iterator<t, node>& y);
         private:
             ptr_node    curr_node;
             ptr_node    successor()
@@ -109,109 +108,16 @@ namespace ft
             }
     };
 
-    //NOTE - define const Iterator Tree
     template <class T, class ptr_node>
-    class const_tree_iterator
+    bool  operator==(const tree_iterator<T, ptr_node>& x, const tree_iterator<T, ptr_node>& y)
     {
-        public:
-            typedef typename iterator_traits<const T*>::value_type      value_type;
-            typedef typename iterator_traits<const T*>::reference       reference;
-            typedef typename iterator_traits<const T*>::pointer          pointer;
-
-            const_tree_iterator() : curr_node(nullptr)
-            {
-            }
-            const_tree_iterator(ptr_node ptr) : curr_node(ptr)
-            {
-            }
-            reference   operator*() const
-            {
-                return (curr_node->_data);
-            }
-            pointer operator->() const
-            {
-                return (&(curr_node->_data));
-            }
-            const_tree_iterator&  operator++()
-            {
-               curr_node = successor();
-               return *this;
-            }
-            const_tree_iterator   operator++(int)
-            {
-                const_tree_iterator itr(*this);
-                ++(*this);
-                return itr;
-            }
-            const_tree_iterator& operator--()
-            {
-                curr_node = predecessor();
-                return *this;
-            }
-            const_tree_iterator   operator--(int)
-            {
-                const_tree_iterator itr(*this);
-                --(*this);
-                return (itr);
-            }
-            friend  bool  operator==(const const_tree_iterator& x, const const_tree_iterator& y)
-            {
-                return (x.curr_node == y.curr_node);
-            }
-            friend  bool  operator!=(const const_tree_iterator& x, const const_tree_iterator& y)
-            {
-                return (x.curr_node != y.curr_node);
-            }
-            ~const_tree_iterator() {}
-        private:
-            ptr_node    curr_node;
-            ptr_node    successor()
-            {
-                ptr_node curr;
-
-                curr = curr_node;
-                if (curr->right != nullptr)
-                {
-                    curr = curr->right;
-                    while (curr->left != nullptr)
-                        curr = curr->left;
-                    return curr;
-                }
-                else
-                {
-                    ptr_node ptr_parent = curr->parent;
-                    while (ptr_parent != nullptr && curr == ptr_parent->right)
-                    {
-                        curr = ptr_parent;
-                        ptr_parent = ptr_parent->parent;
-                    }
-                    return ptr_parent;
-                }
-            }
-            ptr_node    predecessor()
-            {
-                ptr_node curr;
-                curr = curr_node;
-                if (curr->left != nullptr)
-                {
-                    curr = curr->left;
-                    while (curr->right != nullptr)
-                        curr = curr->right;
-                    return curr;
-                }
-                else
-                {
-                    ptr_node ptr_parent = curr->parent;
-                    while (ptr_parent != nullptr && curr == ptr_parent->left)
-                    {
-                        curr = ptr_parent;
-                        ptr_parent = ptr_parent->parent;
-                    }
-                    return ptr_parent;
-
-                }
-            }
-    };
+        return (x.curr_node == y.curr_node);
+    }
+    template <class T, class ptr_node>
+    bool  operator!=(const tree_iterator<T, ptr_node>& x, const tree_iterator<T, ptr_node>& y)
+    {
+        return (x.curr_node != y.curr_node);
+    }
 }
 
 #endif

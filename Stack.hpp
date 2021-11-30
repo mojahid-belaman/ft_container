@@ -19,7 +19,7 @@ namespace ft
         {
         }
         //TODO - Test whether container is empty
-        bool empty() const
+        bool empty()  const
         {
             return (this->c.empty());
         }

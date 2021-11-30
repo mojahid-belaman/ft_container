@@ -57,7 +57,7 @@ class myiterator_reverse : public iterator< typename iterator_traits<Iterator>::
         myiterator_reverse  operator++(int)
         {
             myiterator_reverse tmp = *this;
-            --(*this);
+            --_itr;
             return tmp;
         }
         myiterator_reverse& operator+= (difference_type n)
@@ -71,12 +71,13 @@ class myiterator_reverse : public iterator< typename iterator_traits<Iterator>::
         }
         myiterator_reverse& operator--()
         {
-            return (++(this->base()));
+            ++_itr;
+            return (*this);
         }
         myiterator_reverse  operator--(int)
         {
             myiterator_reverse tmp = *this;
-            --(*this);
+            ++_itr;
             return (tmp);
         }
         myiterator_reverse& operator-= (difference_type n)
