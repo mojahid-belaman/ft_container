@@ -208,7 +208,8 @@ namespace ft
                 _size = x._size;
                 _capacity = x._capacity;
                 _alloc = x._alloc;
-                _arr = _alloc.allocate(_capacity);
+                if (_capacity != 0)
+                    _arr = _alloc.allocate(_capacity);
                 for (size_t i = 0; i < _size; i++)
                 {
                     _arr[i] = x._arr[i];
@@ -508,7 +509,8 @@ namespace ft
         
         ~vector()
         {
-            _alloc.deallocate(_arr, _capacity);
+            if (_capacity != 0)
+                _alloc.deallocate(_arr, _capacity);
         }
     };
     //TODO - Lexicographical less-than comparison
