@@ -94,33 +94,33 @@ namespace ft
     };
 
     // TODO - Relational operators for iterator (function template )
-    template <class Iterator>
-    bool operator== (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    template <class Iterator, class Iter>
+    bool operator== (const vector_iterator<Iterator>& lhs, const vector_iterator<Iter>& rhs)
     {
         return (lhs.base() == rhs.base());
     }
-    template <class Iterator>
-    bool operator!= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    template <class Iterator, class Iter>
+    bool operator!= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iter>& rhs)
     {
         return (lhs.base() != rhs.base());
     }
-    template <class Iterator>
-    bool operator< (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    template <class Iterator, class Iter>
+    bool operator< (const vector_iterator<Iterator>& lhs, const vector_iterator<Iter>& rhs)
     {
         return (lhs.base() < rhs.base());
     }
-    template <class Iterator>
-    bool operator<= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    template <class Iterator, class Iter>
+    bool operator<= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iter>& rhs)
     {
         return (lhs.base() <= rhs.base());
     }
-    template <class Iterator>
-    bool operator> (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    template <class Iterator, class Iter>
+    bool operator> (const vector_iterator<Iterator>& lhs, const vector_iterator<Iter>& rhs)
     {
         return (lhs.base() > rhs.base());
     }
-    template <class Iterator>
-    bool operator>= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iterator>& rhs)
+    template <class Iterator, class Iter>
+    bool operator>= (const vector_iterator<Iterator>& lhs, const vector_iterator<Iter>& rhs)
     {
         return (lhs.base() >= rhs.base());
     }

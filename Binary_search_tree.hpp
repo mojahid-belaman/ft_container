@@ -55,6 +55,10 @@ namespace ft
                     return ptr_parent;
                 }
             }
+            allocator_type  get_alloc() const
+            {
+                return allocator_type();
+            }
             size_type size() const
             {
                 return _size;

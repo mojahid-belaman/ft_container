@@ -1040,6 +1040,4 @@ int main()
             std::cout << it->first << "\t" << it->second << std::endl;
         }
     }
-
-    std::map<int, int> m;
 }

@@ -241,7 +241,7 @@ namespace ft
             //NOTE - Get allocator
             allocator_type  get_allocator() const
             {
-                return  allocator_type();
+                return (_tree.get_alloc());
             }
             //NOTE - Return iterator to beginning
             iterator begin()
